@@ -1,0 +1,6 @@
+[book]
+authors = ["Benoît Meister", "Kaushik Kulkarni", "Maxime Schmitt"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Ripple Documentation"
