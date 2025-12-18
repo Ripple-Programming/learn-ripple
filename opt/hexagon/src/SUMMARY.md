@@ -1,0 +1,15 @@
+# Ripple optimization guide for HVX
+
+[Abstract](./abstract.md)
+
+[License](./license.md)
+
+- [Generic optimization guide](./general-opt.md)
+- [Coalescing](./coalescing.md)
+- [HVX-specific optimization](./hvx-opt.md)
+- [Profiling](./profiling.md)
+- [Debugging](./debugging.md)
+
+---
+*Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear*
