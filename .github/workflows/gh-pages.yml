@@ -36,7 +36,7 @@ jobs:
           publish_dir: ./build
 
   deploy_hexagon:
-    runs-on: [self-hosted, Linux]
+    runs-on: [Linux]
     permissions:
       contents: write
     concurrency:
