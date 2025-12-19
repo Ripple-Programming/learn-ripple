@@ -13,7 +13,12 @@ clang -O2 ...
 ```
 
 # Vector size parameters
-Current versions of HVX ISAs tend to come with a register file of 32 1024-bit-wide vector registers.
+Current versions of HVX ISAs tend to come with a register file of 32Kb total.
+Please check the appropriate programmer's manuals for any specific information,
+such as number and bit-width of registers,
+about the particular architecture version you are compiling for.
+The following block sizes illustrate single-vector block sizes
+assuming a vector width of 1024 bits.
 
   | element type | i8/u8 | i16/u16/f16 | i32/u32/f32 |
   |--|--|--|--|
@@ -44,7 +49,8 @@ __Example 1.__ Consider the following function, which doubles the value of a `fl
 __Problem__: The `2.0` immediate is by default a `double` in C and C++.
 Also, type promotion rules in C/C++ indicate that the multiplication line 5 is done after promoting both operands to the same type, `double`.
 Hence, Ripple tries to produce a SIMD multiplication of 32 doubles.
-Unfortunately, HVX does not support SIMD double-precision instructions.
+However, current versions of HVX do not support SIMD
+double-precision instructions.
 As a result, the generated code is sequentialized, resulting in an order of magnitude slower performance than if SIMD could have been used.
 
 __Solution__: Make the `2.0` immediate explicitly of the `float` type, using the `f` suffix.
@@ -63,13 +69,14 @@ The same issue can happen with integers, for which the default type is `int`, as
 6:  }
 7:}
 ```
-Here, the `2` line 5 is an `int`, and so is the subsequent multiplication.
+Here, the `2` line 5 is an `int`, and so is the subsequent multiplication,
+because of type promotion rules in the C programming language.
 __Solution__: convert it to short explicitly.
 
 ```c
 5:    A[i] = ((short) 2) * A[i];
 ```
-Precomputing it and forcing it to be a constexpr (if you are using C++)
+If you are using C++, precomputing it and forcing it to be a constexpr
 will make sure that there is no extra cost to this conversion, as in the following code:
 ```c++
 1:void double_me(short * A, unsigned n) {
@@ -87,10 +94,10 @@ will make sure that there is no extra cost to this conversion, as in the followi
 ## Use floating point types up to 32-bit wide (`float`) only
 __Performance impact__: High.
 
-HVX supports two native floating-point types: float and _Float16.
+Hexagon supports two native floating-point types: float and _Float16.
 __bf16 is partially emulated.
-There is no native HVX `double` vector ISA.
-Hence avoid double-precision computations in your vector codes,
+There isn't currently a native HVX `double` vector ISA.
+Hence, avoid double-precision computations in your vector codes,
 which will come out as sequentialized.
 
 ## Leverage compiler flags
@@ -144,8 +151,8 @@ Conversion from floating-point (`Float` and `float` types) to integer
 (`int16_t` and `int32_t`) can be slow,
 as clang tries to implement it as precisely as possible.
 
-__Solution__ HVX implements a fast conversion,
-which is very close semantically, but takes a single instruction.
+__Solution__ Enable fast floating-point conversion,
+which is very close semantically, but uses a single instruction.
 To enable it, use the following command-line flag:
 
 ```bash
@@ -186,7 +193,7 @@ static int foo(int a, int b) [[gnu::always_inline]] {
 
 # Functions optimized for HVX
 
-## High-throughput data reordering (scatter/gather) (since 21.0-alpha5)
+## High-throughput data reordering (scatter/gather)
 __Performance impact__: High.
 
 Loading from a collection of arbitrary addresses into a vector
@@ -194,7 +201,8 @@ is by construction a long-latency operation,
 as it can result in bank conflicts.
 Hence, we do not recommend the direct use of non-coalesced access functions.
 
-However, HVX offers a memory-to-memory copying mechanism,
+However, the Ripple vector library includes a
+high-bandwidth memory-to-memory copying API for HVX,
 which can move large amounts of data in parallel
 (still with the same type of latency).
 
@@ -208,7 +216,7 @@ large lookup tables, sparse-dense array computations (for instance sparse matrix
 We refer to the Ripple manual for a more complete description of
 `hvx_scatter` and `hvx_gather`.
 
-## Explicit bfloat16 conversions (Downstream versions since 21.0-beta2)
+## Explicit bfloat16 conversions
 __Performance impact__: High.
 
 Ripple supports three types of conversions from `float` to `__bf16`:
@@ -225,7 +233,6 @@ One valuable aspect of this function is that `n` doesn't need to be
 a compile-time constant.
 `n` could be a loop counter, for instance.
 
-# Newer functions
 ## Narrowing shifts
 __Performance impact__: Medium.
 
