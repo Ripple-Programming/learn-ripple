@@ -1,16 +1,25 @@
 ## Documentation source for Ripple.
 
 This repository hosts the documentation for **Ripple**, and LLVM-based project.
-The main documentation is hosted
-here: <https://github.com/pages/Ripple-Programming/learn-ripple/>.
+
+- [Ripple User Manual](src/SUMMARY.md), built and hosted here:
+
+  <https://github.com/pages/Ripple-Programming/learn-ripple/>.
+- [Ripple HVX Optimization Guide](opt/hexagon/src/SUMMARY.md),
+  built and hosted here:
+
+  <https://github.com/pages/Ripple-Programming/learn-ripple/opt/hexagon/>.
+
 
 If you are looking for the Ripple source code (an LLVM fork),
 go [here](https://github.com/Ripple-Programming/llvm-project).
 
 ### HOWTO: Build the docs
 
-1. `cargo install mdbook`
-2. `mdbook build -d build`
+```bash
+$ cargo install mdbook
+$ mdbook build -d build
+```
 
 ## Hexagon Optimization guide
 

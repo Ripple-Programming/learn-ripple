@@ -21,7 +21,7 @@ jobs:
           curl https://sh.rustup.rs -sSf | sh -s -- -y  # Install Rust
           cargo install mdbook
           mdbook build -d build
-          echo "Built the docs."
+          echo "Built the Ripple User Manual."
 
       - name: Deploy
         env:
@@ -35,23 +35,12 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
 
-  deploy_hexagon:
-    runs-on: [Linux]
-    permissions:
-      contents: write
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Build
+      - name: BuildHexagon
         run: |
-          curl https://sh.rustup.rs -sSf | sh -s -- -y  # Install Rust
-          cargo install mdbook
           cd opt/hexagon && mdbook build -d build
-          echo "Built the Hexagon optimization docs."
+          echo "Built the Hexagon optimizaton guide."
 
-      - name: Deploy
+      - name: DeployHexagon
         env:
           HOME: ${{ runner.temp }}
         uses: peaceiris/actions-gh-pages@v4
