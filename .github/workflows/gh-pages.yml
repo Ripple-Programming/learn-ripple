@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: [Linux]
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     concurrency:
