@@ -1,0 +1,3069 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Ripple User Manual</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-4e9cd9d1.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-dad146e4.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Ripple User Manual</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="abstract"><a class="header" href="#abstract">Abstract</a></h1>
+<p>Ripple is an API implemented in the C and C++ programming languages
+designed to allow Qualcomm HTP programmers to concisely express
+efficient vector kernels across application domains.
+It utilizes a long-established and target-independent approach of
+expressing an iteration space over rectilinear,
+aligned multidimensional arrays (aka tensors)
+with implicit reshaping and dimensionality changes through
+broadcasts and reductions.
+While the basic scalar optimizations of the LLVM compiler,
+such as register allocation and instruction scheduling, are available,
+the philosophy otherwise is to let the Ripple programmer directly indicate,
+through this API, the key decisions on how the kernels should be vectorized.
+So, while the core of the API is target-independent,</p>
+<!-- for the target hardware HTP, -->
+<p>clear rules allow the programmer to reason about the way that their expression
+of the algorithm in Ripple results in that vectorization.
+Ripple automates secondary decisions and bookkeeping;
+the programmer does not need to fuss with those details.</p>
+<p>Since Ripple is accessed in the native language form of function calls,
+there is both an aesthetic smoothness and the impact and implementation of
+Ripple in the tool chain (debuggers, compilers, etc.) is simple.
+While automated mapping exists in other compiler systems,
+and in research papers,
+Ripple’s place in the programming tool spectrum is on the side of
+enabling the programmer to tell the compiler to “do what I want”
+and to do so in terms of the symmetries and mathematic structures
+of the application, and minimized details of the hardware.</p>
+<!-- While cleanly specificized and implemented, it is also highly pragmatic. -->
+<p>In some cases, target-specific concepts are introduced congruent to Ripple
+that allow the programmer to directly get at target hardware features
+(e.g., memory permutation instructions).
+While the goal of Ripple is to allow programmers to rapidly get kernels
+that run close to the speed of hand-written code,
+in some cases, we see performance greater than hand code due to
+the opportunities for optimization that clean expression enables.</p>
+<p>Ripple is closest to CUDA (R), OpenCL (R) and OpenMP (R) and
+users who are familiar with those languages will find Ripple straightforward.
+However, it is not necessary to know any of those languages to program in Ripple.
+The core of Ripple is a SPMD expression of iterations similar to CUDA (R)
+and OpenMP (R).
+This core is extended with for expression parallel application over a tensor,
+as loops.
+This loop parallelism capability is entirely syntactic sugar
+for SPMD expressions.</p>
+<!-- The focus of Ripple 1.0 has been for programming the current V79 HTP for the
+HVX vector instructions.
+Our intent is that kernels expressed in Ripple will be largely
+portable and performance-portable to future versions of HTP.
+When we are successful with HTP,
+future versions of Ripple may target processors beyond HTP -
+ such as Arm, Adreno (GPU) and RISC-V,
+with associated ML vector and matrix instructions.
+This manual, for now, focuses explicitly on Ripple 1.0 and HTP HVX. -->
+<hr>
+<p>CUDA is a trademark of NVIDIA Corporation.</p>
+<p>OpenCL is a trademark of Apple Incorporated.</p>
+<p>OpenMP is a registered trademark of the OpenMP Architecture Review Board.</p>
+<hr>
+<p><em>Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear</em></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="license"><a href="#license" class="header">License</a></h1>
+<p>Clear 3-clause BSD License</p>
+<p>Copyright (c) 2025 Qualcomm Technologies, Inc. All rights reserved.</p>
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted (subject to the limitations in the disclaimer below) provided that the following conditions are met:</p>
+<ul>
+<li>
+<p>Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer.</p>
+</li>
+<li>
+<p>Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.</p>
+</li>
+<li>
+<p>Neither the name of the copyright holder nor the names of its
+contributors may be used to endorse or promote products derived from this
+software without specific prior written permission.
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ripple"><a class="header" href="#ripple">Ripple</a></h1>
+<p>Ripple is a compiler-interpreted API to express
+SPMD (Single Program, Multiple Data, as with CUDA(R) and OpenCL(R)) and
+loop-annotation parallelism (as with OpenMP(R)).</p>
+<p><strong>Implementation note</strong>: The current Ripple implementation
+only supports SIMD code generation.</p>
+<!-- While it is possible to generate code for other SIMD machines,
+we have been focusing on Hexagon (HVX) code generation. -->
+<p>Ripple does not modify the underlying language syntax, but complements it
+with parallel semantics.
+Ripple has a C and C++ implementation through Clang/LLVM.</p>
+<p>In the next sections, we provide a quick introduction
+to both parallel programming models that are enabled by Ripple:
+SPMD and loop annotations.
+These are discussed in greater detail in the
+<a href="#the-single-program-multiple-data-spmd-programming-model-in-ripple">SPMD</a> and <a href="#distributing-loop-computations-in-ripple">loop annotation</a> chapters.</p>
+<h1 id="how-to-represent-a-set-of-parallel-processing-elements"><a class="header" href="#how-to-represent-a-set-of-parallel-processing-elements">How to represent a set of parallel processing elements</a></h1>
+<p>Parallel processing elements (PEs) are organized as a “block”,
+i.e. an array of processing elements.
+Each PE is an element of the array,
+which can be accessed using as many integer indices
+as there are dimensions in the array.
+In this section, we will only consider one-dimensional blocks
+to illustrate the parallel programming models enabled by Ripple.
+Please refer to <a href="#multi-dimensional-blocks">the section on multi-dimensional blocks</a> for additional details.</p>
+<p>To express the amount of parallel processing elements
+that we want to use,
+we have to declare a block of these PEs, using</p>
+<pre><code class="language-C">ripple_block_t ripple_set_block_shape(int pe_id, size_t ... shape);
+</code></pre>
+<p>These PEs are a software view of the hardware PEs
+that will actually run the code.
+Ripple defines an implicit mapping from PEs in a block
+to hardware processing elements.</p>
+<p><strong>Implementation note</strong>: The first parameter, <code>pe_id</code>,
+has currently no effect,
+since Ripple supports only a target with one SIMD engine.
+In future Ripple versions, <code>pe_id</code> will correspond to representations of
+parallel processing elements in a machine model.
+For now, using <code>0</code> is fine.</p>
+<p>For instance, the following function call tells Ripple that parallel code will
+run on a one-dimensional block of 42 parallel processing elements.
+The type of processing elements is “lanes of the default SIMD engine”
+(the only one supported yet), represented by <code>pe_id=0</code>.</p>
+<pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(0, 42);
+</code></pre>
+<p>A better idea is to define a pre-processor variable to 0 now,
+and modify that definition as the <code>pe_id</code> semantics evolve, as in:</p>
+<pre><code class="language-C">#define VECTOR_PE 0
+...
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 32);
+  size_t v = ripple_id(BS, 0);
+</code></pre>
+<p>We use either system interchangeably in this document.</p>
+<p>In the future, Ripple may target a hierarchical parallel machine, and <code>pe_id</code>
+will index that hierarchy.</p>
+<h1 id="how-to-write-a-parallel-program"><a class="header" href="#how-to-write-a-parallel-program">How to write a parallel program</a></h1>
+<p>Now that we have declared our targeted block of processing elements,
+there are two ways Ripple allows us to express parallelism:
+the <em>SPMD model</em> and the <em>loop annotation model</em>.</p>
+<h2 id="spmd-model"><a class="header" href="#spmd-model">SPMD model</a></h2>
+<p>In the SPMD model,
+the function executes a mix of scalar and parallel computations.
+Each parallel processing element (PE) is identified by its index in the block,
+which we can represent using <code>ripple_id()</code>:</p>
+<pre><code class="language-C">size_t ripple_id(ripple_block_t block_shape, int dim);
+</code></pre>
+<p>Everything in the function that depends upon the index in a PE block is executed
+by an element of the block.
+In other words, it’s executed in parallel.
+Everything that does not depend upon a PE block index is scalar.</p>
+<p>SIMD vector engines execute the function in a tightly-coupled way,
+meaning that they synchronize at each instruction.</p>
+<p>The following program defines its target to be a block of 42
+processing elements.
+Each element of the block loads one element of <code>a</code> and <code>b</code>,
+sums them and stores them into <code>c</code>.</p>
+<pre><code class="language-c">void array_vadd(float a[42], float b[42], float sum[42]) {
+  // Defines a one-dimensional block of size of 42
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 42);
+
+  // Retrieves a block of indices:
+  //    [0 ... 41]
+  size_t ripple_index = ripple_id(BS, /* Tensor index */ 0);
+
+  // Block load/store/addition by indexing arrays using the ripple index
+  sum[ripple_index] = a[ripple_index] + b[ripple_index];
+}
+</code></pre>
+<h2 id="loop-annotation-model"><a class="header" href="#loop-annotation-model">Loop annotation model</a></h2>
+<p>In the loop annotation model, we tell Ripple to distribute all the
+iterations of a loop onto the elements of the block.
+This is done by calling <code>ripple_parallel(ripple_block_t block_shape, int dimension)</code>
+right before the loop that needs to be distributed.
+Using this principle, the <code>array_vadd</code> function above can be
+written as follows.</p>
+<pre><code class="language-c">void array_vadd(float a[42], float b[42], float sum[42]) {
+  // Defines a one-dimensional block of size of 42
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 42);
+
+  // Distributes values of "i" (and anything that depends upon "i")
+  // across dimension 0 of the block
+  ripple_parallel(BS, 0);
+  for (size_t i = 0; i &lt; 42; ++i) {
+    sum[i] = a[i] + b[i];
+  }
+}
+</code></pre>
+<p>Notice that the implementation of <code>array_vadd</code>
+based on loop annotations is much closer to a sequential implementation,
+which usually makes the code more readable.
+However, loop annotations are only applicable to loop parallelism,
+and subject to syntactic constraints.
+Please consult the chapter on <a href="#distributing-loop-computations-in-ripple">loop annotations</a> for more detail.</p>
+<h1 id="ripple-simd-programming-api"><a class="header" href="#ripple-simd-programming-api">Ripple SIMD programming API</a></h1>
+<p>While both the SPMD and loop annotation APIs allows us to
+write element-wise programs,
+SIMD programs often involve operations across hardware vector elements,
+such as reductions (applying a commutative operation across PEs) and
+shuffles (reordering the data associated with PEs).
+Ripple defines an API to perform these common operations,
+detailed as part of the <a href="#the-ripple-api-specification">Ripple API</a> section.</p>
+<h1 id="command-line"><a class="header" href="#command-line">Command-line</a></h1>
+<p>The SPMD and loop annotation models are enabled by the use of the following
+clang command-line argument:</p>
+<pre><code class="language-bash">-fenable-ripple
+</code></pre>
+<hr>
+<p>CUDA is a trademark of NVIDIA Corporation.</p>
+<p>OpenCL is a trademark of Apple Incorporated.</p>
+<hr>
+<p><em>Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear</em></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="the-single-program-multiple-data-spmd-programming-model-in-ripple"><a class="header" href="#the-single-program-multiple-data-spmd-programming-model-in-ripple">The Single Program, Multiple Data (SPMD) programming model in Ripple</a></h1>
+<p>SPMD is a way to express parallel computations in programs
+where repetitive work needs to be distributed
+among a set of processing elements (PEs).</p>
+<p>Since CUDA(R) and OpenCL(R) are also SPMD parallel programming abstractions,
+CUDA and OpenCL developers will find Ripple familiar.
+However, there are some important differences with CUDA and OpenCL,
+which we stress in a the <a href="#ripple-vs-cudar-and-openclr">Ripple vs. CUDA and OpenCL</a> section.</p>
+<p>To create a parallel program using the SPMD model,
+a user has to specify which PE will execute which portion of the program.
+Developers use the following steps
+to express the parallel execution of their program onto the
+processing elements of the targeted computer.
+They:</p>
+<ul>
+<li>Represent the set of processing elements as a “block”</li>
+<li>Define their code as a function of
+the processing element’s indices in the block.</li>
+<li>Keep in mind that a block is a software abstraction,
+mapped by Ripple to the hardware.</li>
+</ul>
+<p>In the next subsections, we illustrate how this is done
+concretely in the SPMD model, using the following example,
+which adds two 42-long vectors using a block of 42 elements.</p>
+<pre><code class="language-C">#define VECTOR_PE 0
+void array_add(float a[42], float b[42], float sum[42]) {
+  // 1) Defines a block of 42 processing elements (as a one-dimensional block)
+  //    These PEs map to the vector lanes of a SIMD vector engine
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, /* block index 0 with size */ 42);
+
+  // 2) Retrieves a block of logical indices of this block's dimension
+  //    [0 ... 41]
+  size_t ripple_index = ripple_id(BS, /* block dimension */ 0);
+
+  // Block load/store/addition by indexing arrays with a block
+  sum[ripple_index] = a[ripple_index] + b[ripple_index];
+}
+</code></pre>
+<h2 id="representing-processing-elements-as-a-block"><a class="header" href="#representing-processing-elements-as-a-block">Representing processing elements as a <em>block</em></a></h2>
+<p>SPMD represents the set of processing elements as a <em>block</em>,
+which is an array of processing elements.
+The user can choose the dimension of the block to be one,
+two or more (up to ten),
+depending upon their needs (we address this question in the Optimization Guide).</p>
+<p>Each PE being represented as an element of the block,
+we can now index into that block to designate any PE in the block.
+In short, each PE is defined by its indices in the block.</p>
+<p>In Ripple, we define the shape of the block for a set of processing elements
+by calling</p>
+<pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(int pe, size_t ... shape);
+</code></pre>
+<p>where <code>pe_id</code> defines the PE
+(<strong>Implementation note</strong>: use 0 for <code>pe_id</code>, as the supported target machine
+consists of one block of SIMD processing elements),
+and <code>shape</code> defines the size of the block
+along dimensions 0, 1, etc.
+The number of sizes passed to <code>ripple_set_block_shape</code>
+determines the dimension of the block for <code>pe_id</code>.</p>
+<p>For example, we declare a <code>8 x 4</code>-shaped block of PEs identified as <code>VECTOR_PE</code>
+as follows:</p>
+<pre><code class="language-C">ripple_block_t block_shape = ripple_set_block_shape(VECTOR_PE, 8, 4);
+</code></pre>
+<p>And we declare a one-dimensional block of size 42 as:</p>
+<pre><code class="language-C">ripple_block_t block_shape = ripple_set_block_shape(VECTOR_PE, 42);
+</code></pre>
+<p>Once the block shape is defined,
+the size of the block along any dimension <code>dimension</code> is provided by</p>
+<pre><code class="language-C">size_t ripple_get_block_size(ripple_block_t block_shape, size_t dimension);
+</code></pre>
+<h2 id="defining-code-as-a-function-of-the-pe-indices"><a class="header" href="#defining-code-as-a-function-of-the-pe-indices">Defining code as a function of the PE indices</a></h2>
+<p>In the SPMD model,
+PEs in a block are all executing the same code,
+but the behavior of each PE can vary as a function of its indices in the block.</p>
+<p>We express the index of a PE for a given dimension
+using the <code>ripple_id(ripple_block_t block_shape, int dim)</code> function.</p>
+<p>For example, in the following code excerpt,
+we have a block of 26 PEs,
+and each PE stores one letter of the alphabet into array <code>alphabet</code>.</p>
+<pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(0, 26);
+alphabet[ripple_id(BS, 0)] = 'a' + ripple_id(BS, 0);
+</code></pre>
+<p>In Ripple, every part of the code that depends upon a given block index
+is executed in parallel.
+In one dimension, this means that all code that depends upon <code>ripple_id(BS, 0)</code>
+is executed by all the elements of the one-dimensional block.</p>
+<p>The case of multi-dimensional blocks is more subtle,
+in that blocks of different dimensions can coexist in a same function.
+The shape of the block executing a given statement is determined
+by the dimensions of all the <code>ripple_id()</code> this statement depends upon.
+That way, scalar, vector and tensor operations can coexist in the same function.
+Please refer to Sections <a href="#multi-dimensional-spmd-in-ripple">Multi-dimensional SPMD in Ripple</a>
+below for more detail.</p>
+<h2 id="mapping-software-processing-elements-to-hardware-processing-elements"><a class="header" href="#mapping-software-processing-elements-to-hardware-processing-elements">Mapping software processing elements to hardware processing elements</a></h2>
+<p>The last part of Ripple is that the blocks are a software abstraction.
+In particular, the number of PEs in a block doesn’t have to match the number
+of hardware PEs that will run the code.</p>
+<p>In order to provide full control of how the hardware is utilized,
+Ripple defines a fixed mapping from software PEs in blocks
+to hardware PEs (e.g. vector lanes in a SIMD vector engine).</p>
+<p>In other words, Ripple defines how the PEs in a block are laid out
+in hardware vectors (and matrices).
+For vector targets, the layout is
+<a href="https://en.wikipedia.org/wiki/Row-_and_column-major_order">column-major</a>.</p>
+<p>The following figure illustrates how various blocks (including 2-d ones)
+are laid out in vectors of 8 lanes.
+<img src="ripple-spec/ripple-layout.png" title="How software blocks are laid out in hardware" alt="Laying out block PEs onto hardware vectors"></p>
+<h3 id="coalescing"><a class="header" href="#coalescing">Coalescing</a></h3>
+<p>One aspect of this mapping is very important for performance optimization:
+dimension 0 is always laid out contiguously in a vector.
+This is important because for vector machines,
+the most efficient way to load values into a vector is
+when these values are laid out contiguously in memory.
+Such a load is said to be <em>coalesced</em>.
+The same is true for vector stores.</p>
+<p>To obtain coalesced loads and stores,
+consecutive indices along dimension 0 must access contiguous elements of memory.
+This is explained in greater detail in the
+<a href="#coalescing-1">coalescing section</a>
+of the optimization guide.</p>
+<h1 id="determining-the-shape-of-a-value-in-a-ripple-program"><a class="header" href="#determining-the-shape-of-a-value-in-a-ripple-program">Determining the shape of a value in a Ripple program</a></h1>
+<p>In a Ripple function, each computed value is associated with a block shape,
+representing the block that computes it.
+We call this the “shape” of said value.</p>
+<p>The shape of an operation in Ripple is implicitly determined by the shape of its
+operands, and <code>ripple_id(BS, x)</code> represents a one-dimensional shape,
+with non-trivial dimension <code>x</code>, and all other dimensions set to 1,
+as illustrated in the code below.</p>
+<pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(0, 8, 8);
+size_t v0 = ripple_id(BS, 0); // shape(v0) = 8x1
+size_t v1 = ripple_id(BS, 1); // shape(v1) = 1x8
+size_t v_sum = v0 + v1; // shape = 8x8
+</code></pre>
+<p>This is what we call <em>implicit broadcasting</em>.
+Additionally, some special Ripple functions explicitly define an output shape
+as a function of their input shape, by adding or removing dimensions.
+We explain these in the following subsections.</p>
+<h2 id="implicit-broadcasting"><a class="header" href="#implicit-broadcasting">Implicit broadcasting</a></h2>
+<p>In Ripple, block shapes flow through values (dataflow).
+When values of different shapes are operands of a function/operator
+(e.g., binary operators <code>+</code>, <code>-</code>, <code>*</code>, etc),
+their shapes are broadcast to the largest common shape shared by both
+operands before being processed.</p>
+<p>Let’s revisit our addition example to understand how the last statement works,
+this time using an 8-wide block:</p>
+<pre><code class="language-c">#define VECTOR_PE 0
+void vector_add_1D(unsigned pindex, float *a, float *b, float *sum) {
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, /* block index 0 with size */ 8);
+  size_t ripple_index = ripple_id(BS, /* block index */ 0);
+
+  // What is going on here?
+  sum[ripple_index] = a[ripple_index] + b[ripple_index];
+}
+</code></pre>
+<p>The last statement uses <code>ripple_index</code>, which equals the <code>ripple_id()</code> and
+means that there is block semantics being propagated, but how?</p>
+<ul>
+<li>In C/C++, array accesses such as <code>a[ripple_index]</code> are syntactic sugar for doing
+pointer arithmetic, meaning is it equivalent to computing an address and
+dereferencing it:
+<pre><code class="language-c">a[ripple_index] = *(a + ripple_index)
+</code></pre>
+</li>
+<li><code>a + ripple_index</code> is a binary operator taking a pointer <code>a</code>
+and a 8-wide block offset <code>ripple_index</code>.
+As illustrated on the Figure below:
+<ul>
+<li><code>a</code> is scalar; implicit broadcast dictates that it must be broadcast
+to the same shape as its other operand to <code>+</code>, an 8-wide block,
+so that the <code>+</code> can be applied element-wise to the vector elements of its
+operands and form an 8-wide block.
+<img src="ripple-spec/ripple-impl-bcast.png" alt="Implicit broadcasting"></li>
+<li>The pointer arithmetic addition thus results in a block of addresses.</li>
+</ul>
+</li>
+<li>Finally, dereferencing <code>*(a + ripple_index)</code> means loading
+a block of addresses <code>a + ripple_index</code>,
+which gives the block of floats that were at these addresses.</li>
+</ul>
+<p>The same happens with <code>b[ripple_index]</code>.
+The addition can proceed because
+<code>a[ripple_index]</code> has the same block shape and the store to <code>sum[ripple_index]</code>
+works similarly.</p>
+<p>If you have worked with Python’s <code>numpy</code> library, which uses the same
+broadcasting semantics of operands, you will feel at home with Ripple.</p>
+<h2 id="shape-modifying-functions"><a class="header" href="#shape-modifying-functions">Shape-modifying functions</a></h2>
+<p>There are three types of Ripple API functions that explicitly modify shapes
+between their input and output values.
+For the purpose of illustration here, let us assume an <code>8x8</code> block,
+and that <code>one_d_x</code> is a <code>8x1</code> value and <code>two_d_x</code> is an <code>8x8</code> value.</p>
+<ul>
+<li><strong>reductions</strong>, which perform an operation
+that combines slices of the incoming shape with each other.
+For instance:
+<ul>
+<li><code>ripple_reduceadd(0b1, one_d_x)</code> adds all the elements of
+one-dimensional value <code>one_d_x</code> along dimension <code>0</code>.
+Its output is a scalar (i.e., a zero-dimensional value).</li>
+<li><code>ripple_reducemax(0b10, two_d_x)</code> takes the maximum of
+two-dimensional value <code>two_d_x</code> along dimension <code>1</code>
+(because bit <code>1</code> of the first argument is set but not bit <code>0</code>).
+Its output value is hence <code>8x1</code>: a one-dimensional value expressed
+in a two-dimensional space.</li>
+</ul>
+</li>
+<li><strong>slicing</strong>, which extracts a slice from the block along some dimensions.
+For example:
+<ul>
+<li><code>ripple_slice(two_d_x, 1, -1)</code> takes all the elements of indices (1, *)
+from <code>two_d_x</code>. Its output value has a <code>1x8</code> shape.</li>
+<li><code>ripple_slice(two_d_x, 2, 3)</code> takes element (2, 3) from <code>two_d_x</code>.
+Its output value is scalar.</li>
+</ul>
+</li>
+<li><strong>broadcasts</strong> (also often called “splats”).
+Besides implicit broadcasts offered by Ripple, we can also
+explicitly broadcast a value along any set of dimensions.
+For instance, <code>ripple_broadcast(VECTOR_PE, 0b10, one_d_x)</code>
+replicates the <code>8x1</code> value <code>one_d_x</code> along dimension <code>1</code>,
+outputting it as an <code>8x8</code> value.</li>
+</ul>
+<p>Please refer to the <a href="#the-ripple-api-specification">Ripple API Specification</a> for more detail on
+these API functions.</p>
+<h1 id="multi-dimensional-spmd-in-ripple"><a class="header" href="#multi-dimensional-spmd-in-ripple">Multi-dimensional SPMD in Ripple</a></h1>
+<p>Part of Ripple’s objective to be as efficient as possible forced
+an interpretation of multi-dimensional blocks
+that is different from the one known in CUDA(R) and OpenCL(R).
+In Ripple, values of different dimensions can coexist in the same function.
+The shape of a value is determined implicitly by the dimensions of its operands
+through implicit broadcast,
+or explicitly for <code>ripple_id</code> and the shape-modifying functions.</p>
+<p>Consider for instance the following matrix multiply program,
+in which a 2-dimensional block is declared, with two indices <code>x</code> and <code>y</code>.</p>
+<pre><code class="language-C"> 1: matmul(float A[N][M], float B[K][N], float C[K][M]) {
+ 2:   ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 8, 8);
+ 3:   assert (N % 8 == 0);
+ 4:   assert (M % 8 == 0);
+ 5:   size_t x = ripple_id(BS, 0);
+ 6:   size_t y = ripple_id(BS, 1);
+ 7:   for (int i = 0; i &lt; N; i+= 8) {
+ 8:     for (int j = 0; j &lt; M; j+= 8) {
+ 9:       A[i + y][j + x] = 0;
+10:       for (int k = 0; k &lt; K; ++k) {
+11:         A[i + y][j + x] += B[k][i + y] * C[k][j + x];
+12:       }
+13:     }
+14:   }
+15: }
+</code></pre>
+<p><strong>Fig.smpd-1</strong>: An outer-product matrix multiply kernel.</p>
+<p>Let’s assume that the targeted SIMD vector engine can do
+64 single-precision floating-point computations at a time,
+i.e. it has 64 32-bit vector lanes.
+Line 9 performs a 2-dimensional store of <code>0</code> into A.
+The constant 0 does not depend upon any ripple_id,
+so according to implicit broadcasting, it has dimension 0 (i.e., it’s a scalar).
+However, since the write to <code>A</code> is 2-dimensional,
+0 gets broadcast to a 2-d block of <code>0</code>’s, which then gets stored in <code>A</code>.
+In short, line 9 initializes a whole 8x8 tile of <code>A</code> to the value 0.</p>
+<p>Let’s go through the steps of what Line 11 does. The value</p>
+<pre><code class="language-C">C[k][j + x]
+</code></pre>
+<p>depends upon <code>x</code>, the block index along dimension 0.
+Hence it loads a 1-dimensional (a row of 8x1) block of elements from <code>C</code>.
+The value</p>
+<pre><code class="language-C">B[k][i + y]
+</code></pre>
+<p>depends upon <code>y</code>, the block index along dimension 1.
+Hence it loads a 1-dimensional (column of 1x8) block of elements from <code>B</code>.</p>
+<p>These two 1-dimensional blocks of elements meet in a multiplication:</p>
+<pre><code class="language-C">B[k][i + y] * C[k][j + x]
+</code></pre>
+<p>The multiplication depends upon both <code>x</code> and <code>y</code>, which means its shape is 8x8.
+According to implicit broadcast rules:</p>
+<ul>
+<li>the left-hand side, which was 1x8,
+is broadcast along dimension 0 to an 8x8 shape</li>
+<li>the right-hand side, which was 8x1,
+is broadcast along dimension 1 to an 8x8 shape</li>
+</ul>
+<p>Both sides of the multiplication now have the same shape,
+hence the element-wise multiplication can happen, resulting in an 8x8 shape.
+Finally, the 8x8 block resulting from the multiplication is added to
+an 8x8 tile of A.</p>
+<p>The above way of computing a matrix multiplication is called “outer product”,
+because it corresponds to an outer product between the vectors loaded from
+<code>C</code> and <code>B</code>.</p>
+<p>What’s interesting in this example is that we see how computations on different
+shapes coexist in the same function.</p>
+<ul>
+<li>the assertions and the computations of the values of <code>i</code> and <code>j</code> are done in
+scalar</li>
+<li>a 8x1 vector is loaded from <code>C</code>. We could imagine doing some more 8-1-shaped
+computations before the multiplication.</li>
+<li>a 1x8 vector is loaded from <code>B</code>.</li>
+<li>There are 8x8 multiplication, accumulation and stores.</li>
+</ul>
+<p>As we’ll see below, this way of mixing computations of different
+dimensionalities is different from other SPMD languages like CUDA and OpenCL,
+in which all the computations in the function would be 8x8,
+i.e. they would each be done by 64 processing elements.</p>
+<h1 id="how-conditionals-affect-simd-code"><a class="header" href="#how-conditionals-affect-simd-code">How conditionals affect SIMD code</a></h1>
+<p>Code controlled by conditionals that depend upon block indices
+are translated into <em>masked</em> code, a vector predication
+representation that represents how SIMD instructions implement conditionals
+at the vector lane granularity.
+This is explained in Subsection <em>Masking</em> below.</p>
+<p>In the subsequent subsection, we also go over a point worth noting
+in the determination of shapes in Ripple:
+they are <strong>not</strong> dependent upon conditionals,
+only upon the implicit broadcasting
+rules and the special shape-modifying API (as stated above).</p>
+<h2 id="masking"><a class="header" href="#masking">Masking</a></h2>
+<p>Consider the following sequential example, which increments
+even numbers in a vector pointed to by <code>x</code>:</p>
+<pre><code class="language-C">void increment_even(int16_t x[64]) {
+  for (size_t v = 0; v &lt; 64; ++v)
+    if (v % 2 == 0)
+      x[v] += 1;
+}
+
+</code></pre>
+<p>We can easily write its vectorized version using Ripple as follows:</p>
+<pre><code class="language-C">1: void increment_even(int16_t x[64]) {
+2:   ripple_block_t BS = set_ripple_block_shape(VECTOR_PE, 64);
+3:   size_t v = ripple_id(BS, 0);
+4:   if (v % 2 == 0)
+5:     x[v] += 1;
+6: }
+</code></pre>
+<p>Ripple turns this code into SIMD vector code.
+To respect the original function’s semantics, Ripple has to only run the
+elements of the block <code>x[v]</code> for which <code>v % 2 == 0</code> is true.
+This is performed by <em>masking</em> the <code>x[v]</code> store,
+i.e. applying the 64-wide block of booleans (called a <em>mask</em>)
+from Line 4’s condition to Line 5’s block of increments.
+The mask defines which elements need to be performed and which ones shouldn’t.
+Pairing the mask with the store in line 5 results in a <em>masked store</em>,
+which is how SIMD hardware allows for the selective storing of vector elements.</p>
+<p>In short, masking is the transformation of a condition that depends upon
+one or more <code>ripple_id</code>s into a mask, which is then applied to operations
+controlled by said condition.</p>
+<p>Ripple only actually masks three necessary operations to render a correct
+program:</p>
+<ul>
+<li>stores (writes)</li>
+<li>loads (reads)</li>
+<li>reductions</li>
+</ul>
+<h2 id="how-shape-affects-masking"><a class="header" href="#how-shape-affects-masking">How shape affects masking</a></h2>
+<p>To more fully specify how Ripple works,
+let us illustrate how masking is applied in a more complex case,
+when a condition involves more dimensions than the computation it controls.</p>
+<p>Consider the following code:</p>
+<pre><code class="language-C"> 1: void increment_even(int16_t x[8], int16_t y[8], int16_t z[8][8]) {
+ 2:  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 8, 8);
+ 3:  size_t v0 = ripple_id(BS, 0);
+ 4:  size_t v1 = ripple_id(BS, 1);
+ 5:  if (v0 % 2 == 0) { // 8x1 condition (mask)
+ 6:    x[v0] += 1;      // 8x1
+ 7:    y[v1][v0] += 1;  // 8x8
+ 8:    w += 1;          // scalar, i.e. 1x1
+ 9:    z[v1] += 1;      // 1x8
+10:  }
+11:}
+</code></pre>
+<p>How does the <code>v0 % 2 == 0</code> condition apply to the three statements it controls,
+lines 6-9?
+The condition’s shape is <code>8x1</code>, but the shapes of these three statements
+are different from each other.</p>
+<p>Line 6 is the case we already know:
+the conditional has the same shape as the statement,
+hence the <code>8x1</code> mask (i.e. block of booleans) applies element-wise
+to each of the <code>8x1</code> operations in line 6.</p>
+<p>Line 7 exposes a shape mismatch between the <code>8x1</code> condition
+and the computation, which is <code>8x8</code>.
+Implicit broadcast takes care of this case:
+the <code>8x1</code> conditional is broadcast (i.e., replicated) along dimension 1,
+and applied element-wise to the line 7 computation.</p>
+<p>Line 8 is trickier, because the <code>8x1</code> condition shape cannot be broadcast
+to Line 7’s <code>1x1</code> computation.
+The rule here is that the Line 8 statement should execute whenever there
+exists a value of <code>v0</code> for which <code>v0 % 2 == 0</code>.
+To obtain such a mask, Ripple takes the <code>OR</code> of all elements in the condition,
+which makes a <code>1x1</code> mask.</p>
+<p>Finally, line 9 combines the two previous principles for applying a mask
+to a differently-shaped computation:
+the Line 5 mask is first <code>OR</code>-reduced to a <code>1x1</code> mask,
+and then broadcast along dimension 1, resulting in a <code>1x8</code> mask,
+which can be applied to the <code>1x8</code> Line 8 computation.</p>
+<h1 id="implicit-scalar-expansion"><a class="header" href="#implicit-scalar-expansion">Implicit scalar expansion</a></h1>
+<p>Consider our <code>Fig. smpd-1</code> outer-product example, but where we want to
+perform the tile matrix multiplication (i.e. line 11) using two
+statements:</p>
+<ul>
+<li>one to compute the (two-dimensional) outer product
+between the one-dimensional vectors</li>
+<li>the other one to accumulate the outer product onto <code>A</code>.
+We would then rewrite Line 11 into two lines, as such:</li>
+</ul>
+<pre><code class="language-C"> 1: void matmul(float A[N][M], float B[K][N], float C[K][M]) {
+ 2:   ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 8, 8);
+ 3:   assert (N % 8 == 0);
+ 4:   assert (M % 8 == 0);
+ 5:   size_t x = ripple_id(BS, 0);
+ 6:   size_t y = ripple_id(BS, 1);
+ 7:   float tmp[8][8];
+ 8:   for (int i = 0; i &lt; N; i+= 8) {
+ 9:     for (int j = 0; j &lt; M; j+= 8) {
+10:       A[i + y][j + x] = 0;
+11:       for (int k = 0; k &lt; K; ++k) {
+12:         tmp[y][x] = B[k][i + y] * C[k][j + x];
+13:         A[i + y][j + x] += tmp[y][x];
+14:       }
+15:     }
+16:   }
+17: }
+</code></pre>
+<p><strong>Fig. spmd-2</strong>: Breaking down the outer product into two statements</p>
+<p>Notice that we had to introduce a temporary variable <code>tmp</code>
+to store the <code>8x8</code> value of the outer product.</p>
+<p>Having to declare an array whenever we introduce a temporary is
+far from ideal:</p>
+<ul>
+<li>Code can quickly become less readable
+if we add array accesses for each temporary variable.</li>
+<li>It’s easier to introduce inconsistencies
+(in particular, out-of-bounds array issues)
+if we decide to change the block shape.
+In this example, we would have to modify the dimensions of <code>tmp</code> as well.</li>
+<li>Compilers are often less good at optimizing array code
+than scalar code.</li>
+</ul>
+<p>For these reasons, Ripple allows scalar variables
+to automatically adopt the shape of the value that gets assigned to them.
+We call this mechanism scalar expansion, and with it,
+in our example we can write the following nicer code instead:</p>
+<pre><code class="language-C">void matmul(float A[N][M], float B[K][N], float C[K][M]) {
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 8, 8);
+  assert (N % 8 == 0);
+  assert (M % 8 == 0);
+  size_t x = ripple_id(BS, 0);
+  size_t y = ripple_id(BS, 1);
+  for (int i = 0; i &lt; N; i+= 8) {
+    for (int j = 0; j &lt; M; j+= 8) {
+      A[i + y][j + x] = 0;
+      for (int k = 0; k &lt; K; ++k) {
+        float tmp = B[k][i + y] * C[k][j + x];
+        A[i + y][j + x] += tmp;
+      }
+    }
+  }
+}
+</code></pre>
+<p><strong>Fig. spmd-3</strong>: 2-statement outer product using implicit scalar expansion</p>
+<p>where <code>tmp</code> is declared as a scalar,
+and is scalar-expanded to an <code>8x8</code> value for us by Ripple.</p>
+<h2 id="store-consistency"><a class="header" href="#store-consistency">Store consistency</a></h2>
+<p>The implicit scalar expansion mechanism is only available for scalars.
+Otherwise, as we have seen, shapes are determined by the implicit broadcast rule
+and the shape-modifying Ripple API.</p>
+<p>Shape consistency is the responsibility of developers.
+The main example where we can write inconsistent code is when
+storing a value of dimension <code>n</code> to a memory region of dimension less than <code>n</code>,
+as in the following example:</p>
+<pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 8, 8);
+size_t v0 = ripple_id(BS, 0);
+size_t v1 = ripple_id(BS, 1);
+float x = A[v0] + B[v1]; // shape of x  is 8x8
+C[v0] = x; // storing an 8x8 value to a 8x1 memory region is illegal
+</code></pre>
+<h2 id="keep-implicit-scalar-expansion-simple"><a class="header" href="#keep-implicit-scalar-expansion-simple">Keep implicit scalar expansion simple</a></h2>
+<p>The implicit scalar expansion mechanism is really meant for temporaries,
+so we can keep writing code that looks readable because it looks scalar.
+We discourage sophisticated use of these temporary scalars, such as
+using the address of tmp,
+as the resulting semantics, although well-defined,
+become harder to follow.</p>
+<p>Take the following vector inner product as an example.</p>
+<pre><code class="language-c"> 1: int32_t inner_product(int * scratchpad, short * v1, short * v2, size_t n) {
+ 2:   assert(n % 64 == 0);
+ 3:   ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 64);
+ 4:   size_t v = ripple_id(BS, 0);
+ 5:   size_t nv = ripple_get_block_size(BS, 0);
+ 6:   int32_t result = 0;
+ 7:   for (int block = 0; block &lt;n; block += nv) {
+ 8:     *scratchpad = v2[block * nv + v];
+ 9:     result += v1[block * nv + v] * (*scratchpad);
+10:   }
+11:   return ripple_reduceadd(0b1, result)
+12: }
+</code></pre>
+<p>Here, the developer is seemingly trying to force the temporary to be
+at an address defined by the <code>scratchpad</code> pointer.
+The <code>result</code> variable is a scalar, hence it gets expanded inside the loop,
+and it comes out of the loop as a <code>64</code>-wide 1-dimensional block.
+This is no problem.</p>
+<p><code>scratchpad</code> is different. While <code>*scratchpad</code> represents a scalar value,
+it is really a scalar (i.e., zero-dimensional) access to array <code>scratchpad</code>.
+A better way to see this is to use the equivalent array notation to access
+<code>scratchpad</code> in lines 8 and 9:</p>
+<pre><code class="language-c"> 8:    scratchpad[0] = v2[v];
+ 9:    result += v1[block * nv + v] * scratchpad[0];
+</code></pre>
+<p>With this version, it becomes obvious that the developer tries to store
+the 1-dimensional block <code>v2[v]</code> into the zero-dimensional array location
+<code>scratchpad[0]</code> on line 8, resulting in a shape mismatch.
+In contrast, note that the <code>scratchpad</code> access on line 9 is legal:
+it is a scalar load from <code>scratchpad</code>,
+which gets implicitly broadcast to fit the 1-d shape of the other multiplication.</p>
+<h1 id="command-line-1"><a class="header" href="#command-line-1">Command-line</a></h1>
+<p>The SPMD form is used by default when enabling Ripple at the command line:</p>
+<pre><code class="language-bash">clang -fenable-ripple ...
+</code></pre>
+<hr>
+<p>CUDA is a trademark of NVIDIA Corporation.</p>
+<p>OpenCL is a trademark of Apple Incorporated.</p>
+<hr>
+<p><em>Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear</em></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="distributing-loop-computations-in-ripple"><a class="header" href="#distributing-loop-computations-in-ripple">Distributing loop computations in Ripple</a></h1>
+<p>Inspired by the simplicity of the OpenMP(R) programming model,
+we introduced a couple functions in the Ripple API to achieve similar
+ways of expressing loop parallelism.</p>
+<p>The main idea of loop-based parallelism applies to loop computations,
+in the case when the iterations of a given loop are considered
+independent from each other.
+In this case, they can be executed in parallel, by assigning each iteration
+to a parallel processing element.</p>
+<p>The following Figure represents values of an “i” loop (in blue)
+being distributed onto blocks of size 8 (in orange),
+in a function that performs an element-wise addition.
+We illustrate the distribution for n = 19. <code>VECTOR_PE</code> is zero.</p>
+<p><img src="ripple-spec/loop-distribution.png" alt="Loop distribution using annotations"></p>
+<p>In the <code>vadd</code> function, we can see two calls to the ripple API:</p>
+<ul>
+<li><code>ripple_set_block_shape(VECTOR_LANE, 8)</code> models the set of parallel
+processing elements to run the function as a <em>block</em> of size 8.
+The <code>VECTOR_LANE</code> parameter represents that the kind of targeted
+processing elements (the lanes of a fictitious vector engine here).
+This notion of block is the same as the one
+used in the <a href="#the-single-program-multiple-data-spmd-programming-model-in-ripple">SPMD programming model</a> supported by Ripple.
+In fact, loop annotations are syntactic sugar that make SPMD programs more readable.</li>
+<li><code>ripple_parallel(BS, 0)</code> indicates that the immediate next statement
+is a loop whose iterations should be distributed to the block <code>BS</code>.
+The mapping between values of <code>i</code> and block index is cyclical,
+i.e., computations made for loop index <code>i</code> are mapped to block index
+<code>i % 8</code>. The 8 in the mapping is the block size
+(along the one and only dimension of the block, 0).</li>
+</ul>
+<h1 id="benefits-compared-with-spmd-programming"><a class="header" href="#benefits-compared-with-spmd-programming">Benefits compared with SPMD programming</a></h1>
+<p>The main advantage of loop annotations is that we can just find a
+loop whose iterations are independent and which accesses data contiguously,
+and declare this a parallel loop.
+When the number of iterations in the parallel loop does not exactly
+match the block size, <code>ripple_parallel</code> takes care of
+separating the loop into a full-vector loop and an epilogue.</p>
+<p>In the SPMD model, we need to perform that separation explicitly.</p>
+<p>The <code>vadd</code> example provides a good means of comparison with SPMD.
+The code below is the equivalent function in SPMD.</p>
+<pre><code class="language-C">void vadd(size_t n, float A[n], float B[n], float C[n]) {
+  size_t i;
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 8);
+  size_t nv = ripple_get_block_size(BS, 0);
+  size_t v = ripple_id(BS, 0);
+  for (i = 0; i + nv &lt;= n; i += nv) { // Full vector loop
+    C[i + v] = A[i + v] + B[i + v];
+  }
+  // Masked, partial vector epilogue
+  if (i + v &lt; n) {
+    C[i + v] = A[i + v] + B[i + v];
+  }
+}
+</code></pre>
+<p>Since <code>n</code> is unknown, we have to take into account the case when
+<code>n</code> is not a perfect multiple of the block size, 8.
+When it is not, the last vector will have to load and store
+only the values that are within the array bounds, i.e., less than <code>n</code>.</p>
+<p>To do so efficiently, we first compute a loop for the cases when we know
+that the full vector needs to be loaded, computed and stored.
+Let’s call it the <em>full-vector loop</em>.
+Then, the last, partial vector needs to be computed in a so-called <em>epilogue</em>.
+That last computation is controlled by the conditional <code>i + v &lt; n</code>
+to avoid out-of-bounds accesses.</p>
+<p>The comparison between implementations is straightforward:</p>
+<ul>
+<li>The <code>ripple_parallel()</code>-based implementation is about half as long.</li>
+<li>It is also just as readable as the sequential implementation,
+only with two extra lines of code. The SPMD version is less readable.</li>
+<li>the <code>ripple_parallel()</code> version takes care of full-vector and epilogue
+separation behind the scenes.</li>
+</ul>
+<h2 id="full-vector-cases"><a class="header" href="#full-vector-cases">Full-vector cases</a></h2>
+<p>It may happen that the loop we want to distribute actually fits perfectly
+onto the targeted block size.
+In this case, computing an epilogue seems wasteful.
+Use the <code>ripple_parallel_full()</code> function,
+which doesn’t generate the epilogue.</p>
+<h1 id="pragma-form"><a class="header" href="#pragma-form">Pragma form</a></h1>
+<p>In C and C++, calls to <code>ripple_parallel</code> are implemented
+under the hood as a pragma decorating the following loop.
+Here’s the syntax for it:</p>
+<pre><code class="language-C">#pragma ripple parallel Block(block_shape) Dims(&lt;dim ...&gt;) [NoRemainder]
+</code></pre>
+<ul>
+<li><code>block_shape_variable</code>, a <code>ripple_block_t</code> value, i.e., the output of
+<code>ripple_set_block_shape()</code> stored in a variable. You cannot pass the call to
+<code>ripple_set_block_shape()</code> directly to a <code>Block()</code> construct.
+The <code>NoRemainder</code> clause turns on the full-vector assumption,
+in which the epilogue isn’t generated.</li>
+</ul>
+<h1 id="block-index-access"><a class="header" href="#block-index-access">Block index access</a></h1>
+<p>The <code>ripple_parallel</code> annotation basically chunks the annotated loop
+by the size of the block dimensions associated with it.
+The resulting loop basically iterates over blocks,
+and the original loop variable (let’s call it <code>i</code>)
+can be retrieved from the block loop iterator (let’s call it <code>b</code>)
+and the ripple index associated with the loop (let’s call it <code>v</code>).
+Let’s assume that we have distributed our <code>i</code> loop along block dimension <code>1</code>.
+<code>i</code>, <code>b</code> and <code>v</code> are related through:</p>
+<p><code>i = ripple_get_block_size(block_shape, 1) * b + ripple_id(block_shape, 1)</code></p>
+<p>The <code>ripple_parallel_idx()</code> API provides access to the block loop operator (<code>b</code>).
+Hence if we distribute loop <code>i</code> along dimension <code>d</code>,
+we have the identity:</p>
+<p><code>i = ripple_get_block_size(block_shape, d) * ripple_parallel_idx(block_shape, d) + ripple_id(block_shape, d)</code></p>
+<p>When <code>ripple_parallel</code> is used to distribute loop iterations over
+more than one block dimension, the use of <code>ripple_parallel_idx</code> is expected
+to be consistent with these dimensions.
+Using <code>ripple_parallel_idx</code> outside of <code>ripple_parallel</code>-annotated loops
+results in an error.</p>
+<h1 id="syntactic-constraints"><a class="header" href="#syntactic-constraints">Syntactic constraints</a></h1>
+<p>The syntax for loops that follow a
+<code>ripple_parallel()</code> call must follow a rigid syntax.
+An error is returned upon violation of these syntax rules.</p>
+<ul>
+<li>The initialization (lower bound) cannot be an expression;
+it must be a constant or a variable name.</li>
+<li>The exit test (upper bound) must compare the loop counter using <code>&lt;</code>
+with a constant or a variable name.</li>
+<li>The loop counter step must be one (as in <code>++i</code> or <code>i++</code>).</li>
+</ul>
+<p>For instance, the following code is unsupported
+because its upper bound is <em>syntactically</em> too complex.</p>
+<pre><code class="language-C">#define VECTOR_PE 0
+void vecadd_subarray(int N, int start, int end,
+                     float x[N], float y[N], float xpy[N]) {
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 32);
+  ripple_parallel(BS, 0);
+  for (int i = start; i &lt; min(end, 129); ++i) {
+    xpy[i] = x[i] + y[i];
+  }
+}
+</code></pre>
+<p>Fortunately, there is an easy workaround.
+We can precompute the <code>min</code> expression into a variable,
+and use that variable as the upper bound, as follows.</p>
+<pre><code class="language-C">void vecadd_subarray(int N, int start, int end,
+                    float x[N], float y[N], float xpy[N]) {
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 32);
+  size_t my_min = min(end, 129);
+  ripple_parallel(BS, 0);
+  for (int i = start; i &lt; my_min; ++i) {
+    xpy[i] = x[i] + y[i];
+  }
+}
+</code></pre>
+<p>While these syntactic constraints theoretically make the loop annotation
+parallel programming model less generally expressive than the SPMD model,
+we expect that it will still allow parallelization of
+a large portion of code, if not all of it.</p>
+<h1 id="general-principles"><a class="header" href="#general-principles">General principles</a></h1>
+<p>At a high level, the difference between this loop annotation model
+and the SPMD model is that
+the annotation model introduces an automated way to distribute loop iterations.
+The loop annotation model is implemented as syntactic sugar on top of the SPMD
+model. Hence, all aspects of the SPMD model are maintained
+in the loop annotation model, in particular:</p>
+<ul>
+<li>Computations are represented as <a href="#representing-processing-elements-as-a-block">blocks</a>.</li>
+<li>Multi-dimensional blocks are supported.
+To achieve this, multiple loops may be distributed onto a block.</li>
+<li>We can access a block element using <a href="#defining-code-as-a-function-of-the-pe-indices"><code>ripple_id()</code></a>.
+This is similar to using <code>omp_get_thread_num()</code> in OpenMP(R) loops.</li>
+<li>The <a href="#what-determines-the-shape-of-a-value-in-a-ripple-program">shape of a computation</a>
+is still determined by implicit broadcasting
+and special shape-modifying functions.</li>
+<li>How <a href="#how-conditionals-affect-simd-code">conditionals affect parallel code</a>.</li>
+<li><a href="#implicit-scalar-expansion">Implicit scalar expansion</a>.</li>
+</ul>
+<p>Each of these concepts is presented in the chapter describing
+<a href="#the-single-program-multiple-data-spmd-programming-model-in-ripple">SPMD programming with Ripple</a>.</p>
+<hr>
+<p>OpenMP is a registered trademark of the OpenMP Architecture Review Board.</p>
+<hr>
+<p><em>Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear</em></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="the-ripple-api-specification"><a class="header" href="#the-ripple-api-specification">The Ripple API specification</a></h1>
+<h2 id="c-api-spmd"><a class="header" href="#c-api-spmd">C API (SPMD)</a></h2>
+<pre><code class="language-C">/// \brief returns a block shape for processing element with id \p pe_id
+ripple_block_t ripple_set_block_shape(int pe_id, size_t ... shape);
+
+/// \brief size of the block associated to \p BS along dimension \p dim
+size_t ripple_get_block_size(ripple_block_t block_shape, int dim);
+
+/// \brief SPMD coordinate of the block \p BS along dimension \p dim
+size_t ripple_id(ripple_block_t block_shape, int dim);
+
+/// \brief reduction along dimensions defined by the bitfield dims,
+///        using the operator "add".
+/// 'TYPE' can be any one of (u?)int(8|16|32|64) and _Float16/float/double.
+///
+/// Although illustrated for "add" here,
+/// reductions are also defined for the following operators:
+///
+/// add, mul, max, min, and, or, xor.
+///
+/// Floating-point types additionally support 'minimum' and 'maximum'.
+/// These differ from 'min' and 'max' in their handling of NaN values.
+///
+/// The following table summarizes behavior in the presence of signaling (sNaN)
+/// and quiet (qNaN) NaNs:
+///
+/// +----------------------+---------------------------+--------------------------------+
+/// | Float Comparison     | min / max                 | minimum / maximum              |
+/// +======================+===========================+================================+
+/// | NUM vs qNaN          | NUM                       | qNaN                           |
+/// +----------------------+---------------------------+--------------------------------+
+/// | NUM vs sNaN          | qNaN                      | qNaN                           |
+/// +----------------------+---------------------------+--------------------------------+
+/// | qNaN vs sNaN         | qNaN                      | qNaN                           |
+/// +----------------------+---------------------------+--------------------------------+
+/// | sNaN vs sNaN         | qNaN                      | qNaN                           |
+/// +----------------------+---------------------------+--------------------------------+
+/// | +0.0 vs -0.0         | +0.0(max)/-0.0(min)       | +0.0(max)/-0.0(min)            |
+/// +----------------------+---------------------------+--------------------------------+
+/// | NUM vs NUM           | larger(max)/smaller(min)  | larger(max)/smaller(min)       |
+/// +----------------------+---------------------------+--------------------------------+
+///
+TYPE ripple_reduceadd(int dims, TYPE to_reduce);
+
+/// \brief Explicit broadcast of \p to_broadcast
+///        along dimensions of the block shape that are set in the bitfield.
+/// 'TYPE' can be any one of (u?)int(8|16|32|64) and _Float16/float/double.
+/// The use of this function is typically rare, because of implicit broadcast.
+/// For example:
+///
+/// // Dimension 0 size 32 (bit mask 1) and dimension 1 size 64 (bit mask 2)
+/// ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 32, 64)
+/// int src = 42;                                   // Scalar source
+/// dst1 = ripple_broadcast(BS, 0b10, src);  // promoted to Tensor[64][1]
+/// dst2 = ripple_broadcast(BS, 0b01, src);  // promoted to Tensor[1][32]
+/// dst3 = ripple_broadcast(BS, 0b01, dst1); // promoted to Tensor[64][32]
+/// dst4 = ripple_broadcast(BS, 0b11, src);  // promoted to Tensor[64][32]
+///
+TYPE ripple_broadcast(ripple_block_t block_shape, uint64_t dims, TYPE to_broadcast);
+
+/// \brief Explicit pointer broadcast of \p to_broadcast
+///        along dimensions defined by the bitfield dims of
+///        the given block shape.
+/// 'TYPE' can be any one of (u?)int(8|16|32|64)
+///        and _Float16/float/double.
+TYPE *ripple_broadcast_ptr(ripple_block_t block_shape, uint64_t dims, TYPE *to_broadcast);
+
+/// \brief Extracts a slice of value \p src along the indices \p dims.
+/// In \p dims, the -1 value expresses "non-slicing" along the dimension,
+/// in the sense that all elements of \p src are maintained along the dimension
+/// where -1 is used.
+/// For example, assuming the shape of \p src is 8x4:
+/// dst = ripple_slice(src, -1, 0) extracts the first 8x1 sub-block of \p src
+/// dst = ripple_slice(src, 1, 0) extracts the scalar at position (0, 1)
+/// in \p src
+/// etc.
+/// @param src the value out of which we want a slice
+/// @param dims the slicing indices.
+///             Their number should match the dimension of \p src,
+///             and the values of \p dim must be static constants.
+TYPE ripple_slice(TYPE src, int ... dims);
+
+/// \brief `ripple_slice()` for pointers.
+TYPE ripple_slice_ptr(TYPE * src, int ... dims);
+
+/// \brief shuffle where the source index is defined as a function of the
+/// destination index by function \p src_index_fn
+/// defined for all scalar types.
+/// 'TYPE' can be any one of (u?)int(8|16|32|64) and _Float16/float/double.
+/// When the block is multi-dimensional, this represents a shuffle from
+/// a flattened view of \p to_shuffle to a flattened view of the result.
+/// The parameters of \p src_index_fn are the flattened destination index
+/// and the total block size.
+/// If we use the C row-major convention, dimensions are laid out
+/// from right (dimension 0) to left in vectors.
+/// Hence, in 2 dimension, we'll have flattened(v0, v1) = v1*s0 + v0,
+/// where v0 and v1 are the coordinates in the PE block
+/// and s0 is the block shape along dimension 0.
+/// TYPE is defined for the following types:
+/// i8, u8, i16, u16, i32, u32, i64, u64, f16, f32, f64
+TYPE ripple_shuffle(TYPE to_shuffle, size_t(*src_index_fn)(size_t, size_t) );
+
+/// \brief creates a block whose elements are picked from \p src1 and \p src2 using \p src_index_fn.
+/// \p src_index_fn basically indexes in the flattened concatenation of \p src1 and \p src2.
+/// \param src1 the first source block
+/// \param src2 the second source block
+/// \param src_index_fn a function that takes
+// the flat index of the returned block and the total block size, 
+// and returns the index into the [src1|src2] concatenated source 
+// array where the destination value should be taken from.
+/// TYPE is defined for the following types:
+/// i8, u8, i16, u16, i32, u32, i64, u64, f16, f32, f64
+TYPE ripple_shuffle_pair(TYPE src1, TYPE src2, size_t(*src_index_fn)(size_t, size_t) );
+
+/// \brief Computes the saturated addition of two values. 'TYPE'
+/// can be any one of (u?)int(8|16|32|64)_t.
+/// \param x The first value of type TYPE.
+/// \param y The second value of type TYPE.
+/// \return The result of the saturated addition of x and y.
+TYPE ripple_add_sat(TYPE x, TYPE y);
+
+/// \brief Similar to `ripple_add_sat`, but performs subtraction.
+TYPE ripple_sub_sat(TYPE x, TYPE y);
+
+/// \brief Similar to `ripple_add_sat`, but performs left shift.
+TYPE ripple_shl_sat(TYPE x, TYPE y);
+
+/// \brief Converts a 1-d Ripple block of T to a &lt;N_EL x T&gt; C vector.
+/// \param N_EL the number of elements of the output vector.
+///             Would normally match the total Ripple block size,
+///             but can be bigger.
+/// \param T the vector's element type - you can pass it as a parameter 
+///          because ripple_to_vec is a macro.
+/// \param PE_ID the processing element ID
+///              for which this conversion is made.
+/// \param x the Ripple (block) value that needs to be converted
+///          to a C  vector
+T __attribute__(vector_size(sizeof(T) * N_EL))
+ripple_to_vec(size_t N_EL, T, int PE_ID, T x);
+
+/// \brief Same as ripple_to_vec,
+/// for a 2-d block made of the 2 first dimensions of the Ripple block.
+/// Assumes that the Ripple block shape has at least 2 dimensions.
+T __attribute__(vector_size(sizeof(T) * N_EL))
+ripple_to_vec_2d(size_t N_EL, T, int PE_ID, T x);
+
+/// \brief Same as ripple_to_vec,
+/// for a 3-d block made of the 3 first dimensions of the Ripple block.
+/// Assumes that the Ripple block shape has at least 3 dimensions.
+T __attribute__(vector_size(sizeof(T) * N_EL))
+ripple_to_vec_3d(size_t N_EL, T, int PE_ID, T x);
+
+/// \brief  Converts a &lt;N_EL x T&gt; vector to a 1-d Ripple block of type T.
+/// \param N_EL the number of elements of the output vector.
+///             Would normally match the total Ripple block size,
+///             but can be bigger.
+/// \param T the vector's element type - you can pass it as a parameter 
+///          because ripple_to_vec is a macro.
+/// \param PE_ID the processing element ID
+///              for which this conversion is made.
+/// \param x the C vector that needs to be converted
+///          to a Ripple (block-) value
+T vec_to_ripple(size_t N_EL, T, int pe_id, 
+  T __attribute__(vector_size(sizeof(T) * N_EL))x);
+
+/// \brief Same as vec_to_ripple,
+/// for a 2-d block made of the 2 first dimensions of the Ripple block.
+/// Assumes that the Ripple block shape has at least 2 dimensions.
+T vec_to_ripple_2d(size_t N_EL, T, int pe_id, 
+  T __attribute__(vector_size(sizeof(T) * N_EL))x);
+
+/// \brief Same as vec_to_ripple,
+/// for a 3-d block made of the 3 first dimensions of the Ripple block.
+/// Assumes that the Ripple block shape has at least 3 dimensions.
+T vec_to_ripple_3d(size_t N_EL, T, int pe_id, 
+  T __attribute__(vector_size(sizeof(T) * N_EL))x);
+
+/// \brief Provides the information that the pointer element `(0, 0 ... 0, 0)`
+/// in this tensor is aligned at the provided alignment (in bytes).
+/// \param ptr A pointer or tensor of pointers
+/// \param Alignment The alignment in number of bytes
+/// \return Returns ptr
+Pointer_TYPE ripple_ptr_alignment(Pointer_TYPE ptr, size_t Alignment)
+
+/// \brief Similar to ripple_ptr_alignment, to indicate a pointer alignment
+/// hint, but additionally allows to specify the slicing indices instead of
+/// assuming that every slicing index is zero. All non-provided slicing index
+/// will be zero.
+/// \param ptr A pointer or tensor of pointers
+/// \param Alignment The alignment in number of bytes
+/// \return Returns ptr
+/// \see ripple_slice
+/// \see ripple_assume_aligned
+Pointer_TYPE ripple_ptr_alignment_slice(Pointer_TYPE ptr, size_t Alignment, SliceIdx [, SliceIdx]*)
+</code></pre>
+<h2 id="c-api-loop-annotations"><a class="header" href="#c-api-loop-annotations">C API (loop annotations)</a></h2>
+<p>The loop annotation feature is basically syntactic sugar on top of SPMD.
+Hence, all the SPMD functions inter-operate with the loop annotation functions
+below.</p>
+<pre><code class="language-C">/// Followed by a loop with simple initialization and upper bound,
+/// tells the compiler to distribute the processing elements identified by
+/// \p pe_id along dimension \p dims of the block of said processing elements.
+/// The list of dimensions in \p dims is ordered.
+/// This generates both the full-vector loop and the epilogue.
+void ripple_parallel(int pe_id, int ... dims);
+
+/// Followed by a loop with simple initialization and upper bound,
+/// tells the compiler to distribute the processing elements identified by
+/// \p pe_id along dimension \p dims of the block of said processing elements.
+/// The list of dimensions in \p dims is ordered.
+/// This generates the full-vector loop only.
+void ripple_parallel_full(int pe_id, int ... dims);
+</code></pre>
+<h1 id="c-api"><a class="header" href="#c-api">C++ API</a></h1>
+<p>Some of the C functions above are available in a different form in C++,
+which often results in different syntax.</p>
+<pre><code class="language-C++">/// \brief reduction along dimensions defined by the bitfield \p dims,
+///        using the operator "add".
+/// Although illustrated for "add" here,
+/// reductions are also defined for the following operators:
+///
+/// add, max, min, and, or.
+template &lt;typename T&gt; T ripple_reduceadd(int dims, T to_reduce);
+
+/// \brief shuffle where the source index is defined by function \p src_index_fn
+///        defined for all scalar types (int/uint 8 to 64 and float 16 to 64)
+///
+/// When the block is multi-dimensional, this represents a shuffle from
+/// a flattened view of \p to_shuffle to a flattened view of the result.
+/// If we use the C row-major convention, dimensions are laid out
+/// from right (dimension 0) to left in vectors.
+/// Hence, in 2 dimension, we'll have flattened(v0, v1) = v1*s0 + v0,
+/// where v0 and v1 are the coordinates in the PE block
+/// and s0 is the block shape along dimension 0.
+
+/// \brief shuffle where the source index is defined by function \p src_index_fn
+///        defined for all scalar types (int/uint 8 to 64 and float 16 to 64)
+template &lt;typename T&gt;
+T ripple_shuffle(T to_shuffle, std::function&lt;size_t(size_t, size_t)&gt;);
+
+/// \brief Converts a &lt;N_EL x T&gt; vector to a 1-d Ripple block of T
+/// for processing element PE_ID.
+/// Ripple block size assumed to be less than or equal to N_EL.
+template &lt;size_t N_EL, typename T, int PE_ID = 0&gt;
+T __attribute__((vector_size(sizeof(T) * N_EL))) ripple_to_vec(T x);
+
+/// \brief Same as ripple_to_vec,
+/// for a 2-d block made of the 2 first dimensions of the Ripple block.
+/// Assumes that the Ripple block shape has at least 2 dimensions.
+template &lt;size_t N_EL, typename T, int PE_ID = 0&gt;
+T __attribute__((vector_size(sizeof(T) * N_EL))) ripple_to_vec_2d(T x);
+
+/// \brief Same as ripple_to_vec,
+/// for a 3-d block made of the 3 first dimensions of the Ripple block.
+/// Assumes that the Ripple block shape has at least 3 dimensions.
+template &lt;size_t N_EL, typename T, int PE_ID = 0&gt;
+T __attribute__((vector_size(sizeof(T) * N_EL))) ripple_to_vec_3d(T x);
+
+/// \brief  Converts a &lt;N_EL x T&gt; vector to a 1-d Ripple block of type T.
+/// \param N_EL the number of elements of the input vector.
+///             Would normally match the total Ripple block size,
+///             but can be bigger.
+/// \param T the vector's element type.
+/// \param PE_ID the processing element ID
+///              for which this conversion is made.
+/// \param x the C vector that needs to be converted
+///          to a Ripple (block-) value
+template &lt;size_t N_EL, typename T, int PE_ID = 0&gt;
+T vec_to_ripple(T __attribute__((vector_size(sizeof(T) * N_EL))) x);
+
+/// \brief Same as ripple_to_vec,
+/// for a 2-d block made of the 2 first dimensions of the Ripple block.
+/// Assumes that the Ripple block shape has at least 2 dimensions.
+template &lt;size_t N_EL, typename T, int PE_ID = 0&gt;
+T vec_to_ripple_2d(T __attribute__((vector_size(sizeof(T) * N_EL))) x);
+
+/// \brief Same as ripple_to_vec,
+/// for a 3-d block made of the 3 first dimensions of the Ripple block.
+/// Assumes that the Ripple block shape has at least 3 dimensions.
+template &lt;size_t N_EL, typename T, int PE_ID = 0&gt;
+T vec_to_ripple_3d(T __attribute__((vector_size(sizeof(T) * N_EL))) x);
+</code></pre>
+<h1 id="hexagonr-hvx-specific-vector-functions"><a class="header" href="#hexagonr-hvx-specific-vector-functions">Hexagon(R) HVX-specific vector functions</a></h1>
+<pre><code class="language-C++">/// \brief launches a high-throughput (and typically high-latency) parallel data
+/// reorganization from memory to memory.
+/// hvx_gather and hvx_scatter are typically beneficial
+/// to reorganize chunks of VTCM data (several or many vectors)
+/// ahead of (for hvx_gather) or after (for hvx_scatter)
+/// a computation that uses the reorganized data in a coalesced way.
+/// The high latency that is inherent to arbitrary data reorganization is
+/// amortized by the ability to run many of these vector reorg operations
+/// concurrently.
+///
+/// There are two possible reorganizations
+/// - collecting data from arbitrary locations to contiguous blocks
+///   in memory, so that later code can work
+///   with coalesced loads and stores: hvx_gather
+/// - distributing contiguous data to arbitrary locations: hvx_scatter
+///   This is often done after performing computations on the data in their
+///   contiguous form (i.e., efficiently).
+///
+/// hvx_gather and hvx_scatter are affected by conditionals
+/// (they become a masked gather or scatter)
+///
+/// \p offset represents the offsets in number of elements,
+/// (as opposed to number of bytes), which are added to \p src for hvx_gather
+/// and \p dst for hvx_scatter.
+/// For instance if \p T is int16_t, the source byte offset is 2*src_offset.
+/// \p region_size represents the number of elements in the region,
+/// on the non-coalesced side of the transfer.
+/// Any address going out of that region is ignored
+/// (the transfer of the addressee does not happen).
+///
+/// *Constraints*
+///   hvx_gather / hvx_scatter has very specific semantics,
+///   to be maintained by the developer:
+/// - Both \p src and \p dst have to lie in local memory (VTCM)
+/// - In hvx_gather, \p dst needs to be aligned on a HVX vector boundary.
+/// - \p T can be any base type.
+/// - \p OFF_T can be int16_t or int32_t.
+///    Its bitwidth has to match that of the elements being transferred.
+///   Notice how this limits the offset values to 32767 in the int16_t case.
+/// - Transfers of elements for which the index is negative are ignored.
+/// - Addresses in a (hardware) vector transfer cannot cross VTCM page boundary.
+///   VTCM page size depends upon the configuration.
+///   As time of writing, it is typically 4 or 8 MB,
+///   or less if the VTCM is smaller than 4MB.
+/// - The ripple block size must be such that each call to hvx_gather or
+///   hvx_scatter transfers one native HVX vector.
+void hvx_gather(T * dst, T * src, OFF_T offset, OFF_T region_size);
+void hvx_scatter(T * dst, T src, OFF_T offset, OFF_T region_size);
+
+/// \brief rotation by n lanes, toward lower lanes.
+/// 'TYPE' can be any one of (u?)int(8|16|32|64) and _Float16/float/double.
+///        i.e., dst[i] = src[(i + n) % get_size(N)]
+///        where N is the total size of the block.
+///        Just like shuffle/shuffle_f, this is a one-dimensional rotation over
+///        a block's flattened representation.
+/// Although illustrated for u8 here, they are defined for the following types:
+/// i8, u8, i16, u16, i32, u32, i64, u64, f16, f32, f64
+TYPE hvx_rotate_to_lower(TYPE to_rotate, unsigned int n);
+</code></pre>
+<p>Notice how <code>hvx_gather</code> and <code>hvx_scatter</code> effectively offer
+three ways to mask element data transfers:</p>
+<ul>
+<li>through masking (using them in a conditional),</li>
+<li>through the use of a negative index (preventing underflows), and</li>
+<li>through the region_size parameter (preventing overflows).</li>
+</ul>
+<p>Masking makes the program more readable as it makes this behavior explicit.
+On the other hand,
+it also introduces a mask computation, which could add
+latency to the data transfer.</p>
+<h1 id="examples"><a class="header" href="#examples">Examples</a></h1>
+<h2 id="ripple_reduce"><a class="header" href="#ripple_reduce"><code>ripple_reduce*</code></a></h2>
+<p>A reduction collapses the elements of a block
+along one or more of its dimensions.
+For example, the reduction of a 1-dimensional block vector with the “max” operator can be written without
+Ripple as follows:</p>
+<pre><code class="language-C">int32_t x[32];
+int32_t maximum = 0;
+for (size_t i = 0; i &lt; 32; ++i) {
+  maximum = max(x[i], maximum);
+}
+</code></pre>
+<p>Or, it can be written with Ripple as follows:</p>
+<pre><code class="language-C">int32_t x[32];
+ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 32);
+int32_t maximum =
+  ripple_reducemax(0b1, x[ripple_id(BS, 0)]);
+</code></pre>
+<p>The <code>0b1</code> argument is a bit field, with bit <code>0</code> set to
+true (1).
+This means that we reduce the block along dimension 1.
+If this were a 32x16 two-dimensional block, for example, the same call to <code>reducemax</code> would
+collapse the block along dimension <code>0</code> as well (using max),
+returning a 16-element, 1-dimensional block.</p>
+<h3 id="average--mean"><a class="header" href="#average--mean">Average / mean</a></h3>
+<p>We demonstrate use of <code>reduceadd</code> through average computations.
+The following example, a naive version of average computation,
+uses a one-dimensional block.</p>
+<pre><code class="language-C">#define VECTOR_PE 0
+#define VECTOR_SIZE 32
+
+float avg(size_t n, float * A) {
+    ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, VECTOR_SIZE);
+    float sum = 0;
+    ripple_parallel(BS, 0);
+    for (size_t i = 0; i &lt; n; ++i) {
+        sum += ripple_reduceadd(0b1, A[i]);
+    }
+    return sum / n;
+}
+</code></pre>
+<p>The first argument of reduceadd is a bitfield, describing the block dimensions
+along which the reduction is being done.
+Here it says that we are reducing along dimension 0
+(the only dimension available).</p>
+<p>This implementation is naive because reductions are typically
+more computationally expensive (<code>log(VECTOR_SIZE)</code> instructions)
+than data-parallel computations,
+and we can perform <em>most</em> of the sum using data-parallel computations
+(one instruction).
+To sum all the elements faster, we can start by decomposing <code>A</code> into blocks,
+and sum up all the blocks with each other.
+The result of that sum is a vector,
+which we can then sum up to a scalar using <code>ripple_reduceadd</code>,
+as shown in the following code.</p>
+<pre><code class="language-C">#define VECTOR_PE 0
+#define VECTOR_SIZE 32
+
+float avg(size_t n, float * A) {
+    ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, VECTOR_SIZE);
+    assert(n &gt;= VECTOR_SIZE);
+    float partial_sum = 0;
+    ripple_parallel(BS, 0);
+    for (size_t i = 0; i &lt; n; ++i) {
+        // partial_sum gets expanded automatically to a 1-d block of floats
+        partial_sum += A[i];
+    }
+    return ripple_reduceadd(0b1, partial_sum) /n;
+}
+</code></pre>
+<h3 id="block-slice-extraction"><a class="header" href="#block-slice-extraction">Block slice extraction</a></h3>
+<p>In the following example,
+we show one possible way to extract a vector block from a two-dimensional block.
+In Ripple, scalar, vector and matrix computations can coexist.
+While automatic broadcast promotes lower-dimensional blocks (including scalars)
+to higher-dimensional ones (e.g. vectors, matrices and tensors),
+reductions take higher-dimensional blocks as their input
+and return lower-dimensional blocks.
+In the following example,
+we use that idea to take the 2nd row of a <code>32x4</code> block, by zeroing out the other
+rows and reducing the <code>32x4</code> matrix block along dimension 1.</p>
+<pre><code class="language-C">#define VECTOR_PE 0
+#define N 1024
+
+void extract_2nd_row_from_32x4_blocks(float input[N], float output[N/4]) {
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 32, 4); // set up a 32 x 4 block shape
+  size_t v0 = ripple_id(BS, 0);
+  size_t v1 = ripple_id(BS, 1);
+  size_t block_size0 = ripple_get_block_size(BS, 0);
+  size_t block_size = block_size0 * ripple_get_block_size(BS, 1);
+
+  assert N % block_size == 0; // no vector loop epilogue
+  size_t n_blocks = N / block_size;
+  for (size_t block_idx = 0; block_idx &lt; n_blocks; ++block_idx) {
+    // coalesced load into a 2d block
+    float block = input[block_size * block_idx + block_size0 * v1 + v0];
+    float zeroed_out = v1 == 2 ? block : 0;
+    // add-reduction of a 2-d block of size 32x4 along dimension 1
+    // gives a 1-d block of size 32
+    float reduced = ripple_reduceadd(0b10, zeroed_out);
+    // coalesced store of the 1-d block
+    output[block_size0 * block_idx + v0] = reduced;
+  }
+}
+</code></pre>
+<p>Note that a more efficient way to extract a slice is to use the <code>ripple_slice</code>
+API, also presented in this section.</p>
+<p>The following other reduction functions are also
+available:</p>
+<ul>
+<li><code>ripple_reducemax</code></li>
+<li><code>ripple_reducemin</code></li>
+<li><code>ripple_reduceand</code></li>
+<li><code>ripple_reduceor</code></li>
+<li><code>ripple_reducexor</code></li>
+</ul>
+<h2 id="ripple_slice"><a class="header" href="#ripple_slice"><code>ripple_slice</code></a></h2>
+<p>We can multiply the two <code>128x1</code> slices along dimension 1 of a <code>128x2</code> value
+(called <code>input</code> here, representing a double HVX vector of <code>uint8_t</code>) as follows:</p>
+<pre><code class="language-C">uint8_t slice0 = ripple_slice(input, -1, 0); // input is 128x2, slice0 is 128x1
+uint8_t slice1 = ripple_slice(input, -1, 1); // slice1 is 128x1
+uint8_t mul = slice0 * slice1; // mul is 128x1
+</code></pre>
+<h2 id="ripple_shuffle"><a class="header" href="#ripple_shuffle"><code>ripple_shuffle</code></a></h2>
+<p><code>ripple_shuffle</code> modifies the ordering of the elements of a one-dimensional
+block.
+To do so, we need to define, for each element index <code>k</code>,
+the index of the element in the input block
+that needs to go to index <code>k</code> in the output.</p>
+<p>In C, this is expressed using a “shuffle function”
+(sometimes also called “source function”),
+which (exclusively) takes <code>k</code> and the block size,
+and returns the index to be used in the input.
+In the example below, we choose a one-dimensional block of 64 elements
+to represent a 2-dimensional tile that we want to transpose.</p>
+<pre><code class="language-C">// represents the inversion of rows and columns indices of a 8x8 matrix
+size_t transpose_8x8(size_t k, size_t block_size) {
+  return  8 * (k % 8) + (k / 8);
+}
+
+// @brief loads a "flat tile" and transposes it
+static int16_t transpose_tile(int16_t * tile_addr, size_t v) {
+  int16_t tile_element = tile_addr[v];
+  return ripple_shuffle(tile_element, transpose_8x8);
+}
+
+void permute(int16_t A[N][N][8][8]) {
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 64);
+  size_t v = ripple_id(BS, 0);
+  for (size_t i = 0; i &lt; N; ++i) {
+    for (size_t j = 0; j &lt;= i; ++j) {
+      // load a tile, i.e. a contiguous set of 64 elements
+      int16_t transposed_1 = transpose_tile(&amp;A[i][j][0][0], v);
+      int16_t transposed_2 = transpose_tile(&amp;A[j][i][0][0], v);
+      (&amp;A[j][i][0][0])[v] = transposed_1;
+      if (i != j)
+        (&amp;A[i][j][0][0])[v] = transposed_2;
+    }
+  }
+}
+
+</code></pre>
+<p>Note that the source function (here <code>transpose_8x8</code>) can be arbitrarily complex
+without affecting the performance of the program.
+Because source functions only depend upon the ripple_id and the block size,
+the compiler is able to instantiate the shuffle indices corresponding to each
+call to <code>ripple_shuffle</code>, resulting in zero runtime overhead for shuffling.
+Accessing an out-of-block index is invalid, resulting in an error.
+Source functions can express any static reordering of the elements of the block.</p>
+<p>Notice that <code>transpose_tile</code> does not have a call to <code>ripple_set_block_shape()</code>.
+This is because v is passed by value and is a Tensor. Either the function
+<code>transpose_tile</code> is inlined, or it will be cloned and vectorized for the shapes
+that <code>v</code> takes at the call site (i.e., here Tensor[64]).</p>
+<p>While C requires declaring a separate function to define a shuffle,
+in C++ a <em>non-capturing</em> lambda can be used to express a reordering,
+as in the following version.</p>
+<pre><code class="language-C">// @brief loads a "flat tile" and transposes it
+static int16_t transpose_tile(int16_t * tile_addr, size_t v) {
+  int16_t tile_element = tile_addr[v];
+  auto transpose_8x8 = [](size_t k, size_t block_size) -&gt; size_t {
+    return i * (k % 8) + (k / 8);
+  }
+  return ripple_shuffle(tile_element, transpose_8x8);
+}
+
+void permute(int16_t A[N][N][8][8]) {
+  auto BS = ripple_set_block_shape(VECTOR_PE, 64);
+  size_t v = ripple_id(BS, 0);
+  for (size_t i = 0; i &lt; N; ++i) {
+    for (size_t j = 0; j &lt;= i; ++j) {
+      // load a "flat tile"
+      int16_t transposed_1 = transpose_tile(&amp;A[i][j][0][0], v);
+      int16_t transposed_2 = transpose_tile(&amp;A[j][i][0][0], v);
+      (&amp;A[j][i][0][0])[v] = transposed_1;
+      if (i != j)
+        (&amp;A[i][j][0][0])[v] = transposed_2;
+    }
+  }
+}
+</code></pre>
+<p>An example for <code>ripple_shuffle_pair</code> can be found in the
+<a href="#coalescing-tips">coalescing optimization guide</a>.</p>
+<h2 id="hvx_rotate_to_lower"><a class="header" href="#hvx_rotate_to_lower"><code>hvx_rotate_to_lower</code></a></h2>
+<p><code>hvx_rotate_to_lower</code> is a rotation across elements of a
+one-dimensional block.
+If B is the block size,
+<code>hvx_rotate_to_lower(x, n)</code> moves element <code>k</code> of <code>x</code>
+from index <code>k</code> to index <code>k - n modulo B</code>.
+Values of <code>n</code> must be between 0 and B - 1.</p>
+<p>For instance, the following code snippet:</p>
+<pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 8);
+char alphabet = 'a' + ripple_id(BS, 0);
+char rotated_alphabet = hvx_rotate_to_lower(alphabet, 2);
+</code></pre>
+<p>creates <code>alphabet</code>, a 8-element block with letters <code>a</code> to <code>h</code></p>
+<p>| <code>a</code> | <code>b</code> | <code>c</code> | <code>d</code> | <code>e</code> | <code>f</code> | <code>g</code> | <code>h</code> |</p>
+<p>and then rotates it down by 2 elements, giving the following block:</p>
+<p>| <code>c</code> | <code>d</code> | <code>e</code> | <code>f</code> | <code>g</code> | <code>h</code> | <code>a</code> | <code>b</code> |</p>
+<p>In the code below, we use it to implement a partial prefix sum
+in a the <code>sum</code> vector.
+This means that the <code>k</code>-th element in <code>sum</code> contains the sum of all elements
+in <code>input</code> from <code>0</code> to <code>k</code>.</p>
+<p>Each iteration of the <code>step</code> loop sums each vector element of index <code>k</code> of <code>sum</code>
+with the element of index <code>k-step</code> for all <code>k</code>’s greater than <code>step</code>.
+This is done by rotating <code>sum</code> <em>up</em> by <code>step</code> indices.</p>
+<p>To rotate up, recall that <code>rotate</code> is cyclical,
+hence rotating by <code>block_size - step</code> towards lower indices
+is equivalent to rotating by <code>step</code> toward upper indices.</p>
+<p>The first iteration (<code>step=1</code>) computes the sum of each element with its direct
+neighbor.
+The second one sums pairs (leaving the first pair alone using
+<code>(v - step &gt;= 0)</code>), then quads, etc.</p>
+<p>The resulting partial sum vector is then stored into the <code>output</code> array.</p>
+<pre><code class="language-C">#define VECTOR_PE 0
+#define VECTOR_SIZE 32
+void partial_prefix_sum(int32_t input[VECTOR_SIZE], int32_t output[VECTOR_SIZE]) {
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, VECTOR_SIZE);
+  size_t block_size = ripple_get_block_size(BS, 0);
+  size_t v = ripple_id(BS, 0);
+
+  int32_t sum = input[v];
+  for (int step = 1; step &lt; block_size; step *= 2) {
+    // Shifts to upper by 'step' and adds
+    sum += (v - step &gt;= 0) ? hvx_rotate_to_lower(sum, block_size - step) : 0;
+  }
+  output[v] = sum;
+}
+</code></pre>
+<p><code>hvx_rotate_to_lower</code> can be used on multi-dimensional blocks, in which case
+the block will be interpreted as one-dimensional (basically, flattened)
+during the rotation.</p>
+<h2 id="ripple_add_sat--ripple_sub_sat"><a class="header" href="#ripple_add_sat--ripple_sub_sat"><code>ripple_add_sat / ripple_sub_sat</code></a></h2>
+<p><code>ripple_add_sat</code> is used to express saturated additions.
+The saturation behavior is determined by the type of the parameters passed to
+<code>ripple_add_sat.</code>
+If they are unsigned, <code>ripple_add_sat</code> will saturate at the maximum unsigned value;
+if they are signed, <code>ripple_sat_add</code> will saturate at the maximum
+signed value.</p>
+<p>Similarly for <code>ripple_sub_sat</code>, which will saturate at 0 if the arguments
+are unsigned and saturate at the minimum signed value if the arguments are signed.</p>
+<p>For instance, the following code will print <code>0 </code> 128 times.</p>
+<pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 128);
+uint8_t x = ripple_id(BS, 0);
+uint8_t y = -2 * ripple_id(BS, 0);
+printf("x-y=%i ", ripple_sub_sat(x, y));
+</code></pre>
+<p>And the following code will print <code>126 </code>, followed by <code>127 </code> 127 times.</p>
+<pre><code class="language-C">#include &lt;stdint.h&gt; // for int8_t, INT8_C
+ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 128);
+int8_t x = ripple_id(BS, 0);
+printf("x-y=%i ", ripple_add_sat(x, INT8_C(126)));
+</code></pre>
+<h2 id="ripple_parallel_full"><a class="header" href="#ripple_parallel_full">ripple_parallel_full</a></h2>
+<p><code>ripple_parallel_full(pe_id, dim)</code> is a variant of <code>ripple_parallel</code>
+in which the developer indicates that the number of iterations in the loop
+is an exact multiple of the block size along <code>dim</code>.
+As a result, <code>ripple_parallel_full</code> does not generate an epilogue.
+This can be useful to save the mask computation associated with the epilogue.</p>
+<p>The following example illustrates this with a simple vector addition:</p>
+<pre><code class="language-C">void vadd(int n, float A[n], float B[n], float C[n]) {
+   ripple_block_t BS = ripple_set_block_shape(HVX_PE, 32);
+   assert (n % ripple_get_block_size(BS, 0) == 0);
+   ripple_parallel_full(BS, 0);
+   for(size_t i = 0; i &lt; n; ++i) {
+     C[i] = A[i] + B[i];
+   }
+ }
+</code></pre>
+<h2 id="hvx_gather"><a class="header" href="#hvx_gather"><code>hvx_gather</code></a></h2>
+<p>Let us look at a dense-sparse vector inner product
+(more often found inside “SpMV”, sparse-matrix-dense-vector products).
+The sparse vector <code>S</code> is accompanied with an index (<code>S_index</code>),
+representing the coordinates of its non-zero elements.
+Let the dense vector be named <code>V</code>.</p>
+<p>Let’s start with a straightforward implementation.
+Since we only want to perform the multiplications for which S is non-zero,
+we select the corresponding elements in <code>V</code>:</p>
+<pre><code class="language-C">float SpVV(float * S, int32_t * S_index, size_t nS, float * V) {
+  ripple_block_t BS = ripple_set_block_shape(HVX_PE, 32);
+
+  float result = 0.f;
+  ripple_parallel(BS, 0);
+  for (size_t i = 0; i &lt; nS; ++i) {
+    result += S[i] * V[S_index[i]];
+  }
+  return ripple_reduceadd(0b1, result);
+}
+</code></pre>
+<p>Unfortunately, when vectorized, the indirection in <code>V[S_index[i]]</code> translates
+to vector gathers, which are very inefficient.
+In particular, they introduce long latencies in the innermost computational
+loop.
+These latencies tend to add up at each loop iteration, making the overall loop
+slow.</p>
+<p>The idea here is to still do long-latency gathers, but do a lot of them
+in parallel by using <code>hvx_gather</code>
+to make all accesses in the inner product loop coalesced.
+To simplify the following code, we assume the existence of <code>vtcm_malloc()</code> and
+<code>vtcm_free()</code> functions.</p>
+<pre><code class="language-C">float SpVV(float * S, int32_t * S_index, size_t nS, float * V, size_t nV) {
+  ripple_block_t BS = ripple_set_block_shape(HVX_PE, 32);
+  float * gathered_V = vtcm_malloc(sizeof(float) * nS, /*align_as=*/128);
+  ripple_parallel(BS, 0);
+  for (size_t i = 0; i &lt; nS; ++i) {
+    hvx_gather(gathered_V, i, V, S_index[i], /*region_size=*/nV);
+  }
+
+  float result = 0.f;
+  ripple_parallel(BS, 0);
+  for (size_t i = 0; i &lt; nS; ++i) {
+    result += S[i] * gathered_V[i];
+  }
+  vtcm_free(gathered_V);
+  return ripple_reduceadd(0b1, result);
+}
+
+Since all addresses in the `hvx_gather` loop are conflict-free,
+all the data reorganization is done in parallel (up to the limits offered by
+the underlying HVX hardware).
+Assuming the possibility to run `nS / 32` reorg copies at once,
+we are only paying the latency of one copy in the `hvx_gather` loop.
+The subsequent inner product loop is optimal in terms of its load/store
+latencies, which are all coalesced.
+</code></pre>
+<h2 id="ripple_to_vec--vec_to_ripple"><a class="header" href="#ripple_to_vec--vec_to_ripple"><code>ripple_to_vec</code> / <code>vec_to_ripple</code></a></h2>
+<p>The following function implements an integer-vector norm on a sequence of pairs represented in a <code>VectorPair</code> (64 elements),
+unzips the pairs into a pair of
+vectors containing the elements of each pair, and returns their elementwise multiplication with each other as a <code>Vector</code> (32 elements).</p>
+<pre><code class="language-C++">#include &lt;ripple.h&gt;
+#include &lt;ripple/zip.h&gt;
+
+typedef int32_t __attribute__((vector_size(128))) Vector;
+typedef int32_t __attribute__((vector_size(256))) VectorPair;
+
+Vector norm(VectorPair pair) {
+  auto BS = ripple_set_block_shape(0, 32, 2);
+  int32_t x = vec_to_ripple_2d&lt;64, int32_t&gt;(BS, pair);
+  // This "zip" shuffle turned a sequence of pairs into a pair of sequences
+  int32_t even_odds = ripple_shuffle(x, rzip::shuffle_unzip&lt;2, 0, 0&gt;);
+  int32_t evens = ripple_slice(even_odds, -1, 0); // 32x1 shape
+  int32_t odds = ripple_slice(even_odds, -1, 1); // 32x1 shape
+  return ripple_to_vec&lt;32, int32_t&gt;(BS, evens * odds);
+}
+</code></pre>
+<hr>
+<p>Hexagon is a registered trademark of Qualcomm Incorporated.</p>
+<hr>
+<p><em>Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear</em></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="calling-functions-when-using-ripple"><a class="header" href="#calling-functions-when-using-ripple">Calling functions when using Ripple</a></h1>
+<h1 id="functions-inheriting-the-callers-block-shapes"><a class="header" href="#functions-inheriting-the-callers-block-shapes">Functions inheriting the caller’s block shapes</a></h1>
+<p>Ripple represents a block shape as a <code>ripple_block_t</code>, returned by calling
+<code>ripple_set_block_shape()</code>. This value is used with other ripple constructs such
+as <code>ripple_id()</code>, <code>ripple_get_block_size()</code> and <code>ripple_broadcast()</code>. It can
+also be passed by value as a function’s argument. The result is that one or more
+block shapes of the caller become available to the callee. You can pass the
+block size at <em>any</em> argument position and use it inside the function to do
+additional processing.</p>
+<p>Passing the block shape is only allowed when the function being called is
+defined in the same compilation unit as the caller. Otherwise, an error is
+reported.</p>
+<p>In the following example, we separated the processing in three functions:
+<code>load_and_square()</code> loads a 1D tensor and squares the value, <code>add_and_store</code>
+adds a 1D tensor to the value pointed by <code>out</code> and <code>my_method()</code> composes them.
+In order for the first two function to agree on the same tensor size, we pass the
+block size as argument.</p>
+<pre><code class="language-C">float load_and_square(float *arr, ripple_block_t BS) {
+  return arr[ripple_id(BS, 0)] * arr[ripple_id(BS, 0)];
+}
+
+float add_and_store(ripple_block_t BS, float *out, float value) {
+  out[ripple_id(BS, 0)] += value;
+}
+
+float my_method(float *in, float *out) {
+  ripple_block_t BS = ripple_set_block_shape(0, 32);
+  float *val = load_and_square(in, BS);
+  add_and_store(BS, out, val);
+}
+</code></pre>
+<h1 id="function-call-vectorization"><a class="header" href="#function-call-vectorization">Function call vectorization</a></h1>
+<p>Ripple also supports the call of scalar library functions.
+There are three scenarios, when a function call depends upon a <code>ripple_id()</code>:</p>
+<ul>
+<li>the scalar library function is defined in the same module as the caller.
+In this case, the callee needs to be inlined.</li>
+<li>The scalar function has a vector implementation know to Ripple through its
+<a href="#ripple-vector-bitcode-libraries">vector bitcode library</a> mechanism.
+In this case, Ripple calls that vector implementation.</li>
+<li>the scalar library function is known but its definition is external
+to the current module, or it isn’t inlined.
+In this case, the function calls become sequentialized.
+While the call per se is sequentialized,
+code around the calls remain vectorized.</li>
+</ul>
+<p>Some distributions of Ripple include a math library.
+Users who wish to use math functions (such as sqrt, exp, etc.) should
+include <code>ripple_math.h</code>.
+One advantage of <code>ripple_math.h</code> is that
+it also defines 16-bit floating point versions of the math function.
+The naming convention for float16 functions in C
+follows the existing one in the C standard library,
+based on a suffix, where the suffix is <code>f16</code>.
+For instance, for sqrt, we have:</p>
+<hr>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>type</th><th>function name</th></tr>
+</thead>
+<tbody>
+<tr><td>double</td><td>sqrt</td></tr>
+<tr><td>float</td><td>sqrtf</td></tr>
+<tr><td>_Float16</td><td>sqrtf16</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<hr>
+<p><em>Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear</em></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ripple-vector-bitcode-libraries"><a class="header" href="#ripple-vector-bitcode-libraries">Ripple vector bitcode libraries</a></h1>
+<p>Consider the case when Ripple determines that
+a function call statement should have a non-scalar shape.
+Ripple’s role is to render code that corresponds to a SIMD execution
+of that (scalar) function.
+As detailed <a href="opt-guide/calling.html">here</a>,
+the behavior of Ripple varies as a function of the information available:</p>
+<ul>
+<li>
+<p><strong>If no SIMD version of the scalar function is known to Ripple</strong></p>
+<ul>
+<li>If the scalar function definition is known, Ripple proceeds to create
+a SIMD equivalent to the (scalar) function, with its arguments expanded
+to their SIMD shape.The expanded version of the function call will be
+a call to the SIMD equivalent function.</li>
+<li>If no such SIMD version of the function is known to Ripple,
+Ripple calls the function sequentially for all the elements of the block.</li>
+</ul>
+</li>
+<li>
+<p><strong>If a SIMD version of the function is available</strong></p>
+<p>Ripple will use the SIMD implementation directly (by calling the SIMD function).
+This requires the SIMD version to be declared in a vector “bitcode library”.
+We describe this process in the next section.</p>
+</li>
+</ul>
+<h1 id="creating-a-bitcode-library-for-ripple"><a class="header" href="#creating-a-bitcode-library-for-ripple">Creating a bitcode library for Ripple</a></h1>
+<h2 id="custom-library"><a class="header" href="#custom-library">Custom library</a></h2>
+<p>Ripple currently relies on a naming convention to recognize
+the relationship between a scalar function and its SIMD equivalent.</p>
+<p>Consider a toy example in which we want to
+create a vector elementwise multiplication function.
+Let us call the scalar version, to be used in the Ripple source,
+<code>elemprod</code>.</p>
+<pre><code class="language-C">extern "C" {
+float elemprod(float a, float b);
+}
+</code></pre>
+<p>To make it accessible to Ripple programmers,
+we would declare it in a C header, say <code>elem_ops.h</code>,
+and use it as in the example below:</p>
+<pre><code class="language-C">#include &lt;ripple.h&gt;
+#include &lt;elem_ops.h&gt;
+
+#define VECTOR_PE 0
+
+float foo(float * A, float * B, float * C, size_t n) {
+  ripple_block_t block = ripple_set_shape(VECTOR_PE, 8);
+  ripple_parallel(block, 0);
+  for (size_t i = 0; i &lt; n; ++i) {
+    A[i] = elemprod(B[i], C[i]);
+  }
+}
+</code></pre>
+<p>Ripple would infer shapes and determine that the shapes of <code>B[i]</code>
+and <code>C[i]</code> are [8].
+It would then look for a function:</p>
+<ul>
+<li>whose name indicates that it is a vectorized version of <code>elemprod</code>, and</li>
+<li>which takes vectors as its arguments.
+It would also check if such function can be used to implement
+a vector version of <code>elemprod</code> for the shape [8].</li>
+</ul>
+<p>Ripple looks for such a function in the current module,
+but also in special “bitcode” libraries provided to it through a
+clang command-line flag.</p>
+<h3 id="naming-convention"><a class="header" href="#naming-convention">Naming convention</a></h3>
+<p>The vector implementation of a scalar function <code>foo</code> needs to be
+named as follows:</p>
+<pre><code class="language-C">typedef float v8f32 __attribute__((vectorsize(32)));
+v8f32 ripple_&lt;attributes&gt;_&lt;signature&gt;_elemprod(v8f32 a, v8f32 b);
+</code></pre>
+<p><strong>&lt;attributes&gt;</strong></p>
+<p>A subset of the following strings, separated by <code>_</code> (underscores):</p>
+<ul>
+<li><code>ew</code> specifies that the function is elementwise.
+Ripple uses this information to adjust the calls to, say,
+<code>ripple_ew_elemprod()</code> to the requested shape ([8]).
+To do so successfully, Ripple may also need a masked definition
+of the vector function (see below).</li>
+<li><code>pure</code> specifies that the function does not have side-effects
+(i.e., it does not read or write to any external memory element).
+Ripple uses that to avoid using masks in the case of elementwise functions.</li>
+<li><code>mask</code> specifies that the function is a masked implementation of <code>elemprod</code>.
+If the function call is controlled by a block-shaped conditional,
+the mask corresponding to this conditional is applied to the vector function.
+Masks are also used to adjust the effective size of the vector parameters,
+when that size is smaller than the provided implementation
+(for instance if the call’s shape was [4]),
+or if there are leftover elements
+(for instance if the call’s shape was [12] and it is elementwise).</li>
+</ul>
+<p><strong>&lt;signature&gt;</strong></p>
+<p>Optionally encodes tensor specifications for arguments and return values:</p>
+<ul>
+<li><code>uniform_&lt;tensor_shape&gt;</code> — All arguments and return value share the same tensor shape.</li>
+<li>Individual shapes:
+<ul>
+<li><code>argX_&lt;tensor_shape&gt;</code> — Shape of argument at index X (0-based).</li>
+<li><code>ret_&lt;tensor_shape&gt;</code> — Shape of the return value.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Tensor Shape Format</strong></p>
+<pre><code>t&lt;dim0&gt;x&lt;dim1&gt;x...&lt;dimN&gt;&lt;type&gt;
+</code></pre>
+<ul>
+<li><code>t</code> — Prefix for tensor.</li>
+<li><code>&lt;dim0&gt;x&lt;dim1&gt;x...&lt;dimN&gt;</code> — Dimensions.</li>
+<li><code>&lt;type&gt;</code> — Element type (e.g., i16 for 16-bit integer, f32 for 32-bit float).</li>
+</ul>
+<p>For example, <code>t32x1x3i16</code> represents a tensor Tensor[32][1][3] of 16-bit integers.</p>
+<p>Tensors with only trivial dimensions (size 1) are considered scalars, e.g.,
+t1f32 or t1x1f32. Scalars do not require a signature; Ripple will pass them as
+normal scalar values.</p>
+<p>If no match for a vectorized function is found, the function call is rendered
+as a sequence of calls.</p>
+<p>In our case, the product is elementwise and pure.
+We could implement a version for the Intel AVX (R) ISA as follows,
+in <code>elem_ops.cc</code>:</p>
+<pre><code class="language-C">#include &lt;immintrin.h&gt;
+extern "C" {
+// note: v8f32 == __m256
+typedef float v8f32 __attribute__((vectorsize(32)));
+
+inline __attribute__((used, always_inline, weak, visibility("hidden")))
+v8f32 ripple_ew_pure_elemprod(v8f32 a, v8f32 b) {
+  return _mm256_mul_ps(a, b);
+}
+}
+</code></pre>
+<p>It is important to declare <code>ripple_ew_pure_elemprod</code> in a <code>"C"</code> linkage region,
+in order to preserve the function name when a C++ compiler is used.
+C++ mangles function names with operand types,
+which prevents Ripple from matching the
+scalar function name with its vector equivalent.</p>
+<p>We also recommend that you use the set of attributes used here
+for <code>ripple_ew_pure_elemprod</code>,
+in order to minimize compiler warnings and enable inlining of the vector
+function (if desired).</p>
+<h3 id="automatic-1d-shape-recognition"><a class="header" href="#automatic-1d-shape-recognition">Automatic 1D Shape Recognition</a></h3>
+<p>For targets whose ABI has well-defined vector argument types, Ripple can infer
+1D tensor shapes directly from the type system. For unconventional vector
+sizes, the ABI may dictate passing by pointer. In such cases, Ripple may not be
+able to infer the correct tensor shape, so a manually specified tensor shape
+through signature annotation is required.</p>
+<h3 id="signature-example-matrixvector-vector--2d-tensor"><a class="header" href="#signature-example-matrixvector-vector--2d-tensor">Signature Example: Matrix–Vector (Vector + 2D Tensor)</a></h3>
+<p>Shapes (row-major):</p>
+<ul>
+<li>arg0 = <code>Tensor[8]</code> of f32 (vector)</li>
+<li>arg1 = <code>Tensor[4][8]</code> of f32 (matrix with 4 rows × 8 cols)</li>
+<li>return = <code>Tensor[4]</code> of f32 (vector)</li>
+</ul>
+<p>Signature encoding:</p>
+<ul>
+<li>arg0_t8f32</li>
+<li>arg1_t4x8f32</li>
+<li>ret_t4f32</li>
+</ul>
+<p>Because this is not <strong>elementwise</strong>, omit ew. Add pure because there is no
+side-effects in the matrix-vector operation.</p>
+<pre><code class="language-C">typedef float t4f32 __attribute__((vectorsize(16)));    // 4 lanes of f32
+typedef float t8f32 __attribute__((vectorsize(32)));    // 8 lanes of f32
+typedef float t4x8f32 __attribute__((vectorsize(128))); // 4x8 block (conceptual)
+
+t4f32 ripple_pure_arg0_t8f32_arg1_t4x8f32_ret_t4f32_matvec(t8f32 vec, t4x8f32 matrix);
+
+// Ripple can often infer 1D tensor shapes; the following declaration is equivalent and less verbose:
+t4f32 ripple_pure_arg1_t4x8f32_matvec(t8f32 vec, t4x8f32 matrix);
+</code></pre>
+<h4 id="optimal-implementation-size"><a class="header" href="#optimal-implementation-size">Optimal implementation size</a></h4>
+<p>When in doubt about the size of vector parameters for a vector implementation,
+we recommend to use a size for which the computation is optimally efficient.</p>
+<h3 id="function-without-argument"><a class="header" href="#function-without-argument">Function Without Argument</a></h3>
+<p>Ripple selects external functions based on the tensor shapes of the arguments at
+the call site inside a ripple-enabled function. If a function does not have any
+tensor argument, the scalar function call is not modified; ripple will ignore
+it.</p>
+<p>In order to allow for external functions taking no tensor argument, ripple
+defines a special API using the block shape value. This API is often useful to
+access constants or hardware accumulators/storage.</p>
+<p>The API is as follows:</p>
+<ul>
+<li>The scalar definition has a unique <code>ripple_block_t</code> argument:
+<pre><code class="language-c">extern float myFunction(ripple_block_t BS);
+</code></pre>
+</li>
+<li>The ripple function definition follows the regular naming convention
+and takes <code>void</code> as argument (or none in C++):
+<pre><code class="language-c">typedef float t4f32 __attribute__((vectorsize(16))); // 4 lanes of f32
+t4f32 ripple_ret_t4f32_myFunction(void);
+</code></pre>
+</li>
+</ul>
+<p><strong>Usage example:</strong></p>
+<pre><code class="language-c">float foo(float * A, size_t n) {
+  ripple_block_t block = ripple_set_shape(0, 4);
+  ripple_parallel(block, 0);
+  for (size_t i = 0; i &lt; n; ++i) {
+    A[i] = myFunction(block);  // Ripple transforms this to call ripple_ret_t4f32_myFunction()
+  }
+}
+</code></pre>
+<p>When calling this function from within a ripple-enabled region with an active
+block shape, Ripple will transform the call by removing the <code>ripple_block_t</code>
+argument and invoking the external vector function, which returns a tensor
+matching the function’s specified return shape.</p>
+<h3 id="compilation"><a class="header" href="#compilation">Compilation</a></h3>
+<p>Now the library source file can be turned into a bitcode representation using</p>
+<pre><code class="language-bash">clang elem_ops.cc -S -emit-llvm -o elem_ops.bc
+</code></pre>
+<p>Bitcode libraries have the <code>.bc</code> extension.</p>
+<h3 id="declaration-to-ripple"><a class="header" href="#declaration-to-ripple">Declaration to Ripple</a></h3>
+<p>For Ripple to have access to the <code>elem_ops</code> bitcode library,
+we need to pass its path to the command-line when compiling <code>foo.cc</code>:</p>
+<pre><code class="language-bash">clang foo.cc -fenable-ripple -fripple-lib elem_ops.bc
+</code></pre>
+<h2 id="ripple-standard-vector-library"><a class="header" href="#ripple-standard-vector-library">Ripple standard vector library</a></h2>
+<p>As a target-agnostic compiler pass, Ripple allows us to write code that
+is not specific to a target.
+However, developers needing to exploit target-specific features,
+such as special SIMD instructions or target-optimized math functions can
+use bitcode libraries to access these.</p>
+<p>Target-specific APIs presented in this manual are implemented as a bitcode
+library, included by default by clang.
+It is somehow a “standard” or “default” bitcode library.</p>
+<h3 id="multi-lib-organization"><a class="header" href="#multi-lib-organization">Multi-lib organization</a></h3>
+<p>The Ripple standard bitcode library is organized as a multi-lib,
+i.e. there may be different versions of a function per processor and ISA version.</p>
+<hr>
+<p><em>Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear</em></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ripple-vs-cudar-and-openclr"><a class="header" href="#ripple-vs-cudar-and-openclr">Ripple vs. CUDA(R) and OpenCL(R)</a></h1>
+<p>Like CUDA(R) and OpenCL(R), Ripple implements an SPMD parallel programming abstraction
+by defining block sizes and indices.
+These concepts have a match in Ripple, although in CUDA and OpenCL their syntax
+makes them more specialized to CUDA’s “threads” and OpenCL’s “local” PEs.
+On an NVIDIA GPU, these correspond to the “core” and “SM” hardware
+processing elements (an SM, or “Streaming Multiprocessor”, contains several cores).</p>
+<p>To perform a comparison, in Ripple we must look at a target machine
+whose structure is that of a GPU,
+in that the target machine has two kinds of PEs.
+To push the comparison, let’s call them VECTOR
+(which, in the comparison, corresponds to the CUDA cores level)
+and MULTICORE (which corresponds the Streaming Multiprocessors).</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: center">CUDA(R)</th><th style="text-align: center">OpenCL(R)</th><th style="text-align: center">Ripple</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: center">threadIdx.x</td><td style="text-align: center">get_local_id(0)</td><td style="text-align: center">ripple_id(vector_block, 0)</td></tr>
+<tr><td style="text-align: center">threadIdx.y</td><td style="text-align: center">get_local_id(1)</td><td style="text-align: center">ripple_id(vector_block, 1)</td></tr>
+<tr><td style="text-align: center">blockIdx.x</td><td style="text-align: center">get_group_id(0)</td><td style="text-align: center">ripple_id(multicore_block, 0)</td></tr>
+<tr><td style="text-align: center">blockIdx.y</td><td style="text-align: center">get_group_id(1)</td><td style="text-align: center">ripple_id(multicore_block, 1)</td></tr>
+<tr><td style="text-align: center">blockDim.x</td><td style="text-align: center">get_local_size(0)</td><td style="text-align: center">ripple_get_block_size(vector_block, 0)</td></tr>
+<tr><td style="text-align: center">__syncthreads()</td><td style="text-align: center">barrier(CLK_LOCAL_MEM_FENCE)</td><td style="text-align: center">ripple_sync(vector_block)</td></tr>
+</tbody>
+</table>
+</div>
+<p>The table above shows that the Ripple API is able to target
+a wider range of target machines,
+since it does not intrinsically make an assumption about the
+targeted architecture.
+Although only a machine with SIMD is supported by the compiler for now,
+in theory the API allows us to write code targeting
+many different types of machine in Ripple.</p>
+<p>The idea is that the hierarchy of processing elements,
+as well as how they interact (synchronization, shared memories),
+will be described in a machine model, driving the compiler’s rendering of the
+Ripple code to the targeted machine.</p>
+<h2 id="simd-vs-simt"><a class="header" href="#simd-vs-simt">SIMD vs SIMT</a></h2>
+<p>On SIMD engines, hardware vector lanes execute in a tightly-coupled fashion,
+hence they are already as synchronized with each other as they can get.
+As a result, SIMD vector and matrix PEs targeted by Ripple
+don’t need any calls to <code>ripple_sync()</code>.</p>
+<h2 id="multi-dimensional-blocks"><a class="header" href="#multi-dimensional-blocks">Multi-dimensional blocks</a></h2>
+<p>One of Ripple’s objectives is to enable the expression of mixed scalar, vector
+and tensor codes in the same function.</p>
+<p>In CUDA(R) and OpenCL(R), where a two-dimensional block is used,
+all computations in the function are executed by
+a two-dimensional block of PEs.
+As a result, the GPU cores may perform a lot of redundant computations,
+which could advantageously be done by a single scalar engine
+on hardware architectures that include one.</p>
+<p>Non-GPUs often contain a variety of scalar, vector and matrix engines.
+While distributing computations on the elements of a matrix engine
+would typically require a two-dimensional block,
+vector computations in that same function
+may be best represented by a one-dimensional block.
+There is also no need to have scalar computations be duplicated across
+a vector or matrix block.
+Ripple gives us control over the number of
+dimensions in which computations should be performed.</p>
+<p>As a result, Ripple programs written for an architecture that includes
+scalar, vector and matrix engines are made of computations whose shapes
+vary from 0 to at least 2.</p>
+<h2 id="shape-consistency"><a class="header" href="#shape-consistency">Shape consistency</a></h2>
+<p>CUDA(R) and OpenCL(R) assume that the shape of all computations is the
+shape they have defined for the entire function.
+Shape consistency is guaranteed by the simple fact that
+all operations have the same shape.</p>
+<p>Ripple enables the expression of shapes of different dimensions in a function,
+so the various shapes must be consistent with each other.
+Because implicit broadcasting removes
+a lot of potential shape inconsistency issues,
+the shape inconsistency problem tends to crystalize around writes.</p>
+<p>While the following code is legal (although an undefined behavior) in CUDA:</p>
+<pre><code class="language-C">  A[0][0] = B[threadIdx.y][threadIdx.x];
+</code></pre>
+<p>the corresponding Ripple code is illegal,
+because it results in shape inconsistency:</p>
+<pre><code class="language-C">  A[0][0] = B[ripple_id(vector_block, 0)]
+</code></pre>
+<p>The shape of the write to <code>A</code> is zero-dimensional,
+while the read from <code>B</code> is one-dimensional.</p>
+<h2 id="shuffling"><a class="header" href="#shuffling">Shuffling</a></h2>
+<p>The shuffle API offered by Ripple applies to the full block
+they take as an input. Hence it is more general than
+the ones proposed by CUDA(R) and OpenCL(R), which only apply to subgroups.</p>
+<h2 id="performance-portability"><a class="header" href="#performance-portability">Performance portability</a></h2>
+<p>Ripple offers the same promise of performance portability as CUDA(R) and OpenCL(R):
+a fairly weak one.
+While the same Ripple code can be recompiled
+to and run a variety of SIMD architectures as is,
+the resulting performance compared to peak will
+vary greatly across architectures.</p>
+<p>As with CUDA and OpenCL, Ripple users can easily tune their implementation
+by adapting the block size.
+However, CUDA, OpenCL and Ripple programs that are optimized for a given
+hardware architecture will generally not be optimal
+for a different architecture.</p>
+<p>However, Ripple offers a single API for all the architectures it supports,
+making it <em>possible</em> to write performance-portable programs.
+Such programs will be written explicitly as a function of architectural features
+of the targeted machine (e.g. SIMD width, cache sizes)
+to achieve performance portability.</p>
+<h2 id="porting-cudar-and-openclr-to-ripple"><a class="header" href="#porting-cudar-and-openclr-to-ripple">Porting CUDA(R) and OpenCL(R) to Ripple</a></h2>
+<p>Developers desiring to port existing CUDA(R) and OpenCL(R) programs will
+have to take the above differences into account when doing so.
+Depending upon the input, starting from a sequential implementation
+and using <a href="#distributing-loop-computations-in-ripple">Ripple loop annotations</a> might be
+more effective than trying to port code from their CUDA or OpenCL version.</p>
+<hr>
+<p>CUDA is a trademark of NVIDIA Corporation.</p>
+<p>OpenCL is a trademark of Apple Incorporated.</p>
+<hr>
+<p><em>Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear</em></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="optimizing-ripple-programs"><a class="header" href="#optimizing-ripple-programs">Optimizing Ripple programs</a></h1>
+<p>While the Specification section presents the syntax and API of Ripple,
+this section focuses on how to achieve good performance using Ripple.
+We start by going over the <a href="#vector-optimization-principles">requirements for an efficient utilization of the
+underlying vector hardware</a>.
+Then, we present a few aspects related to
+<a href="opt-guide/pitfalls.html">expressing coalesced accesses</a>, which require special attention.
+Finally, we take a look at ways to
+<a href="opt-guide/hvx.html">leverage some of the strengths of Hexagon(R)’s HVX instruction set</a>
+through Ripple.</p>
+<hr>
+<p>Hexagon is a registered trademark of Qualcomm Incorporated.</p>
+<hr>
+<p><em>Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear</em></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="vector-optimization-principles"><a class="header" href="#vector-optimization-principles">Vector optimization principles</a></h1>
+<p>In this section, we discuss general optimization principles when targeting a
+machine that has a vector engine.</p>
+<p>Consider optimization as trying to avoid doing expensive things:</p>
+<ul>
+<li><em>Utilization</em> is about putting all the vector lanes available to contribution.</li>
+<li><em>Coalescing</em> is about performing loads and stores efficiently,
+in as few chunks of contiguous data as possible.</li>
+<li><em>Alignment</em> is about loading and storing a data chunk
+that exactly matches one of the “hardware chunks” that the memory is made of.</li>
+<li><em>Register reuse</em> is about avoiding unnecessary loads and stores
+by doing all the work needed on a given vector
+while the data is in the (vector) registers.</li>
+</ul>
+<h2 id="utilization"><a class="header" href="#utilization">Utilization</a></h2>
+<p>Utilization is defined by how many vector lanes are active in the computation.
+It is recommended to grow the number of vector lanes to fully utilize at least
+one HVX vector.</p>
+<h3 id="underutilization"><a class="header" href="#underutilization">Underutilization</a></h3>
+<p>The number of hardware vector lanes utilized by our code depends upon
+the type of the tensor elements we are manipulating.
+Let <code>elem_size</code> be the number of bits in our tensor elements,
+and <code>vec_bits</code> the number of bits in our vector engine.
+For example, for HVX, <code>vec_bits = 1024</code>.
+It is given by <code>#v = ceiling((block_size x elem_size)  / vec_bits)</code>.</p>
+<p>Hence, to reach full utilization on HVX,
+it is recommended to have a total block size of</p>
+<ul>
+<li>128 if we work on 8-bit data</li>
+<li>64 if we work on 16-bit data</li>
+<li>32 if we work on 32-bit data, etc.</li>
+</ul>
+<p>For AVX512, <code>vec_bits = 512</code>, resulting in half the number of vector lanes for
+any specific data type.</p>
+<p>This usually means that a good Ripple block size is one that is at least as big
+as the number of vector lanes offered by the underlying hardware vector engine.
+Using more can be beneficial, because it exposes more parallel computations,
+which can be used by the compiler to get better performance
+(typically by improving instruction-level parallelism,
+like pipeline or VLIW parallelism).</p>
+<h3 id="overutilization"><a class="header" href="#overutilization">Overutilization</a></h3>
+<p>If the number of active vector registers in a Ripple block of vector lanes
+goes beyond the size of the vector register file
+(e.g. HVX defines 32 vector registers per thread),
+the compiler may have to save
+registers to a slower memory and load them back later,
+which significantly lowers performance.</p>
+<p>Beware that compilers often introduce temporary computations,
+which also take up register space and may lead to those extraneous store/loads.</p>
+<h2 id="coalescing-1"><a class="header" href="#coalescing-1">Coalescing</a></h2>
+<p>In vector hardware, loads and stores happen by chunks of contiguous memory
+(typically of the native vector size).
+Because they are slower than other instructions,
+the amount of loads and stores in a program
+tend to have a significant impact on performance.
+Hence, reducing the number of loads and stores is an important step in the optimization of SIMD programs.
+This impacts how we should load and store the data we manipulate.</p>
+<p>When we only load and store contiguous data chunks that correspond to
+full native SIMD vectors, the number of loads and stores is minimized.
+Such loads and stores are called <em>coalesced</em>.
+While we depict the general goal here, this manual contains a section about specific ways to <a href="opt-guide/pitfalls.html">obtain coalescing</a></p>
+<p>We want to load contiguous memory elements to contiguous processing elements
+(i.e. vector lanes).
+If we are using a 1-dimensional block shape, this means that
+only the rightmost dimension of a tensor’s access function must depend upon
+the vector lane id, and that in that access function,
+the vector lane id is not multiplied by anything (i.e. its coefficient is 1).</p>
+<p>For example:</p>
+<pre><code class="language-C">v = ripple_id(ripple_set_block_shape(0, 32), 0);
+x = A[i][k][j + v];
+</code></pre>
+<p>If <code>v</code> is multiplied by a constant (other than 1),
+this constant becomes a <em>stride</em>,
+meaning that some elements of the tensor are skipped, which is less efficient
+than a coalesced load.</p>
+<p>If <code>v</code> is involved in other dimensions than the rightmost in a tensor access,
+this results in a stride as well
+(as large as the slice defined by the dimensions to the right of that
+involving <code>v</code>).
+So if the semantics of our computations allow for it, we only use <code>v</code> in the
+rightmost dimension of our tensor references.
+If we don’t, the code will be correct but slow.</p>
+<p>Ripple lays out block elements into vector lanes in column-major order,
+as explained <a href="#mapping-software-processing-elements-to-hardware-processing-elements">here</a>.</p>
+<h2 id="alignment"><a class="header" href="#alignment">Alignment</a></h2>
+<p>Hardware memory space is typically partitioned regularly as
+a large set of fixed-size chunks.
+An example of this is cache lines.
+Because of this partitioning,
+the most efficient memory transfer (load or store) that can be done is by
+transferring exactly a set of full chunks.
+We have seen above that a condition for this to happen is for such
+load or store to be coalesced.
+For a vector engine to load exactly one chunk,
+the start address of a coalesced load or store also has to start
+at the starting address of a chunk.
+We call such a load or store “aligned”.
+The basic rule to have an aligned load or store is for its start address
+(the address accessed by coordinate <code>(0)</code> or <code>(0, 0)</code>) to be a multiple of the
+hardware vector size (e.g. 1024 bits, i.e. 128 bytes, for HVX).</p>
+<h3 id="specifying-alignment"><a class="header" href="#specifying-alignment">Specifying Alignment</a></h3>
+<p>For best result, we advise the use of the ripple API to specify tensor
+alignment, as well as using them as close to the load/store instruction as
+possible. We provide
+<code>ripple_ptr_alignment</code> and <code>ripple_ptr_alignment_slice</code> functions to specify the
+pointer alignment from a tensor of pointers.</p>
+<ul>
+<li>
+<p><code>ripple_ptr_alignment_slice(Tensor_of_Pointers, Alignment_in_Bytes)</code></p>
+<p>This construct indicates that the element <code>(0, 0 ... 0, 0)</code> is aligned by the provided alignment.</p>
+</li>
+<li>
+<p><code>ripple_ptr_alignment_slice(Tensor_of_Pointers, Alignment_in_Bytes, Slice_Index0, ...)</code></p>
+<p>This constructs is similar to <code>ripple_ptr_alignment_slice</code>, with the addition of letting you specify the slice indices to extract the pointer which is aligned. Non-provided indices is assumed to be zero.</p>
+</li>
+</ul>
+<h4 id="considerations"><a class="header" href="#considerations">Considerations</a></h4>
+<p>By using this API, you are specifying alignment constraints that will be
+followed by the compiler. If, at runtime, the pointer is not aligned to
+the provided value, the behavior will be hardware defined (e.g., an hardware interrupt may be raised, or
+the values may be loaded/stored by ignoring the pointer bits that are not aligned).</p>
+<h3 id="using-the-ripple-vector-alignment-api"><a class="header" href="#using-the-ripple-vector-alignment-api">Using the Ripple Vector Alignment API</a></h3>
+<h4 id="tensors-with-alignment-hint"><a class="header" href="#tensors-with-alignment-hint">Tensors with Alignment Hint</a></h4>
+<pre><code class="language-c">#define VECTOR_PE 0
+
+void function_with_aligned_ptrs(size_t size, float *in, float *out) {
+    ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 4);
+
+    ripple_parallel(BS, 0);
+    for (size_t i = 0; i &lt; size; ++i) {
+
+        // Indicates that in and out values are aligned to every 4 float values
+        *ripple_ptr_alignment(&amp;out[i], 4 * sizeof(float)) = *ripple_ptr_alignment(&amp;in[i], 4 * sizeof(float)) * in[i];
+
+        // Notice that you only need to specify the alignment once for it to apply to expressions of the same value (the second in[i] assumes the same alignment as the first one)
+    }
+}
+</code></pre>
+<h4 id="tensors-with-multiple-alignment-hints"><a class="header" href="#tensors-with-multiple-alignment-hints">Tensors with Multiple Alignment Hints</a></h4>
+<p>Sometimes you may want to process multiple vectors at once (pairs). To indicate multiple alignment within a tensor, you can use multiple alignment calls by providing the slicing indices:</p>
+<pre><code class="language-c">#define VECTOR_PE 0
+
+void function_with_aligned_ptrs(size_t size, float *in, float *out) {
+    // Process pairs of 4 values
+    ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 4, 2);
+
+    ripple_parallel(BS, 0, 1);
+    for (size_t i = 0; i &lt; size; ++i) {
+        // *in* and *out* pointers at tensor indices [0][0] and [0][1] are aligned to 4 float values
+        ripple_ptr_alignment(&amp;in[i], 4 * sizeof(float));
+        ripple_ptr_alignment(&amp;out[i], 4 * sizeof(float));
+        ripple_ptr_alignment_slice(&amp;in[i], 4 * sizeof(float), 0, 1);
+        ripple_ptr_alignment_slice(&amp;out[i], 4 * sizeof(float), 0, 1);
+
+        // The 4 alignment hints apply to the following load/store
+        out[i] = in[i] * in[i];
+    }
+}
+</code></pre>
+<h3 id="using-other-alignment-hints"><a class="header" href="#using-other-alignment-hints">Using Other Alignment Hints</a></h3>
+<p>Ripple is based on clang, which natively supports a general alignment mechanism, through the <code>__builtin_assume_aligned()</code> function.
+This function lets us indicate that some pointers are aligned on a certain number of bytes.
+The compiler uses uses said indications to infer alignment of vector loads and stores occurring as a result of using Ripple.</p>
+<p><strong>In certain conditions, these hints cannot effectively be used by the compiler. We encourage to use the <code>ripple_ptr_aligned</code> API as close to the load/store instructions as possible for best results</strong>.</p>
+<p>The following example illustrates the use of <code>__builtin_assume_aligned</code>, where we indicate that <code>a</code>, <code>b</code>, and
+<code>c</code> are aligned on a 128-byte boundary.
+The compiler is capable to calculate that, given the 128-byte alignments, all the vector loads from <code>a</code> and <code>b</code> and the vector store to <code>c</code> in the <code>i</code> loop will be aligned as well.</p>
+<pre><code class="language-C">#define VECTOR 0
+void vadd(int16_t * c, int16_t * a, int16_t * b, size_t n) {
+  a = (int16_t *) __builtin_assume_aligned(a, 128);
+  b = (int16_t *) __builtin_assume_aligned(b, 128);
+  c = (int16_t *) __builtin_assume_aligned(c, 128);
+  ripple_block_t BS = ripple_set_block_shape(0, 64);
+  ripple_parallel(BS, 0);
+  for (size_t i = 0; i &lt; n; ++i) {
+    c[i] = a[i] + b[i];
+  }
+}
+</code></pre>
+<h2 id="register-reuse"><a class="header" href="#register-reuse">Register reuse</a></h2>
+<p>Register reuse is about avoiding unnecessary loads and stores
+between memory and the registers.
+If we need to use data (say a vector X of data) several times in our program,
+and we can perform all the computations that use the data right after
+loading X from memory to the registers,
+then we know that X won’t need to be
+evicted from the registers to make room for other values,
+and hence X won’t need to be loaded again.
+Loads (and stores) are expensive
+(they have a much higher access latency than the registers),
+hence by not having those extra loads, we are saving time, i.e.,
+optimizing our program.</p>
+<p>Because Ripple’s underlying compiler (LLVM) manages registers for us,
+it is hard to precisely control register use.
+The compiler may introduce loads and stores
+when it cannot allocate more registers at once,
+and conversely, it is able to remove superfluous loads and stores from
+an input program in some cases.
+A good general heuristic to keep data in registers is to decompose
+our computations into
+work subsets that don’t use more registers than provided by the hardware.
+In the realm of loop transformations, register tiling and loop fission are known
+to reduce the number of registers consumed by each work subset.</p>
+<hr>
+<p><em>Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear</em></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="coalescing-tips"><a class="header" href="#coalescing-tips">Coalescing tips</a></h1>
+<p>In this section, we look at various ways to obtain coalesced (i.e., stride-one access) loads from memory and stores to memory.
+Coalescing often has a drastic impact on the performance of the
+loads and stores in a Ripple program.</p>
+<h1 id="make-clearly-linear-access-functions"><a class="header" href="#make-clearly-linear-access-functions">Make clearly linear access functions</a></h1>
+<p>In order to optimize vector loads and stores, the compiler performs
+a static analysis of the access patterns.
+When the analysis detects memory access patterns that depend linearly upon
+the Ripple indices,
+it is able to analyze memory strides along all block dimensions.
+Whenever stride-1 accesses are detected
+(even if it’s along only one of the dimensions),
+the compiler generates coalesced vector loads or stores.</p>
+<pre><code class="language-C">x = A[...][...][ripple_id(BS, 0)]; // Coalesced access of A
+</code></pre>
+<p>The general user guidance here is that whenever a coalesced access exists,
+make it clear to the compiler in the access functions.
+The purpose of this section is to show common pitfalls, in which coalescing is
+not achieved, and ways to work around it.</p>
+<h2 id="avoid-dividing-ripple_id"><a class="header" href="#avoid-dividing-ripple_id">Avoid dividing <code>ripple_id()</code></a></h2>
+<p>Since the vector lane coordinates are integers, using a division results in
+an integer division.</p>
+<p>Integer divisions are non-linear operations, hence they should not be used
+on a Ripple index.
+Using an integer division results in the computation of a vector of addresses,
+which is then used in a scatter/gather operation.
+These are much more expensive than standard vector loads/stores.</p>
+<p>For example, consider vectorizing the following piece of sequential code,
+where we know that iterations of <code>w</code> are independent.
+We store every element of <code>a</code> in <code>y</code>,
+and the even elements of <code>b</code>, for every two consecutive iterations, in <code>z</code>.</p>
+<pre><code class="language-C">uint8_t foo(int W, uint8_t a[restrict 1][W], uint8_t b[restrict 1][W]) {
+  for (int w = 0; w &lt; W; ++w) {
+    uint8_t y = a[w];
+    uint8_t z = b[2 * (w / 2)];
+    // Some other code below
+    ...
+  }
+</code></pre>
+<p>To vectorize along <code>w</code>, we take chunks of <code>nv0</code> iterations of <code>w</code>
+and map the chunk elements to <code>v0</code>.
+Basically, we create a loop (let’s call it <code>u</code>) that goes over the chunks,
+and map the values of <code>w</code> within chunks to <code>v0</code>.
+To occupy one vector with 8-bit element computations,
+let’s start with a one-dimensional block of size 128.</p>
+<pre><code class="language-C">uint8_t foo(int W, , uint8_t a[restrict 1][W], uint8_t b[restrict 1][W]) {
+  ripple_block_t BS = ripple_set_block_shape(0, 128);
+  size_t v0 = ripple_id(BS, 0);
+  size_t nv0 = ripple_get_block_size(BS, 0);
+  for (int u = 0; u &lt; W; u += nv0) {
+    uint8_t y = a[u + v0];
+    uint8_t z = b[2 * ( (u + v0) / 2)];
+    // Some other code below
+    ...
+  }
+</code></pre>
+<p>We find ourselves with</p>
+<ul>
+<li>a contiguous access for <code>a[u + v0]</code>,</li>
+<li>but an access with an integer division in <code>b[2 * ((u + v0)/2)]</code>.
+This latter access is very slow and it should be avoided if possible,
+because it results in a gather (the most general but slowest kind of load).</li>
+</ul>
+<p>Returning to the original function,
+one fairly easy way to get rid of this integer division in the reference to <code>b</code>
+is to strip-mine <code>w</code>.
+We basically expose the <code>w/2</code> expression as a loop counter by rewriting the loop
+with <code>w = 2*w_o + w_i</code>, and <code>0 &lt;= w_i &lt; 2</code>, resulting in the following code:</p>
+<pre><code class="language-C">for (int w_o = 0; w_o &lt; W / 2; ++w_o) {
+  for (int w_i = 0; (w_i &lt; 2) &amp; (2 * w_o + w_i &lt; W); ++w_i) {
+    uint8_t y = a[2 * w_o + w_i];
+    uint8_t z = b[2 * w_o  + (w_i / 2)];
+    // Some other code below
+    ...
+  }
+}
+</code></pre>
+<p>Since <code>w_i / 2</code> is always equal to 0, we can simplify this as:</p>
+<pre><code class="language-C">for (int w_o = 0; w_o &lt; W / 2; ++w_o) {
+  for (int w_i = 0; (w_i &lt; 2) &amp; (2 * w_o + w_i &lt; W); ++w_i) {
+    uint8_t y = a[2 * w_o + w_i];
+    uint8_t z = b[2 * w_o];
+    // Some other code below
+    ...
+  }
+}
+</code></pre>
+<p>Now, if we map <code>v0</code> along <code>w_o</code>,
+we have stride-2 accesses for <code>a[2 * (w_o  + w_i / 2)]</code> and <code>b[2 * w_o + w_i]</code>
+(because of the “2” factor for <code>w_o</code>):</p>
+<p>Small-stride loads and stores are cheaper than scatter/gathers</p>
+<pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(0, 128);
+size_t v0 = ripple_id(BS, 0);
+size_t nv0 = ripple_get_block_size(BS, 0);
+for (int u_o = 0; u_o &lt; W / 2; u_o += nv0) {
+  for (int w_i = 0; w_i &lt; 2 &amp; (2 * u_o + w_i &lt; W); ++w_i) {
+    uint8_t y = a[2 * u_o + 2 * v0 + w_i];
+    uint8_t z = b[2 * u_o + 2 * v0];
+    // Some other code below
+    ...
+  }
+}
+</code></pre>
+<p>We can further improve the situation by moving to a 2-dimensional grid.
+In order to get contiguous memory access for <code>a</code>,
+we can map <code>w_i</code> to the contiguous dimension <code>v0</code>,
+and map <code>w_o</code> (previously mapped to <code>v0</code>) to <code>v1</code>.
+Since <code>w_i</code> only takes values 0 and 1, a useful block size along <code>v0</code> is 2.
+Since <code>v0</code> takes all values of <code>w_i</code>, the <code>w_i</code> loop “disappears”,
+leaving only the <code>(2 * u_o + w_i &lt; W)</code> conditional:</p>
+<pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(0, 2, 64);
+size_t v0 = ripple_id(BS, 0);
+size_t v1 = ripple_id(BS, 1);
+size_t nv1 = ripple_get_block_size(BS, 1);
+for (int u_o = 0; u_o &lt; W / 2; u_o += nv1) {
+  if (2 * u_o + v0 &lt; W) {
+    uint8_t y = a[2 * u_o + 2 * v1 + v0];
+    uint8_t z = b[2 * u_o + 2 * v1];
+    // Some other code below
+    ...
+  }
+}
+</code></pre>
+<p><code>a</code> is now accessed contiguously, since <code>2 * v1 + v0</code> corresponds to the way
+lanes are laid out in a full vector.
+Note that we load a <code>2x64</code> tensor out of <code>a</code>, and a <code>1x64</code> tensor out of <code>b</code>.
+Operations in the “code below” section that involve both <code>a</code> and <code>b</code> will
+trigger a broadcast of <code>b</code> to a <code>2x64</code> shape.</p>
+<h1 id="small-stride-loads-and-stores"><a class="header" href="#small-stride-loads-and-stores">Small-stride loads and stores</a></h1>
+<p>Strided loads (stores, <em>mutatis mutandis</em>) are typically slow,
+since they can require up to as many loads (stores)
+as the number of elements in the strided operation.
+They will happen for instance if we distribute vector lanes
+along columns of a tensor,
+since the elements of a column are separated by a full row.
+In this case, we recommend either changing the vectorization strategy,
+or modifying the tensor’s layout.</p>
+<p>Besides choosing a better way to vectorize our code, we can optimize strided
+loads (stores) when the strides between elements or chunks are smaller than
+a vector-width (e.g. 128 bytes on HVX).
+Developers working with complex numbers, coordinate systems and RGB images often
+find themselves handling large vectors of tuples,
+from which they often need to extract one element at a time (for each tuple).</p>
+<p>For instance, if we have a vector of complex numbers,
+and we want to take its norm,
+we could naively load the real and imaginary parts, as follows:</p>
+<pre><code class="language-C">float norm(float vec[32][2]) {
+  ripple_block_t BS = ripple_set_block_shape(VECTOR, 32);
+  size_t v = ripple_id(BS, 0);
+  float real = vec[v][0];
+  float imag = vec[v][1];
+  return ripple_reduceadd(0b1, real * imag);
+}
+</code></pre>
+<p>The problem with the above code is that the loads of <code>vec[v][0]</code> and <code>vec[v][1]</code>
+are both strided loads, which are generally inefficient.
+To simplify,
+let’s assume that our machine’s hardware vector can contain 32 floats.
+A more efficient approach than the strided loads is to load the whole <code>vec</code>
+into two registers, and <em>then</em> rearrange the data inside the registers,
+as follows:</p>
+<pre><code class="language-C">/// First half comes from the odd indices, second half from the even ones.
+size_t separate_re_im(size_t i, size_t n) {
+    return (i &lt; n / 2) ? 2 * i : 2 * (i - n / 2) + 1;
+}
+
+float norm(float vec[32][2]) {
+  ripple_block_t BS = ripple_set_block_shape(VECTOR, 32, 2);
+  size_t v0 = ripple_id(BS, 0);
+  size_t v1 = ripple_id(BS, 1);
+  float all_data = vec[v0][v1];
+  float real_and_im = ripple_shuffle(all_data, separate_re_im);
+  return ripple_reduceadd(0b01, ripple_reducemul(0b10, real_and_im));
+}
+</code></pre>
+<p>Thus, with 4 additional lines of code, we can go down from 64 loads
+(assuming each scalar in the strided loads have to be loaded separately)
+to 2 (vector) loads.</p>
+<p>In this example, we could also have used the <code>shuffle_pair</code> interface to stay closer to the original idea to have a <code>real</code> and
+<code>imag</code> blocks, as follows:</p>
+<pre><code class="language-C">size_t take_real_from_pair(size_t i, size_t n) {
+  return 2 * i;
+}
+
+size_t take_imag_from_pair(size_t i, size_t n) {
+  return 2 * i + 1;
+}
+
+float norm(float vec[32][2]) {
+  ripple_block_t BS = ripple_set_block_shape(VECTOR, 32);
+  size_t v0 = ripple_id(BS, 0);
+  size_t v1 = ripple_id(BS, 1);
+  float all_data = vec[v0][v1];
+  float first = *(vec + v0);
+  float second = *(vec + 32 + v0);
+  float real =
+    ripple_shuffle_pair(first, second, take_real_from_pair);
+  float imag =
+    ripple_shuffle_pair(first, second, take_imag_from_pair);
+  return ripple_reduceadd(0b01, real * imag);
+}
+</code></pre>
+<p>To do so, we had to use two different (but simpler) shuffle functions.</p>
+<p>In C++, the <code>ripple/zip.h</code> header provides a few functions
+to help load and store vectors of fixed-size tuples and turn them
+into tuples of vectors.
+In particular, the <code>rzip::shuffle_unzip</code> shuffle function
+can express all the necessary in-vector data reordering.</p>
+<h1 id="data-reordering"><a class="header" href="#data-reordering">Data reordering</a></h1>
+<p>Some famous data layout reorderings, like data tiling,
+can speed up algorithms by laying out data
+that are used together (a tile) consecutively in memory.
+That way, a single tile can be loaded with a small number of coalesced loads.</p>
+<h2 id="tradeoff"><a class="header" href="#tradeoff">Tradeoff</a></h2>
+<p>When considering data reordering in the process of optimizing a program,
+it is important to consider the cost of the data reorganization itself,
+as they can involve a lot of loads and stores.
+If the data reordering does not result in enough gain
+to offload the cost of the data reordering,
+then the reordering is not worthwhile.</p>
+<hr>
+<p><em>Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear</em></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="64-bit-armr-aarch64-sme-optimization"><a class="header" href="#64-bit-armr-aarch64-sme-optimization">64-bit Arm(R) (AArch64) SME Optimization</a></h1>
+<p>Since the Arm(R)v9 architecture,
+Arm ISAs include the Scalable Vector Extensions (SVE) and
+the Scalable Matrix Extensions (SME).</p>
+<p>SME includes native instructions to perform matrix operations
+using a two-dimensional SIMD register.
+This enables the optimization of matrix operations
+including matrix multiplication (using the outer product algorithm),
+convolutions, and transpositions.</p>
+<p>Ripple allows us to write code run on a multi-dimensional block.
+In two dimensions, that block is basically a matrix of SIMD processing elements.
+This looks a lot like the SME engine.
+Based on that observation, the AArch64 LLVM backend is able to recognize
+two-dimensional patterns written in Ripple and render them as SME instructions.</p>
+<p>We review these patterns in the next sections.</p>
+<h2 id="matrix-multiplication-pattern-recognition-from-ripple_parallel-annotations"><a class="header" href="#matrix-multiplication-pattern-recognition-from-ripple_parallel-annotations">Matrix multiplication pattern recognition from ripple_parallel annotations</a></h2>
+<p>Ripple enables users to write matrix multiplication in an OpenMP style
+using the <code>ripple_parallel</code> and <code>ripple_parallel_full</code> loop annotations.
+Both API operate similarly, with the key difference being that
+<code>ripple_parallel_full</code> assumes only the full-vector loops
+and does not handle leftover elements,
+whereas <code>ripple_parallel</code> generates both the full-vector loop and the
+epilogue to process any remaining elements.</p>
+<p>To begin, user specifies a 32x32 block shape using the
+<code>ripple_set_block_shape(SME_LANES, SME_SIZE, SME_SIZE)</code> API.
+Then the <code>ripple_parallel</code> annotations are applied to two <code>for</code> loops along the
+y and x dimensions.
+This instructs the Ripple compiler to distribute the processing elements
+across the y and x dimensions of 32x32 blocks.
+This approach simplifies indexing into matrices A, B and C,
+allowing them to be accessed using a flat, non-tiled pointer (e.g., <code>float *</code>).
+For example, an element of matrix A can be accessed as <code>A[k * M + i]</code>,
+where <code>i</code> is the y-coordinate of the processing element.</p>
+<p>Since there is no full tile assumption,
+Ripple AArch64 SME compiler generates SVE PSEL (predicate select) instructions
+to handle partial tiles.</p>
+<pre><code class="language-C">#include &lt;ripple.h&gt;
+#define SME_LANES 0
+#define SME_SIZE 32
+
+__arm_locally_streaming __arm_new("za")
+void matmul_arg(float *A, float *B, float *C, int M, int N, int K) {
+  ripple_block_t sme_block =
+    ripple_set_block_shape(SME_LANES, SME_SIZE, SME_SIZE);
+  ripple_parallel(sme_block, 1);
+  for (int i = 0; i &lt; M; i++) {
+    ripple_parallel(sme_block, 0);
+    for (int j = 0; j &lt; N; j++) {
+      __builtin_assume(K &gt; 0);
+      float tile = 0;
+      for (int k = 0; k &lt; K; k++) {
+        tile += A[k * M + i] * B[k * N + j];
+      }
+      C[i * N + j] = tile;
+    }
+  }
+}
+</code></pre>
+<p>The generated assembly is complex,
+so we focus on a segment corresponding to tile 4,
+which includes predicate handling for both matrices A and B.
+In this segment, four SVE <code>whilelt</code> instructions are used
+to construct predicate registers for A and B.
+These are followed by SVE <code>psel</code> instructions,
+which generate new predicate registers needed for storing data.</p>
+<pre><code class="language-asm">	...
+	fmopa	za0.s, p0/m, p0/m, z17.s, z16.s
+	fmopa	za1.s, p0/m, p0/m, z17.s, z19.s
+	fmopa	za2.s, p0/m, p0/m, z18.s, z16.s
+	fmopa	za3.s, p0/m, p0/m, z18.s, z19.s
+	...
+.LBB0_4520:                             // %store.preheader4
+	...
+	whilelt	p8.s, x10, x11
+	whilelt	p1.s, x8, x11
+	whilelt	p3.s, x8, x12
+	whilelt	p2.s, x13, x12
+	...
+.LBB0_4521:                             // %store.body4
+	mov	z0.b, p4/m, za0h.b[w12, 0]
+	mov	z1.b, p4/m, za0h.b[w12, 1]
+	mov	z2.b, p4/m, za0h.b[w12, 2]
+	mov	z3.b, p4/m, za0h.b[w12, 3]
+	psel	p5, p2, p8.s[w14, 0]
+	psel	p6, p3, p8.s[w14, 0]
+	psel	p7, p2, p1.s[w14, 0]
+	psel	p0, p3, p1.s[w14, 0]
+	...
+	st1w	{ z0.s }, p5, [x8]
+	st1w	{ z1.s }, p6, [x8, #1, mul vl]
+	st1w	{ z2.s }, p7, [x9]
+	st1w	{ z3.s }, p0, [x9, #1, mul vl]
+	...
+</code></pre>
+<h2 id="matrix-multiplication-in-spmd-style"><a class="header" href="#matrix-multiplication-in-spmd-style">Matrix multiplication in SPMD style</a></h2>
+<p>The SME pattern-matching also works on SPMD-style matrix multiplications.
+To keep the code concise here, we assume that both M and N are divisible by 32,
+the user first calls <code>ripple_set_block_shape</code>
+to set a 2D block shape of 32x32 for the processing elements (SME_LANES).
+In this example, we have also optimized the C matrix for stores from the SME
+vector register, by tiling its data to the size of that register.</p>
+<pre><code class="language-C">#include &lt;ripple.h&gt;
+#include &lt;assert.h&gt;
+#define SME_LANES 0
+#define SME_SIZE 32
+
+__arm_locally_streaming __arm_new("za")
+void gen_matmul_tiled(float A[K][M], float B[K][N],
+                      float C[M / SME_SIZE][N / SME_SIZE][SME_SIZE][SME_SIZE]) {
+  assert (M % SME_SIZE == 0);
+  assert (N % SME_SIZE == 0);
+  ripple_block_t sme_block =
+    ripple_set_block_shape(SME_LANES, SME_SIZE, SME_SIZE);
+  size_t x = ripple_id(sme_block, 0);
+  size_t y = ripple_id(sme_block, 1);
+  for (int i = 0; i &lt; M / SME_SIZE; i++) {
+    for (int j = 0; j &lt; N / SME_SIZE; j++) {
+      float tile = 0;
+      for (int k = 0; k &lt; K; k++) {
+        tile += A[k][SME_SIZE * i + y] * B[k][SME_SIZE * j + x];
+      }
+      C[i][j][y][x] = tile;
+    }
+  }
+}
+</code></pre>
+<p>Using the Ripple AArch64 SME compiler, SME floating-point outer product
+and accumulate instructions (FMOPA) are generated,
+along with the necessary load and store instructions to transfer data
+between memory and the ZA matrix.
+For floating-point data types,
+the ZA matrix provides four tiles (ZA0 to ZA3) for computation.
+The outer product operations are performed across all four tiles.
+When storing results from the ZA matrix back to memory,
+the data is accessed in byte format using ZA0 as the base index.
+The contents of Z0 and Z1 are stored contiguously in memory, as are Z2 and Z3.</p>
+<pre><code class="language-asm">    ...
+    zero	{za}
+.LBB0_5:                                // %for.body8
+    ld1b	{ z0.b }, p0/z, [x0, x18]
+    ld1b	{ z1.b }, p0/z, [x17, x18]
+    ldr	z2, [x12, #1, mul vl]
+    ldr	z3, [x4, #1, mul vl]
+    ...
+    fmopa	za0.s, p1/m, p1/m, z0.s, z1.s
+    fmopa	za1.s, p1/m, p1/m, z0.s, z3.s
+    fmopa	za2.s, p1/m, p1/m, z2.s, z1.s
+    fmopa	za3.s, p1/m, p1/m, z2.s, z3.s
+    b.ne	.LBB0_5
+    ...
+.LBB0_7:                                // %store.body
+    mov	z0.b, p0/m, za0h.b[w12, 0]
+    mov	z1.b, p0/m, za0h.b[w12, 1]
+    mov	z2.b, p0/m, za0h.b[w12, 2]
+    mov	z3.b, p0/m, za0h.b[w12, 3]
+    st1b	{ z0.b }, p0, [x13, x18]
+    st1b	{ z1.b }, p0, [x14, x18]
+    st1b	{ z2.b }, p0, [x15, x18]
+    st1b	{ z3.b }, p0, [x16, x18]
+    ...
+    b.ne	.LBB0_7
+    ...
+</code></pre>
+<h2 id="tile-based-transpose-pattern-recognition"><a class="header" href="#tile-based-transpose-pattern-recognition">Tile-based transpose pattern recognition</a></h2>
+<p>We also taught LLVM to recognize transposition
+– another simple two-dimensional pattern coming out of Ripple code –
+and express it in SME.</p>
+<p>In the example below, the <code>transpose_tile</code> function performs
+a tile-wise transpose of a matrix block.
+This is achieved using the <code>ripple_shuffle</code> API,
+where the <code>row_idx</code> and <code>offset</code> are swapped to perform a tile transpose.
+The <code>transpose_ripple</code> function leverages this by looping over 32x32 tiles
+and applying different row strides to the source and destination matrices.
+This enables the correct reordering of elements during the transpose.
+Specifically, the input matrix is indexed using row stride <code>k</code>,
+whereas the output matrix is indexed using row stride <code>TILE_SIZE 32</code>.</p>
+<pre><code class="language-C">#include &lt;ripple.h&gt;
+#include &lt;assert.h&gt;
+#define TILE_SIZE 32
+
+static __attribute__((always_inline)) float transpose_tile(float *tile_addr,
+                                                           size_t v) {
+  auto transpose = [](size_t k, size_t block_size) -&gt; size_t {
+    unsigned offset = k / TILE_SIZE;
+    unsigned row_idx = k % TILE_SIZE;
+    return row_idx * TILE_SIZE + offset;
+  };
+  return ripple_shuffle(tile_addr[v], transpose);
+}
+
+__arm_locally_streaming __arm_new("za")
+void transpose_ripple(float *dest, float *src, unsigned m, unsigned k) {
+  assert(m % TILE_SIZE == 0);
+  assert(k % TILE_SIZE == 0);
+  ripple_block_t sme_block =
+    ripple_set_block_shape(0, TILE_SIZE, TILE_SIZE);
+  size_t x = ripple_id(sme_block, 0);
+  size_t y = ripple_id(sme_block, 1);
+  for (int i = 0; i &lt; m; i += TILE_SIZE)
+    for (int j = 0; j &lt; k; j += TILE_SIZE) {
+      dest[y * TILE_SIZE + x] = transpose_tile(&amp;src[i * k + j], y * k + x);
+      dest += TILE_SIZE * TILE_SIZE;
+    }
+}
+</code></pre>
+<p>The compiler code generation for transpose operation is still a
+work in progress.
+The assembly shown here is generated based on
+the expected compiler-transformed IR,
+utilizing all four tiles for horizontal loads and vertical stores.</p>
+<pre><code class="language-asm">.LBB0_8:                                // %load.loop
+	...
+	ld1w	{za0h.s[w15, 0]}, p0/z, [x6]
+	ld1w	{za1h.s[w15, 0]}, p0/z, [x19]
+	ld1w	{za2h.s[w15, 0]}, p0/z, [x20]
+	ld1w	{za3h.s[w15, 0]}, p0/z, [x21]
+	...
+	b.ne	.LBB0_8
+	...
+.LBB0_10:                               // %store.loop
+	...
+	st1w	{za0v.s[w15, 0]}, p0, [x6]
+	st1w	{za1v.s[w15, 0]}, p0, [x19]
+	st1w	{za2v.s[w15, 0]}, p0, [x20]
+	st1w	{za3v.s[w15, 0]}, p0, [x19]
+	...
+	b.ne	.LBB0_10
+</code></pre>
+<h1 id="limitations"><a class="header" href="#limitations">Limitations</a></h1>
+<p>The work presented in this section is based on pattern matching,
+which enables a gentle-slope increase of the set of optimizable codes.
+In this section,
+we denote some of the known limitations to the current implementation.</p>
+<h2 id="declare-the-function-to-use-sme-so-called-streaming-mode"><a class="header" href="#declare-the-function-to-use-sme-so-called-streaming-mode">Declare the function to use SME (so-called “streaming mode”)</a></h2>
+<p>Currently, in order to activate the SME code generation from matrix
+multiplication codes in a given function, we need to annotate the function
+with</p>
+<pre><code class="language-C">__arm_locally_streaming __arm_new("za")
+</code></pre>
+<p>as illustrated in the above examples.</p>
+<h2 id="enforce-zero-initialized-muladd-accumulator"><a class="header" href="#enforce-zero-initialized-muladd-accumulator">Enforce zero-initialized muladd accumulator</a></h2>
+<p>Unfortunately, there is no single SVE or SME instruction available
+to initialize the entire ZA matrix with non-zero values.
+As a result, the compiler must generate a loop structure
+to load non-zero values from memory into the ZA matrix tiles, slice by slice.
+Since the Ripple AArch64 SME compiler already emits a loop structure
+to store the final results from the multiply-accumulate operation back to memory,
+it’s more efficient to reuse this loop and
+perform the necessary operations outside the ZA matrix.</p>
+<p>The recommended approach is to initialize the accumulator (e.g., <code>temp</code>) to zero,
+then add the result back to output matrix using:
+<code>C[it * IT + i][jt * JT + j] += temp</code>.
+This avoids initializing values from <code>C[it * IT + i][jt * JT + j]</code>
+into the ZA matrix.
+The operation <code>+=</code> is performed outside the ZA matrix,
+which aligns better with the current compiler design.</p>
+<pre><code class="language-C">  ...
+  if (k == 0)
+    C[it * IT + i][jt * JT + j] = 0;
+  float temp = 0;
+  for (int k = 0; k &lt; KT; ++k) {
+    temp += A[kt * KT + k][it * IT + i] * B[kt * KT + k][jt * JT + j];
+  }
+  C[it * IT + i][jt * JT + j] += temp;
+  ...
+</code></pre>
+<p>Currently, the support for moving operations outside of the ZA matrix
+for non-zero initial values is not yet implemented.
+The Ripple AArch64 SME compiler temporarily reject such cases.</p>
+<p>Below is an example of initializing non-zero values from
+<code>C[it * IT + i][jt * JT + j]</code> into accumulator <code>temp</code>.
+Such usage is not recommended and will be rejected by the
+Ripple AArch64 SME compiler.</p>
+<pre><code class="language-C">  ...
+  float temp = (kt == 0) ? 0 : C[it * IT + i][jt * JT + j];
+  for (int k = 0; k &lt; KT; ++k) {
+    temp += A[kt * KT + k][it * IT + i] * B[kt * KT + k][jt * JT + j];
+  }
+  C[it * IT + i][jt * JT + j] = temp;
+  ...
+</code></pre>
+<h2 id="limitations-on-using-constant-matrix-sizes-in-compilation"><a class="header" href="#limitations-on-using-constant-matrix-sizes-in-compilation">Limitations on using constant matrix sizes in compilation</a></h2>
+<ul>
+<li>
+<p><strong>Ripple_parallel annotated matrix multiplication</strong>: Constant matrix sizes are
+not supported. Use parameterized sizes instead.</p>
+</li>
+<li>
+<p><strong>SPMD-style matrix multiplication</strong>: Small constant matrix sizes are not
+supported. Ensure <strong>M</strong> and <strong>N</strong> are greater than 32, and <strong>K</strong> is greater
+than 1.</p>
+</li>
+</ul>
+<h1 id="some-useful-clang-command-line-flags"><a class="header" href="#some-useful-clang-command-line-flags">Some useful clang command-line flags</a></h1>
+<p>The SME codegen presented in this section is available for Armv9.2-A.
+You can specify this to clang using the following flags:</p>
+<pre><code class="language-bash">-march=armv9.2-a+sme --target=aarch64-linux-gnu
+</code></pre>
+<p>We need to also specify the targeted streaming vector length
+using the following flag:</p>
+<pre><code class="language-bash">-msve-streaming-vector-bits=512
+</code></pre>
+<p>Unrolling some of the loops can obfuscate the pattern matched by the SME
+optimization. To avoid this, use</p>
+<pre><code class="language-bash">-fno-unroll-loops
+</code></pre>
+<p>… and of course you need to enable Ripple.</p>
+<pre><code class="language-bash">-fenable-ripple
+</code></pre>
+<p>In some compiler settings, auto-vectorization can interfere with Ripple.
+If that happens, auto-vectorization can be turned off using</p>
+<pre><code class="language-bash">-fno-vectorize
+</code></pre>
+<p>At last, SME pattern matching and optimization are enabled at O2 and above.
+You will need:</p>
+<pre><code class="language-bash">-O2
+</code></pre>
+<hr>
+<p>Arm is a registered trademark of Arm Limited (or its subsidiaries).</p>
+<hr>
+<p><em>Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear</em></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="getting-started"><a class="header" href="#getting-started">Getting started</a></h1>
+<h1 id="enabling-ripple"><a class="header" href="#enabling-ripple">Enabling Ripple</a></h1>
+<p>The SPMD and loop annotation models are enabled by the use of the following
+clang command-line argument:</p>
+<pre><code class="language-bash">-fenable-ripple
+</code></pre>
+<hr>
+<p><em>Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear</em></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>

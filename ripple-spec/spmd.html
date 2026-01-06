@@ -1,0 +1,753 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The SPMD programming model in Ripple - Ripple User Manual</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-4e9cd9d1.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-dad146e4.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Ripple User Manual</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="the-single-program-multiple-data-spmd-programming-model-in-ripple"><a class="header" href="#the-single-program-multiple-data-spmd-programming-model-in-ripple">The Single Program, Multiple Data (SPMD) programming model in Ripple</a></h1>
+<p>SPMD is a way to express parallel computations in programs
+where repetitive work needs to be distributed
+among a set of processing elements (PEs).</p>
+<p>Since CUDA(R) and OpenCL(R) are also SPMD parallel programming abstractions,
+CUDA and OpenCL developers will find Ripple familiar.
+However, there are some important differences with CUDA and OpenCL,
+which we stress in a the <a href="./vs-cuda.html">Ripple vs. CUDA and OpenCL</a> section.</p>
+<p>To create a parallel program using the SPMD model,
+a user has to specify which PE will execute which portion of the program.
+Developers use the following steps
+to express the parallel execution of their program onto the
+processing elements of the targeted computer.
+They:</p>
+<ul>
+<li>Represent the set of processing elements as a “block”</li>
+<li>Define their code as a function of
+the processing element’s indices in the block.</li>
+<li>Keep in mind that a block is a software abstraction,
+mapped by Ripple to the hardware.</li>
+</ul>
+<p>In the next subsections, we illustrate how this is done
+concretely in the SPMD model, using the following example,
+which adds two 42-long vectors using a block of 42 elements.</p>
+<pre><code class="language-C">#define VECTOR_PE 0
+void array_add(float a[42], float b[42], float sum[42]) {
+  // 1) Defines a block of 42 processing elements (as a one-dimensional block)
+  //    These PEs map to the vector lanes of a SIMD vector engine
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, /* block index 0 with size */ 42);
+
+  // 2) Retrieves a block of logical indices of this block's dimension
+  //    [0 ... 41]
+  size_t ripple_index = ripple_id(BS, /* block dimension */ 0);
+
+  // Block load/store/addition by indexing arrays with a block
+  sum[ripple_index] = a[ripple_index] + b[ripple_index];
+}
+</code></pre>
+<h2 id="representing-processing-elements-as-a-block"><a class="header" href="#representing-processing-elements-as-a-block">Representing processing elements as a <em>block</em></a></h2>
+<p>SPMD represents the set of processing elements as a <em>block</em>,
+which is an array of processing elements.
+The user can choose the dimension of the block to be one,
+two or more (up to ten),
+depending upon their needs (we address this question in the Optimization Guide).</p>
+<p>Each PE being represented as an element of the block,
+we can now index into that block to designate any PE in the block.
+In short, each PE is defined by its indices in the block.</p>
+<p>In Ripple, we define the shape of the block for a set of processing elements
+by calling</p>
+<pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(int pe, size_t ... shape);
+</code></pre>
+<p>where <code>pe_id</code> defines the PE
+(<strong>Implementation note</strong>: use 0 for <code>pe_id</code>, as the supported target machine
+consists of one block of SIMD processing elements),
+and <code>shape</code> defines the size of the block
+along dimensions 0, 1, etc.
+The number of sizes passed to <code>ripple_set_block_shape</code>
+determines the dimension of the block for <code>pe_id</code>.</p>
+<p>For example, we declare a <code>8 x 4</code>-shaped block of PEs identified as <code>VECTOR_PE</code>
+as follows:</p>
+<pre><code class="language-C">ripple_block_t block_shape = ripple_set_block_shape(VECTOR_PE, 8, 4);
+</code></pre>
+<p>And we declare a one-dimensional block of size 42 as:</p>
+<pre><code class="language-C">ripple_block_t block_shape = ripple_set_block_shape(VECTOR_PE, 42);
+</code></pre>
+<p>Once the block shape is defined,
+the size of the block along any dimension <code>dimension</code> is provided by</p>
+<pre><code class="language-C">size_t ripple_get_block_size(ripple_block_t block_shape, size_t dimension);
+</code></pre>
+<h2 id="defining-code-as-a-function-of-the-pe-indices"><a class="header" href="#defining-code-as-a-function-of-the-pe-indices">Defining code as a function of the PE indices</a></h2>
+<p>In the SPMD model,
+PEs in a block are all executing the same code,
+but the behavior of each PE can vary as a function of its indices in the block.</p>
+<p>We express the index of a PE for a given dimension
+using the <code>ripple_id(ripple_block_t block_shape, int dim)</code> function.</p>
+<p>For example, in the following code excerpt,
+we have a block of 26 PEs,
+and each PE stores one letter of the alphabet into array <code>alphabet</code>.</p>
+<pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(0, 26);
+alphabet[ripple_id(BS, 0)] = 'a' + ripple_id(BS, 0);
+</code></pre>
+<p>In Ripple, every part of the code that depends upon a given block index
+is executed in parallel.
+In one dimension, this means that all code that depends upon <code>ripple_id(BS, 0)</code>
+is executed by all the elements of the one-dimensional block.</p>
+<p>The case of multi-dimensional blocks is more subtle,
+in that blocks of different dimensions can coexist in a same function.
+The shape of the block executing a given statement is determined
+by the dimensions of all the <code>ripple_id()</code> this statement depends upon.
+That way, scalar, vector and tensor operations can coexist in the same function.
+Please refer to Sections <a href="#multi-dimensional-spmd-in-ripple">Multi-dimensional SPMD in Ripple</a>
+below for more detail.</p>
+<h2 id="mapping-software-processing-elements-to-hardware-processing-elements"><a class="header" href="#mapping-software-processing-elements-to-hardware-processing-elements">Mapping software processing elements to hardware processing elements</a></h2>
+<p>The last part of Ripple is that the blocks are a software abstraction.
+In particular, the number of PEs in a block doesn’t have to match the number
+of hardware PEs that will run the code.</p>
+<p>In order to provide full control of how the hardware is utilized,
+Ripple defines a fixed mapping from software PEs in blocks
+to hardware PEs (e.g. vector lanes in a SIMD vector engine).</p>
+<p>In other words, Ripple defines how the PEs in a block are laid out
+in hardware vectors (and matrices).
+For vector targets, the layout is
+<a href="https://en.wikipedia.org/wiki/Row-_and_column-major_order">column-major</a>.</p>
+<p>The following figure illustrates how various blocks (including 2-d ones)
+are laid out in vectors of 8 lanes.
+<img src="./ripple-layout.png" title="How software blocks are laid out in hardware" alt="Laying out block PEs onto hardware vectors"></p>
+<h3 id="coalescing"><a class="header" href="#coalescing">Coalescing</a></h3>
+<p>One aspect of this mapping is very important for performance optimization:
+dimension 0 is always laid out contiguously in a vector.
+This is important because for vector machines,
+the most efficient way to load values into a vector is
+when these values are laid out contiguously in memory.
+Such a load is said to be <em>coalesced</em>.
+The same is true for vector stores.</p>
+<p>To obtain coalesced loads and stores,
+consecutive indices along dimension 0 must access contiguous elements of memory.
+This is explained in greater detail in the
+<a href="../opt-guide/vector-principles.html#coalescing">coalescing section</a>
+of the optimization guide.</p>
+<h1 id="determining-the-shape-of-a-value-in-a-ripple-program"><a class="header" href="#determining-the-shape-of-a-value-in-a-ripple-program">Determining the shape of a value in a Ripple program</a></h1>
+<p>In a Ripple function, each computed value is associated with a block shape,
+representing the block that computes it.
+We call this the “shape” of said value.</p>
+<p>The shape of an operation in Ripple is implicitly determined by the shape of its
+operands, and <code>ripple_id(BS, x)</code> represents a one-dimensional shape,
+with non-trivial dimension <code>x</code>, and all other dimensions set to 1,
+as illustrated in the code below.</p>
+<pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(0, 8, 8);
+size_t v0 = ripple_id(BS, 0); // shape(v0) = 8x1
+size_t v1 = ripple_id(BS, 1); // shape(v1) = 1x8
+size_t v_sum = v0 + v1; // shape = 8x8
+</code></pre>
+<p>This is what we call <em>implicit broadcasting</em>.
+Additionally, some special Ripple functions explicitly define an output shape
+as a function of their input shape, by adding or removing dimensions.
+We explain these in the following subsections.</p>
+<h2 id="implicit-broadcasting"><a class="header" href="#implicit-broadcasting">Implicit broadcasting</a></h2>
+<p>In Ripple, block shapes flow through values (dataflow).
+When values of different shapes are operands of a function/operator
+(e.g., binary operators <code>+</code>, <code>-</code>, <code>*</code>, etc),
+their shapes are broadcast to the largest common shape shared by both
+operands before being processed.</p>
+<p>Let’s revisit our addition example to understand how the last statement works,
+this time using an 8-wide block:</p>
+<pre><code class="language-c">#define VECTOR_PE 0
+void vector_add_1D(unsigned pindex, float *a, float *b, float *sum) {
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, /* block index 0 with size */ 8);
+  size_t ripple_index = ripple_id(BS, /* block index */ 0);
+
+  // What is going on here?
+  sum[ripple_index] = a[ripple_index] + b[ripple_index];
+}
+</code></pre>
+<p>The last statement uses <code>ripple_index</code>, which equals the <code>ripple_id()</code> and
+means that there is block semantics being propagated, but how?</p>
+<ul>
+<li>In C/C++, array accesses such as <code>a[ripple_index]</code> are syntactic sugar for doing
+pointer arithmetic, meaning is it equivalent to computing an address and
+dereferencing it:
+<pre><code class="language-c">a[ripple_index] = *(a + ripple_index)
+</code></pre>
+</li>
+<li><code>a + ripple_index</code> is a binary operator taking a pointer <code>a</code>
+and a 8-wide block offset <code>ripple_index</code>.
+As illustrated on the Figure below:
+<ul>
+<li><code>a</code> is scalar; implicit broadcast dictates that it must be broadcast
+to the same shape as its other operand to <code>+</code>, an 8-wide block,
+so that the <code>+</code> can be applied element-wise to the vector elements of its
+operands and form an 8-wide block.
+<img src="./ripple-impl-bcast.png" alt="Implicit broadcasting"></li>
+<li>The pointer arithmetic addition thus results in a block of addresses.</li>
+</ul>
+</li>
+<li>Finally, dereferencing <code>*(a + ripple_index)</code> means loading
+a block of addresses <code>a + ripple_index</code>,
+which gives the block of floats that were at these addresses.</li>
+</ul>
+<p>The same happens with <code>b[ripple_index]</code>.
+The addition can proceed because
+<code>a[ripple_index]</code> has the same block shape and the store to <code>sum[ripple_index]</code>
+works similarly.</p>
+<p>If you have worked with Python’s <code>numpy</code> library, which uses the same
+broadcasting semantics of operands, you will feel at home with Ripple.</p>
+<h2 id="shape-modifying-functions"><a class="header" href="#shape-modifying-functions">Shape-modifying functions</a></h2>
+<p>There are three types of Ripple API functions that explicitly modify shapes
+between their input and output values.
+For the purpose of illustration here, let us assume an <code>8x8</code> block,
+and that <code>one_d_x</code> is a <code>8x1</code> value and <code>two_d_x</code> is an <code>8x8</code> value.</p>
+<ul>
+<li><strong>reductions</strong>, which perform an operation
+that combines slices of the incoming shape with each other.
+For instance:
+<ul>
+<li><code>ripple_reduceadd(0b1, one_d_x)</code> adds all the elements of
+one-dimensional value <code>one_d_x</code> along dimension <code>0</code>.
+Its output is a scalar (i.e., a zero-dimensional value).</li>
+<li><code>ripple_reducemax(0b10, two_d_x)</code> takes the maximum of
+two-dimensional value <code>two_d_x</code> along dimension <code>1</code>
+(because bit <code>1</code> of the first argument is set but not bit <code>0</code>).
+Its output value is hence <code>8x1</code>: a one-dimensional value expressed
+in a two-dimensional space.</li>
+</ul>
+</li>
+<li><strong>slicing</strong>, which extracts a slice from the block along some dimensions.
+For example:
+<ul>
+<li><code>ripple_slice(two_d_x, 1, -1)</code> takes all the elements of indices (1, *)
+from <code>two_d_x</code>. Its output value has a <code>1x8</code> shape.</li>
+<li><code>ripple_slice(two_d_x, 2, 3)</code> takes element (2, 3) from <code>two_d_x</code>.
+Its output value is scalar.</li>
+</ul>
+</li>
+<li><strong>broadcasts</strong> (also often called “splats”).
+Besides implicit broadcasts offered by Ripple, we can also
+explicitly broadcast a value along any set of dimensions.
+For instance, <code>ripple_broadcast(VECTOR_PE, 0b10, one_d_x)</code>
+replicates the <code>8x1</code> value <code>one_d_x</code> along dimension <code>1</code>,
+outputting it as an <code>8x8</code> value.</li>
+</ul>
+<p>Please refer to the <a href="./api.html">Ripple API Specification</a> for more detail on
+these API functions.</p>
+<h1 id="multi-dimensional-spmd-in-ripple"><a class="header" href="#multi-dimensional-spmd-in-ripple">Multi-dimensional SPMD in Ripple</a></h1>
+<p>Part of Ripple’s objective to be as efficient as possible forced
+an interpretation of multi-dimensional blocks
+that is different from the one known in CUDA(R) and OpenCL(R).
+In Ripple, values of different dimensions can coexist in the same function.
+The shape of a value is determined implicitly by the dimensions of its operands
+through implicit broadcast,
+or explicitly for <code>ripple_id</code> and the shape-modifying functions.</p>
+<p>Consider for instance the following matrix multiply program,
+in which a 2-dimensional block is declared, with two indices <code>x</code> and <code>y</code>.</p>
+<pre><code class="language-C"> 1: matmul(float A[N][M], float B[K][N], float C[K][M]) {
+ 2:   ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 8, 8);
+ 3:   assert (N % 8 == 0);
+ 4:   assert (M % 8 == 0);
+ 5:   size_t x = ripple_id(BS, 0);
+ 6:   size_t y = ripple_id(BS, 1);
+ 7:   for (int i = 0; i &lt; N; i+= 8) {
+ 8:     for (int j = 0; j &lt; M; j+= 8) {
+ 9:       A[i + y][j + x] = 0;
+10:       for (int k = 0; k &lt; K; ++k) {
+11:         A[i + y][j + x] += B[k][i + y] * C[k][j + x];
+12:       }
+13:     }
+14:   }
+15: }
+</code></pre>
+<p><strong>Fig.smpd-1</strong>: An outer-product matrix multiply kernel.</p>
+<p>Let’s assume that the targeted SIMD vector engine can do
+64 single-precision floating-point computations at a time,
+i.e. it has 64 32-bit vector lanes.
+Line 9 performs a 2-dimensional store of <code>0</code> into A.
+The constant 0 does not depend upon any ripple_id,
+so according to implicit broadcasting, it has dimension 0 (i.e., it’s a scalar).
+However, since the write to <code>A</code> is 2-dimensional,
+0 gets broadcast to a 2-d block of <code>0</code>’s, which then gets stored in <code>A</code>.
+In short, line 9 initializes a whole 8x8 tile of <code>A</code> to the value 0.</p>
+<p>Let’s go through the steps of what Line 11 does. The value</p>
+<pre><code class="language-C">C[k][j + x]
+</code></pre>
+<p>depends upon <code>x</code>, the block index along dimension 0.
+Hence it loads a 1-dimensional (a row of 8x1) block of elements from <code>C</code>.
+The value</p>
+<pre><code class="language-C">B[k][i + y]
+</code></pre>
+<p>depends upon <code>y</code>, the block index along dimension 1.
+Hence it loads a 1-dimensional (column of 1x8) block of elements from <code>B</code>.</p>
+<p>These two 1-dimensional blocks of elements meet in a multiplication:</p>
+<pre><code class="language-C">B[k][i + y] * C[k][j + x]
+</code></pre>
+<p>The multiplication depends upon both <code>x</code> and <code>y</code>, which means its shape is 8x8.
+According to implicit broadcast rules:</p>
+<ul>
+<li>the left-hand side, which was 1x8,
+is broadcast along dimension 0 to an 8x8 shape</li>
+<li>the right-hand side, which was 8x1,
+is broadcast along dimension 1 to an 8x8 shape</li>
+</ul>
+<p>Both sides of the multiplication now have the same shape,
+hence the element-wise multiplication can happen, resulting in an 8x8 shape.
+Finally, the 8x8 block resulting from the multiplication is added to
+an 8x8 tile of A.</p>
+<p>The above way of computing a matrix multiplication is called “outer product”,
+because it corresponds to an outer product between the vectors loaded from
+<code>C</code> and <code>B</code>.</p>
+<p>What’s interesting in this example is that we see how computations on different
+shapes coexist in the same function.</p>
+<ul>
+<li>the assertions and the computations of the values of <code>i</code> and <code>j</code> are done in
+scalar</li>
+<li>a 8x1 vector is loaded from <code>C</code>. We could imagine doing some more 8-1-shaped
+computations before the multiplication.</li>
+<li>a 1x8 vector is loaded from <code>B</code>.</li>
+<li>There are 8x8 multiplication, accumulation and stores.</li>
+</ul>
+<p>As we’ll see below, this way of mixing computations of different
+dimensionalities is different from other SPMD languages like CUDA and OpenCL,
+in which all the computations in the function would be 8x8,
+i.e. they would each be done by 64 processing elements.</p>
+<h1 id="how-conditionals-affect-simd-code"><a class="header" href="#how-conditionals-affect-simd-code">How conditionals affect SIMD code</a></h1>
+<p>Code controlled by conditionals that depend upon block indices
+are translated into <em>masked</em> code, a vector predication
+representation that represents how SIMD instructions implement conditionals
+at the vector lane granularity.
+This is explained in Subsection <em>Masking</em> below.</p>
+<p>In the subsequent subsection, we also go over a point worth noting
+in the determination of shapes in Ripple:
+they are <strong>not</strong> dependent upon conditionals,
+only upon the implicit broadcasting
+rules and the special shape-modifying API (as stated above).</p>
+<h2 id="masking"><a class="header" href="#masking">Masking</a></h2>
+<p>Consider the following sequential example, which increments
+even numbers in a vector pointed to by <code>x</code>:</p>
+<pre><code class="language-C">void increment_even(int16_t x[64]) {
+  for (size_t v = 0; v &lt; 64; ++v)
+    if (v % 2 == 0)
+      x[v] += 1;
+}
+
+</code></pre>
+<p>We can easily write its vectorized version using Ripple as follows:</p>
+<pre><code class="language-C">1: void increment_even(int16_t x[64]) {
+2:   ripple_block_t BS = set_ripple_block_shape(VECTOR_PE, 64);
+3:   size_t v = ripple_id(BS, 0);
+4:   if (v % 2 == 0)
+5:     x[v] += 1;
+6: }
+</code></pre>
+<p>Ripple turns this code into SIMD vector code.
+To respect the original function’s semantics, Ripple has to only run the
+elements of the block <code>x[v]</code> for which <code>v % 2 == 0</code> is true.
+This is performed by <em>masking</em> the <code>x[v]</code> store,
+i.e. applying the 64-wide block of booleans (called a <em>mask</em>)
+from Line 4’s condition to Line 5’s block of increments.
+The mask defines which elements need to be performed and which ones shouldn’t.
+Pairing the mask with the store in line 5 results in a <em>masked store</em>,
+which is how SIMD hardware allows for the selective storing of vector elements.</p>
+<p>In short, masking is the transformation of a condition that depends upon
+one or more <code>ripple_id</code>s into a mask, which is then applied to operations
+controlled by said condition.</p>
+<p>Ripple only actually masks three necessary operations to render a correct
+program:</p>
+<ul>
+<li>stores (writes)</li>
+<li>loads (reads)</li>
+<li>reductions</li>
+</ul>
+<h2 id="how-shape-affects-masking"><a class="header" href="#how-shape-affects-masking">How shape affects masking</a></h2>
+<p>To more fully specify how Ripple works,
+let us illustrate how masking is applied in a more complex case,
+when a condition involves more dimensions than the computation it controls.</p>
+<p>Consider the following code:</p>
+<pre><code class="language-C"> 1: void increment_even(int16_t x[8], int16_t y[8], int16_t z[8][8]) {
+ 2:  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 8, 8);
+ 3:  size_t v0 = ripple_id(BS, 0);
+ 4:  size_t v1 = ripple_id(BS, 1);
+ 5:  if (v0 % 2 == 0) { // 8x1 condition (mask)
+ 6:    x[v0] += 1;      // 8x1
+ 7:    y[v1][v0] += 1;  // 8x8
+ 8:    w += 1;          // scalar, i.e. 1x1
+ 9:    z[v1] += 1;      // 1x8
+10:  }
+11:}
+</code></pre>
+<p>How does the <code>v0 % 2 == 0</code> condition apply to the three statements it controls,
+lines 6-9?
+The condition’s shape is <code>8x1</code>, but the shapes of these three statements
+are different from each other.</p>
+<p>Line 6 is the case we already know:
+the conditional has the same shape as the statement,
+hence the <code>8x1</code> mask (i.e. block of booleans) applies element-wise
+to each of the <code>8x1</code> operations in line 6.</p>
+<p>Line 7 exposes a shape mismatch between the <code>8x1</code> condition
+and the computation, which is <code>8x8</code>.
+Implicit broadcast takes care of this case:
+the <code>8x1</code> conditional is broadcast (i.e., replicated) along dimension 1,
+and applied element-wise to the line 7 computation.</p>
+<p>Line 8 is trickier, because the <code>8x1</code> condition shape cannot be broadcast
+to Line 7’s <code>1x1</code> computation.
+The rule here is that the Line 8 statement should execute whenever there
+exists a value of <code>v0</code> for which <code>v0 % 2 == 0</code>.
+To obtain such a mask, Ripple takes the <code>OR</code> of all elements in the condition,
+which makes a <code>1x1</code> mask.</p>
+<p>Finally, line 9 combines the two previous principles for applying a mask
+to a differently-shaped computation:
+the Line 5 mask is first <code>OR</code>-reduced to a <code>1x1</code> mask,
+and then broadcast along dimension 1, resulting in a <code>1x8</code> mask,
+which can be applied to the <code>1x8</code> Line 8 computation.</p>
+<h1 id="implicit-scalar-expansion"><a class="header" href="#implicit-scalar-expansion">Implicit scalar expansion</a></h1>
+<p>Consider our <code>Fig. smpd-1</code> outer-product example, but where we want to
+perform the tile matrix multiplication (i.e. line 11) using two
+statements:</p>
+<ul>
+<li>one to compute the (two-dimensional) outer product
+between the one-dimensional vectors</li>
+<li>the other one to accumulate the outer product onto <code>A</code>.
+We would then rewrite Line 11 into two lines, as such:</li>
+</ul>
+<pre><code class="language-C"> 1: void matmul(float A[N][M], float B[K][N], float C[K][M]) {
+ 2:   ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 8, 8);
+ 3:   assert (N % 8 == 0);
+ 4:   assert (M % 8 == 0);
+ 5:   size_t x = ripple_id(BS, 0);
+ 6:   size_t y = ripple_id(BS, 1);
+ 7:   float tmp[8][8];
+ 8:   for (int i = 0; i &lt; N; i+= 8) {
+ 9:     for (int j = 0; j &lt; M; j+= 8) {
+10:       A[i + y][j + x] = 0;
+11:       for (int k = 0; k &lt; K; ++k) {
+12:         tmp[y][x] = B[k][i + y] * C[k][j + x];
+13:         A[i + y][j + x] += tmp[y][x];
+14:       }
+15:     }
+16:   }
+17: }
+</code></pre>
+<p><strong>Fig. spmd-2</strong>: Breaking down the outer product into two statements</p>
+<p>Notice that we had to introduce a temporary variable <code>tmp</code>
+to store the <code>8x8</code> value of the outer product.</p>
+<p>Having to declare an array whenever we introduce a temporary is
+far from ideal:</p>
+<ul>
+<li>Code can quickly become less readable
+if we add array accesses for each temporary variable.</li>
+<li>It’s easier to introduce inconsistencies
+(in particular, out-of-bounds array issues)
+if we decide to change the block shape.
+In this example, we would have to modify the dimensions of <code>tmp</code> as well.</li>
+<li>Compilers are often less good at optimizing array code
+than scalar code.</li>
+</ul>
+<p>For these reasons, Ripple allows scalar variables
+to automatically adopt the shape of the value that gets assigned to them.
+We call this mechanism scalar expansion, and with it,
+in our example we can write the following nicer code instead:</p>
+<pre><code class="language-C">void matmul(float A[N][M], float B[K][N], float C[K][M]) {
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 8, 8);
+  assert (N % 8 == 0);
+  assert (M % 8 == 0);
+  size_t x = ripple_id(BS, 0);
+  size_t y = ripple_id(BS, 1);
+  for (int i = 0; i &lt; N; i+= 8) {
+    for (int j = 0; j &lt; M; j+= 8) {
+      A[i + y][j + x] = 0;
+      for (int k = 0; k &lt; K; ++k) {
+        float tmp = B[k][i + y] * C[k][j + x];
+        A[i + y][j + x] += tmp;
+      }
+    }
+  }
+}
+</code></pre>
+<p><strong>Fig. spmd-3</strong>: 2-statement outer product using implicit scalar expansion</p>
+<p>where <code>tmp</code> is declared as a scalar,
+and is scalar-expanded to an <code>8x8</code> value for us by Ripple.</p>
+<h2 id="store-consistency"><a class="header" href="#store-consistency">Store consistency</a></h2>
+<p>The implicit scalar expansion mechanism is only available for scalars.
+Otherwise, as we have seen, shapes are determined by the implicit broadcast rule
+and the shape-modifying Ripple API.</p>
+<p>Shape consistency is the responsibility of developers.
+The main example where we can write inconsistent code is when
+storing a value of dimension <code>n</code> to a memory region of dimension less than <code>n</code>,
+as in the following example:</p>
+<pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 8, 8);
+size_t v0 = ripple_id(BS, 0);
+size_t v1 = ripple_id(BS, 1);
+float x = A[v0] + B[v1]; // shape of x  is 8x8
+C[v0] = x; // storing an 8x8 value to a 8x1 memory region is illegal
+</code></pre>
+<h2 id="keep-implicit-scalar-expansion-simple"><a class="header" href="#keep-implicit-scalar-expansion-simple">Keep implicit scalar expansion simple</a></h2>
+<p>The implicit scalar expansion mechanism is really meant for temporaries,
+so we can keep writing code that looks readable because it looks scalar.
+We discourage sophisticated use of these temporary scalars, such as
+using the address of tmp,
+as the resulting semantics, although well-defined,
+become harder to follow.</p>
+<p>Take the following vector inner product as an example.</p>
+<pre><code class="language-c"> 1: int32_t inner_product(int * scratchpad, short * v1, short * v2, size_t n) {
+ 2:   assert(n % 64 == 0);
+ 3:   ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 64);
+ 4:   size_t v = ripple_id(BS, 0);
+ 5:   size_t nv = ripple_get_block_size(BS, 0);
+ 6:   int32_t result = 0;
+ 7:   for (int block = 0; block &lt;n; block += nv) {
+ 8:     *scratchpad = v2[block * nv + v];
+ 9:     result += v1[block * nv + v] * (*scratchpad);
+10:   }
+11:   return ripple_reduceadd(0b1, result)
+12: }
+</code></pre>
+<p>Here, the developer is seemingly trying to force the temporary to be
+at an address defined by the <code>scratchpad</code> pointer.
+The <code>result</code> variable is a scalar, hence it gets expanded inside the loop,
+and it comes out of the loop as a <code>64</code>-wide 1-dimensional block.
+This is no problem.</p>
+<p><code>scratchpad</code> is different. While <code>*scratchpad</code> represents a scalar value,
+it is really a scalar (i.e., zero-dimensional) access to array <code>scratchpad</code>.
+A better way to see this is to use the equivalent array notation to access
+<code>scratchpad</code> in lines 8 and 9:</p>
+<pre><code class="language-c"> 8:    scratchpad[0] = v2[v];
+ 9:    result += v1[block * nv + v] * scratchpad[0];
+</code></pre>
+<p>With this version, it becomes obvious that the developer tries to store
+the 1-dimensional block <code>v2[v]</code> into the zero-dimensional array location
+<code>scratchpad[0]</code> on line 8, resulting in a shape mismatch.
+In contrast, note that the <code>scratchpad</code> access on line 9 is legal:
+it is a scalar load from <code>scratchpad</code>,
+which gets implicitly broadcast to fit the 1-d shape of the other multiplication.</p>
+<h1 id="command-line"><a class="header" href="#command-line">Command-line</a></h1>
+<p>The SPMD form is used by default when enabling Ripple at the command line:</p>
+<pre><code class="language-bash">clang -fenable-ripple ...
+</code></pre>
+<hr>
+<p>CUDA is a trademark of NVIDIA Corporation.</p>
+<p>OpenCL is a trademark of Apple Incorporated.</p>
+<hr>
+<p><em>Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear</em></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../ripple-spec/ch1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../ripple-spec/loop-annotation.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../ripple-spec/ch1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../ripple-spec/loop-annotation.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

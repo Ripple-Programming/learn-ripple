@@ -1,0 +1,956 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Ripple API specification - Ripple User Manual</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-4e9cd9d1.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-dad146e4.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Ripple User Manual</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="the-ripple-api-specification"><a class="header" href="#the-ripple-api-specification">The Ripple API specification</a></h1>
+<h2 id="c-api-spmd"><a class="header" href="#c-api-spmd">C API (SPMD)</a></h2>
+<pre><code class="language-C">/// \brief returns a block shape for processing element with id \p pe_id
+ripple_block_t ripple_set_block_shape(int pe_id, size_t ... shape);
+
+/// \brief size of the block associated to \p BS along dimension \p dim
+size_t ripple_get_block_size(ripple_block_t block_shape, int dim);
+
+/// \brief SPMD coordinate of the block \p BS along dimension \p dim
+size_t ripple_id(ripple_block_t block_shape, int dim);
+
+/// \brief reduction along dimensions defined by the bitfield dims,
+///        using the operator "add".
+/// 'TYPE' can be any one of (u?)int(8|16|32|64) and _Float16/float/double.
+///
+/// Although illustrated for "add" here,
+/// reductions are also defined for the following operators:
+///
+/// add, mul, max, min, and, or, xor.
+///
+/// Floating-point types additionally support 'minimum' and 'maximum'.
+/// These differ from 'min' and 'max' in their handling of NaN values.
+///
+/// The following table summarizes behavior in the presence of signaling (sNaN)
+/// and quiet (qNaN) NaNs:
+///
+/// +----------------------+---------------------------+--------------------------------+
+/// | Float Comparison     | min / max                 | minimum / maximum              |
+/// +======================+===========================+================================+
+/// | NUM vs qNaN          | NUM                       | qNaN                           |
+/// +----------------------+---------------------------+--------------------------------+
+/// | NUM vs sNaN          | qNaN                      | qNaN                           |
+/// +----------------------+---------------------------+--------------------------------+
+/// | qNaN vs sNaN         | qNaN                      | qNaN                           |
+/// +----------------------+---------------------------+--------------------------------+
+/// | sNaN vs sNaN         | qNaN                      | qNaN                           |
+/// +----------------------+---------------------------+--------------------------------+
+/// | +0.0 vs -0.0         | +0.0(max)/-0.0(min)       | +0.0(max)/-0.0(min)            |
+/// +----------------------+---------------------------+--------------------------------+
+/// | NUM vs NUM           | larger(max)/smaller(min)  | larger(max)/smaller(min)       |
+/// +----------------------+---------------------------+--------------------------------+
+///
+TYPE ripple_reduceadd(int dims, TYPE to_reduce);
+
+/// \brief Explicit broadcast of \p to_broadcast
+///        along dimensions of the block shape that are set in the bitfield.
+/// 'TYPE' can be any one of (u?)int(8|16|32|64) and _Float16/float/double.
+/// The use of this function is typically rare, because of implicit broadcast.
+/// For example:
+///
+/// // Dimension 0 size 32 (bit mask 1) and dimension 1 size 64 (bit mask 2)
+/// ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 32, 64)
+/// int src = 42;                                   // Scalar source
+/// dst1 = ripple_broadcast(BS, 0b10, src);  // promoted to Tensor[64][1]
+/// dst2 = ripple_broadcast(BS, 0b01, src);  // promoted to Tensor[1][32]
+/// dst3 = ripple_broadcast(BS, 0b01, dst1); // promoted to Tensor[64][32]
+/// dst4 = ripple_broadcast(BS, 0b11, src);  // promoted to Tensor[64][32]
+///
+TYPE ripple_broadcast(ripple_block_t block_shape, uint64_t dims, TYPE to_broadcast);
+
+/// \brief Explicit pointer broadcast of \p to_broadcast
+///        along dimensions defined by the bitfield dims of
+///        the given block shape.
+/// 'TYPE' can be any one of (u?)int(8|16|32|64)
+///        and _Float16/float/double.
+TYPE *ripple_broadcast_ptr(ripple_block_t block_shape, uint64_t dims, TYPE *to_broadcast);
+
+/// \brief Extracts a slice of value \p src along the indices \p dims.
+/// In \p dims, the -1 value expresses "non-slicing" along the dimension,
+/// in the sense that all elements of \p src are maintained along the dimension
+/// where -1 is used.
+/// For example, assuming the shape of \p src is 8x4:
+/// dst = ripple_slice(src, -1, 0) extracts the first 8x1 sub-block of \p src
+/// dst = ripple_slice(src, 1, 0) extracts the scalar at position (0, 1)
+/// in \p src
+/// etc.
+/// @param src the value out of which we want a slice
+/// @param dims the slicing indices.
+///             Their number should match the dimension of \p src,
+///             and the values of \p dim must be static constants.
+TYPE ripple_slice(TYPE src, int ... dims);
+
+/// \brief `ripple_slice()` for pointers.
+TYPE ripple_slice_ptr(TYPE * src, int ... dims);
+
+/// \brief shuffle where the source index is defined as a function of the
+/// destination index by function \p src_index_fn
+/// defined for all scalar types.
+/// 'TYPE' can be any one of (u?)int(8|16|32|64) and _Float16/float/double.
+/// When the block is multi-dimensional, this represents a shuffle from
+/// a flattened view of \p to_shuffle to a flattened view of the result.
+/// The parameters of \p src_index_fn are the flattened destination index
+/// and the total block size.
+/// If we use the C row-major convention, dimensions are laid out
+/// from right (dimension 0) to left in vectors.
+/// Hence, in 2 dimension, we'll have flattened(v0, v1) = v1*s0 + v0,
+/// where v0 and v1 are the coordinates in the PE block
+/// and s0 is the block shape along dimension 0.
+/// TYPE is defined for the following types:
+/// i8, u8, i16, u16, i32, u32, i64, u64, f16, f32, f64
+TYPE ripple_shuffle(TYPE to_shuffle, size_t(*src_index_fn)(size_t, size_t) );
+
+/// \brief creates a block whose elements are picked from \p src1 and \p src2 using \p src_index_fn.
+/// \p src_index_fn basically indexes in the flattened concatenation of \p src1 and \p src2.
+/// \param src1 the first source block
+/// \param src2 the second source block
+/// \param src_index_fn a function that takes
+// the flat index of the returned block and the total block size, 
+// and returns the index into the [src1|src2] concatenated source 
+// array where the destination value should be taken from.
+/// TYPE is defined for the following types:
+/// i8, u8, i16, u16, i32, u32, i64, u64, f16, f32, f64
+TYPE ripple_shuffle_pair(TYPE src1, TYPE src2, size_t(*src_index_fn)(size_t, size_t) );
+
+/// \brief Computes the saturated addition of two values. 'TYPE'
+/// can be any one of (u?)int(8|16|32|64)_t.
+/// \param x The first value of type TYPE.
+/// \param y The second value of type TYPE.
+/// \return The result of the saturated addition of x and y.
+TYPE ripple_add_sat(TYPE x, TYPE y);
+
+/// \brief Similar to `ripple_add_sat`, but performs subtraction.
+TYPE ripple_sub_sat(TYPE x, TYPE y);
+
+/// \brief Similar to `ripple_add_sat`, but performs left shift.
+TYPE ripple_shl_sat(TYPE x, TYPE y);
+
+/// \brief Converts a 1-d Ripple block of T to a &lt;N_EL x T&gt; C vector.
+/// \param N_EL the number of elements of the output vector.
+///             Would normally match the total Ripple block size,
+///             but can be bigger.
+/// \param T the vector's element type - you can pass it as a parameter 
+///          because ripple_to_vec is a macro.
+/// \param PE_ID the processing element ID
+///              for which this conversion is made.
+/// \param x the Ripple (block) value that needs to be converted
+///          to a C  vector
+T __attribute__(vector_size(sizeof(T) * N_EL))
+ripple_to_vec(size_t N_EL, T, int PE_ID, T x);
+
+/// \brief Same as ripple_to_vec,
+/// for a 2-d block made of the 2 first dimensions of the Ripple block.
+/// Assumes that the Ripple block shape has at least 2 dimensions.
+T __attribute__(vector_size(sizeof(T) * N_EL))
+ripple_to_vec_2d(size_t N_EL, T, int PE_ID, T x);
+
+/// \brief Same as ripple_to_vec,
+/// for a 3-d block made of the 3 first dimensions of the Ripple block.
+/// Assumes that the Ripple block shape has at least 3 dimensions.
+T __attribute__(vector_size(sizeof(T) * N_EL))
+ripple_to_vec_3d(size_t N_EL, T, int PE_ID, T x);
+
+/// \brief  Converts a &lt;N_EL x T&gt; vector to a 1-d Ripple block of type T.
+/// \param N_EL the number of elements of the output vector.
+///             Would normally match the total Ripple block size,
+///             but can be bigger.
+/// \param T the vector's element type - you can pass it as a parameter 
+///          because ripple_to_vec is a macro.
+/// \param PE_ID the processing element ID
+///              for which this conversion is made.
+/// \param x the C vector that needs to be converted
+///          to a Ripple (block-) value
+T vec_to_ripple(size_t N_EL, T, int pe_id, 
+  T __attribute__(vector_size(sizeof(T) * N_EL))x);
+
+/// \brief Same as vec_to_ripple,
+/// for a 2-d block made of the 2 first dimensions of the Ripple block.
+/// Assumes that the Ripple block shape has at least 2 dimensions.
+T vec_to_ripple_2d(size_t N_EL, T, int pe_id, 
+  T __attribute__(vector_size(sizeof(T) * N_EL))x);
+
+/// \brief Same as vec_to_ripple,
+/// for a 3-d block made of the 3 first dimensions of the Ripple block.
+/// Assumes that the Ripple block shape has at least 3 dimensions.
+T vec_to_ripple_3d(size_t N_EL, T, int pe_id, 
+  T __attribute__(vector_size(sizeof(T) * N_EL))x);
+
+/// \brief Provides the information that the pointer element `(0, 0 ... 0, 0)`
+/// in this tensor is aligned at the provided alignment (in bytes).
+/// \param ptr A pointer or tensor of pointers
+/// \param Alignment The alignment in number of bytes
+/// \return Returns ptr
+Pointer_TYPE ripple_ptr_alignment(Pointer_TYPE ptr, size_t Alignment)
+
+/// \brief Similar to ripple_ptr_alignment, to indicate a pointer alignment
+/// hint, but additionally allows to specify the slicing indices instead of
+/// assuming that every slicing index is zero. All non-provided slicing index
+/// will be zero.
+/// \param ptr A pointer or tensor of pointers
+/// \param Alignment The alignment in number of bytes
+/// \return Returns ptr
+/// \see ripple_slice
+/// \see ripple_assume_aligned
+Pointer_TYPE ripple_ptr_alignment_slice(Pointer_TYPE ptr, size_t Alignment, SliceIdx [, SliceIdx]*)
+</code></pre>
+<h2 id="c-api-loop-annotations"><a class="header" href="#c-api-loop-annotations">C API (loop annotations)</a></h2>
+<p>The loop annotation feature is basically syntactic sugar on top of SPMD.
+Hence, all the SPMD functions inter-operate with the loop annotation functions
+below.</p>
+<pre><code class="language-C">/// Followed by a loop with simple initialization and upper bound,
+/// tells the compiler to distribute the processing elements identified by
+/// \p pe_id along dimension \p dims of the block of said processing elements.
+/// The list of dimensions in \p dims is ordered.
+/// This generates both the full-vector loop and the epilogue.
+void ripple_parallel(int pe_id, int ... dims);
+
+/// Followed by a loop with simple initialization and upper bound,
+/// tells the compiler to distribute the processing elements identified by
+/// \p pe_id along dimension \p dims of the block of said processing elements.
+/// The list of dimensions in \p dims is ordered.
+/// This generates the full-vector loop only.
+void ripple_parallel_full(int pe_id, int ... dims);
+</code></pre>
+<h1 id="c-api"><a class="header" href="#c-api">C++ API</a></h1>
+<p>Some of the C functions above are available in a different form in C++,
+which often results in different syntax.</p>
+<pre><code class="language-C++">/// \brief reduction along dimensions defined by the bitfield \p dims,
+///        using the operator "add".
+/// Although illustrated for "add" here,
+/// reductions are also defined for the following operators:
+///
+/// add, max, min, and, or.
+template &lt;typename T&gt; T ripple_reduceadd(int dims, T to_reduce);
+
+/// \brief shuffle where the source index is defined by function \p src_index_fn
+///        defined for all scalar types (int/uint 8 to 64 and float 16 to 64)
+///
+/// When the block is multi-dimensional, this represents a shuffle from
+/// a flattened view of \p to_shuffle to a flattened view of the result.
+/// If we use the C row-major convention, dimensions are laid out
+/// from right (dimension 0) to left in vectors.
+/// Hence, in 2 dimension, we'll have flattened(v0, v1) = v1*s0 + v0,
+/// where v0 and v1 are the coordinates in the PE block
+/// and s0 is the block shape along dimension 0.
+
+/// \brief shuffle where the source index is defined by function \p src_index_fn
+///        defined for all scalar types (int/uint 8 to 64 and float 16 to 64)
+template &lt;typename T&gt;
+T ripple_shuffle(T to_shuffle, std::function&lt;size_t(size_t, size_t)&gt;);
+
+/// \brief Converts a &lt;N_EL x T&gt; vector to a 1-d Ripple block of T
+/// for processing element PE_ID.
+/// Ripple block size assumed to be less than or equal to N_EL.
+template &lt;size_t N_EL, typename T, int PE_ID = 0&gt;
+T __attribute__((vector_size(sizeof(T) * N_EL))) ripple_to_vec(T x);
+
+/// \brief Same as ripple_to_vec,
+/// for a 2-d block made of the 2 first dimensions of the Ripple block.
+/// Assumes that the Ripple block shape has at least 2 dimensions.
+template &lt;size_t N_EL, typename T, int PE_ID = 0&gt;
+T __attribute__((vector_size(sizeof(T) * N_EL))) ripple_to_vec_2d(T x);
+
+/// \brief Same as ripple_to_vec,
+/// for a 3-d block made of the 3 first dimensions of the Ripple block.
+/// Assumes that the Ripple block shape has at least 3 dimensions.
+template &lt;size_t N_EL, typename T, int PE_ID = 0&gt;
+T __attribute__((vector_size(sizeof(T) * N_EL))) ripple_to_vec_3d(T x);
+
+/// \brief  Converts a &lt;N_EL x T&gt; vector to a 1-d Ripple block of type T.
+/// \param N_EL the number of elements of the input vector.
+///             Would normally match the total Ripple block size,
+///             but can be bigger.
+/// \param T the vector's element type.
+/// \param PE_ID the processing element ID
+///              for which this conversion is made.
+/// \param x the C vector that needs to be converted
+///          to a Ripple (block-) value
+template &lt;size_t N_EL, typename T, int PE_ID = 0&gt;
+T vec_to_ripple(T __attribute__((vector_size(sizeof(T) * N_EL))) x);
+
+/// \brief Same as ripple_to_vec,
+/// for a 2-d block made of the 2 first dimensions of the Ripple block.
+/// Assumes that the Ripple block shape has at least 2 dimensions.
+template &lt;size_t N_EL, typename T, int PE_ID = 0&gt;
+T vec_to_ripple_2d(T __attribute__((vector_size(sizeof(T) * N_EL))) x);
+
+/// \brief Same as ripple_to_vec,
+/// for a 3-d block made of the 3 first dimensions of the Ripple block.
+/// Assumes that the Ripple block shape has at least 3 dimensions.
+template &lt;size_t N_EL, typename T, int PE_ID = 0&gt;
+T vec_to_ripple_3d(T __attribute__((vector_size(sizeof(T) * N_EL))) x);
+</code></pre>
+<h1 id="hexagonr-hvx-specific-vector-functions"><a class="header" href="#hexagonr-hvx-specific-vector-functions">Hexagon(R) HVX-specific vector functions</a></h1>
+<pre><code class="language-C++">/// \brief launches a high-throughput (and typically high-latency) parallel data
+/// reorganization from memory to memory.
+/// hvx_gather and hvx_scatter are typically beneficial
+/// to reorganize chunks of VTCM data (several or many vectors)
+/// ahead of (for hvx_gather) or after (for hvx_scatter)
+/// a computation that uses the reorganized data in a coalesced way.
+/// The high latency that is inherent to arbitrary data reorganization is
+/// amortized by the ability to run many of these vector reorg operations
+/// concurrently.
+///
+/// There are two possible reorganizations
+/// - collecting data from arbitrary locations to contiguous blocks
+///   in memory, so that later code can work
+///   with coalesced loads and stores: hvx_gather
+/// - distributing contiguous data to arbitrary locations: hvx_scatter
+///   This is often done after performing computations on the data in their
+///   contiguous form (i.e., efficiently).
+///
+/// hvx_gather and hvx_scatter are affected by conditionals
+/// (they become a masked gather or scatter)
+///
+/// \p offset represents the offsets in number of elements,
+/// (as opposed to number of bytes), which are added to \p src for hvx_gather
+/// and \p dst for hvx_scatter.
+/// For instance if \p T is int16_t, the source byte offset is 2*src_offset.
+/// \p region_size represents the number of elements in the region,
+/// on the non-coalesced side of the transfer.
+/// Any address going out of that region is ignored
+/// (the transfer of the addressee does not happen).
+///
+/// *Constraints*
+///   hvx_gather / hvx_scatter has very specific semantics,
+///   to be maintained by the developer:
+/// - Both \p src and \p dst have to lie in local memory (VTCM)
+/// - In hvx_gather, \p dst needs to be aligned on a HVX vector boundary.
+/// - \p T can be any base type.
+/// - \p OFF_T can be int16_t or int32_t.
+///    Its bitwidth has to match that of the elements being transferred.
+///   Notice how this limits the offset values to 32767 in the int16_t case.
+/// - Transfers of elements for which the index is negative are ignored.
+/// - Addresses in a (hardware) vector transfer cannot cross VTCM page boundary.
+///   VTCM page size depends upon the configuration.
+///   As time of writing, it is typically 4 or 8 MB,
+///   or less if the VTCM is smaller than 4MB.
+/// - The ripple block size must be such that each call to hvx_gather or
+///   hvx_scatter transfers one native HVX vector.
+void hvx_gather(T * dst, T * src, OFF_T offset, OFF_T region_size);
+void hvx_scatter(T * dst, T src, OFF_T offset, OFF_T region_size);
+
+/// \brief rotation by n lanes, toward lower lanes.
+/// 'TYPE' can be any one of (u?)int(8|16|32|64) and _Float16/float/double.
+///        i.e., dst[i] = src[(i + n) % get_size(N)]
+///        where N is the total size of the block.
+///        Just like shuffle/shuffle_f, this is a one-dimensional rotation over
+///        a block's flattened representation.
+/// Although illustrated for u8 here, they are defined for the following types:
+/// i8, u8, i16, u16, i32, u32, i64, u64, f16, f32, f64
+TYPE hvx_rotate_to_lower(TYPE to_rotate, unsigned int n);
+</code></pre>
+<p>Notice how <code>hvx_gather</code> and <code>hvx_scatter</code> effectively offer
+three ways to mask element data transfers:</p>
+<ul>
+<li>through masking (using them in a conditional),</li>
+<li>through the use of a negative index (preventing underflows), and</li>
+<li>through the region_size parameter (preventing overflows).</li>
+</ul>
+<p>Masking makes the program more readable as it makes this behavior explicit.
+On the other hand,
+it also introduces a mask computation, which could add
+latency to the data transfer.</p>
+<h1 id="examples"><a class="header" href="#examples">Examples</a></h1>
+<h2 id="ripple_reduce"><a class="header" href="#ripple_reduce"><code>ripple_reduce*</code></a></h2>
+<p>A reduction collapses the elements of a block
+along one or more of its dimensions.
+For example, the reduction of a 1-dimensional block vector with the “max” operator can be written without
+Ripple as follows:</p>
+<pre><code class="language-C">int32_t x[32];
+int32_t maximum = 0;
+for (size_t i = 0; i &lt; 32; ++i) {
+  maximum = max(x[i], maximum);
+}
+</code></pre>
+<p>Or, it can be written with Ripple as follows:</p>
+<pre><code class="language-C">int32_t x[32];
+ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 32);
+int32_t maximum =
+  ripple_reducemax(0b1, x[ripple_id(BS, 0)]);
+</code></pre>
+<p>The <code>0b1</code> argument is a bit field, with bit <code>0</code> set to
+true (1).
+This means that we reduce the block along dimension 1.
+If this were a 32x16 two-dimensional block, for example, the same call to <code>reducemax</code> would
+collapse the block along dimension <code>0</code> as well (using max),
+returning a 16-element, 1-dimensional block.</p>
+<h3 id="average--mean"><a class="header" href="#average--mean">Average / mean</a></h3>
+<p>We demonstrate use of <code>reduceadd</code> through average computations.
+The following example, a naive version of average computation,
+uses a one-dimensional block.</p>
+<pre><code class="language-C">#define VECTOR_PE 0
+#define VECTOR_SIZE 32
+
+float avg(size_t n, float * A) {
+    ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, VECTOR_SIZE);
+    float sum = 0;
+    ripple_parallel(BS, 0);
+    for (size_t i = 0; i &lt; n; ++i) {
+        sum += ripple_reduceadd(0b1, A[i]);
+    }
+    return sum / n;
+}
+</code></pre>
+<p>The first argument of reduceadd is a bitfield, describing the block dimensions
+along which the reduction is being done.
+Here it says that we are reducing along dimension 0
+(the only dimension available).</p>
+<p>This implementation is naive because reductions are typically
+more computationally expensive (<code>log(VECTOR_SIZE)</code> instructions)
+than data-parallel computations,
+and we can perform <em>most</em> of the sum using data-parallel computations
+(one instruction).
+To sum all the elements faster, we can start by decomposing <code>A</code> into blocks,
+and sum up all the blocks with each other.
+The result of that sum is a vector,
+which we can then sum up to a scalar using <code>ripple_reduceadd</code>,
+as shown in the following code.</p>
+<pre><code class="language-C">#define VECTOR_PE 0
+#define VECTOR_SIZE 32
+
+float avg(size_t n, float * A) {
+    ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, VECTOR_SIZE);
+    assert(n &gt;= VECTOR_SIZE);
+    float partial_sum = 0;
+    ripple_parallel(BS, 0);
+    for (size_t i = 0; i &lt; n; ++i) {
+        // partial_sum gets expanded automatically to a 1-d block of floats
+        partial_sum += A[i];
+    }
+    return ripple_reduceadd(0b1, partial_sum) /n;
+}
+</code></pre>
+<h3 id="block-slice-extraction"><a class="header" href="#block-slice-extraction">Block slice extraction</a></h3>
+<p>In the following example,
+we show one possible way to extract a vector block from a two-dimensional block.
+In Ripple, scalar, vector and matrix computations can coexist.
+While automatic broadcast promotes lower-dimensional blocks (including scalars)
+to higher-dimensional ones (e.g. vectors, matrices and tensors),
+reductions take higher-dimensional blocks as their input
+and return lower-dimensional blocks.
+In the following example,
+we use that idea to take the 2nd row of a <code>32x4</code> block, by zeroing out the other
+rows and reducing the <code>32x4</code> matrix block along dimension 1.</p>
+<pre><code class="language-C">#define VECTOR_PE 0
+#define N 1024
+
+void extract_2nd_row_from_32x4_blocks(float input[N], float output[N/4]) {
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 32, 4); // set up a 32 x 4 block shape
+  size_t v0 = ripple_id(BS, 0);
+  size_t v1 = ripple_id(BS, 1);
+  size_t block_size0 = ripple_get_block_size(BS, 0);
+  size_t block_size = block_size0 * ripple_get_block_size(BS, 1);
+
+  assert N % block_size == 0; // no vector loop epilogue
+  size_t n_blocks = N / block_size;
+  for (size_t block_idx = 0; block_idx &lt; n_blocks; ++block_idx) {
+    // coalesced load into a 2d block
+    float block = input[block_size * block_idx + block_size0 * v1 + v0];
+    float zeroed_out = v1 == 2 ? block : 0;
+    // add-reduction of a 2-d block of size 32x4 along dimension 1
+    // gives a 1-d block of size 32
+    float reduced = ripple_reduceadd(0b10, zeroed_out);
+    // coalesced store of the 1-d block
+    output[block_size0 * block_idx + v0] = reduced;
+  }
+}
+</code></pre>
+<p>Note that a more efficient way to extract a slice is to use the <code>ripple_slice</code>
+API, also presented in this section.</p>
+<p>The following other reduction functions are also
+available:</p>
+<ul>
+<li><code>ripple_reducemax</code></li>
+<li><code>ripple_reducemin</code></li>
+<li><code>ripple_reduceand</code></li>
+<li><code>ripple_reduceor</code></li>
+<li><code>ripple_reducexor</code></li>
+</ul>
+<h2 id="ripple_slice"><a class="header" href="#ripple_slice"><code>ripple_slice</code></a></h2>
+<p>We can multiply the two <code>128x1</code> slices along dimension 1 of a <code>128x2</code> value
+(called <code>input</code> here, representing a double HVX vector of <code>uint8_t</code>) as follows:</p>
+<pre><code class="language-C">uint8_t slice0 = ripple_slice(input, -1, 0); // input is 128x2, slice0 is 128x1
+uint8_t slice1 = ripple_slice(input, -1, 1); // slice1 is 128x1
+uint8_t mul = slice0 * slice1; // mul is 128x1
+</code></pre>
+<h2 id="ripple_shuffle"><a class="header" href="#ripple_shuffle"><code>ripple_shuffle</code></a></h2>
+<p><code>ripple_shuffle</code> modifies the ordering of the elements of a one-dimensional
+block.
+To do so, we need to define, for each element index <code>k</code>,
+the index of the element in the input block
+that needs to go to index <code>k</code> in the output.</p>
+<p>In C, this is expressed using a “shuffle function”
+(sometimes also called “source function”),
+which (exclusively) takes <code>k</code> and the block size,
+and returns the index to be used in the input.
+In the example below, we choose a one-dimensional block of 64 elements
+to represent a 2-dimensional tile that we want to transpose.</p>
+<pre><code class="language-C">// represents the inversion of rows and columns indices of a 8x8 matrix
+size_t transpose_8x8(size_t k, size_t block_size) {
+  return  8 * (k % 8) + (k / 8);
+}
+
+// @brief loads a "flat tile" and transposes it
+static int16_t transpose_tile(int16_t * tile_addr, size_t v) {
+  int16_t tile_element = tile_addr[v];
+  return ripple_shuffle(tile_element, transpose_8x8);
+}
+
+void permute(int16_t A[N][N][8][8]) {
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 64);
+  size_t v = ripple_id(BS, 0);
+  for (size_t i = 0; i &lt; N; ++i) {
+    for (size_t j = 0; j &lt;= i; ++j) {
+      // load a tile, i.e. a contiguous set of 64 elements
+      int16_t transposed_1 = transpose_tile(&amp;A[i][j][0][0], v);
+      int16_t transposed_2 = transpose_tile(&amp;A[j][i][0][0], v);
+      (&amp;A[j][i][0][0])[v] = transposed_1;
+      if (i != j)
+        (&amp;A[i][j][0][0])[v] = transposed_2;
+    }
+  }
+}
+
+</code></pre>
+<p>Note that the source function (here <code>transpose_8x8</code>) can be arbitrarily complex
+without affecting the performance of the program.
+Because source functions only depend upon the ripple_id and the block size,
+the compiler is able to instantiate the shuffle indices corresponding to each
+call to <code>ripple_shuffle</code>, resulting in zero runtime overhead for shuffling.
+Accessing an out-of-block index is invalid, resulting in an error.
+Source functions can express any static reordering of the elements of the block.</p>
+<p>Notice that <code>transpose_tile</code> does not have a call to <code>ripple_set_block_shape()</code>.
+This is because v is passed by value and is a Tensor. Either the function
+<code>transpose_tile</code> is inlined, or it will be cloned and vectorized for the shapes
+that <code>v</code> takes at the call site (i.e., here Tensor[64]).</p>
+<p>While C requires declaring a separate function to define a shuffle,
+in C++ a <em>non-capturing</em> lambda can be used to express a reordering,
+as in the following version.</p>
+<pre><code class="language-C">// @brief loads a "flat tile" and transposes it
+static int16_t transpose_tile(int16_t * tile_addr, size_t v) {
+  int16_t tile_element = tile_addr[v];
+  auto transpose_8x8 = [](size_t k, size_t block_size) -&gt; size_t {
+    return i * (k % 8) + (k / 8);
+  }
+  return ripple_shuffle(tile_element, transpose_8x8);
+}
+
+void permute(int16_t A[N][N][8][8]) {
+  auto BS = ripple_set_block_shape(VECTOR_PE, 64);
+  size_t v = ripple_id(BS, 0);
+  for (size_t i = 0; i &lt; N; ++i) {
+    for (size_t j = 0; j &lt;= i; ++j) {
+      // load a "flat tile"
+      int16_t transposed_1 = transpose_tile(&amp;A[i][j][0][0], v);
+      int16_t transposed_2 = transpose_tile(&amp;A[j][i][0][0], v);
+      (&amp;A[j][i][0][0])[v] = transposed_1;
+      if (i != j)
+        (&amp;A[i][j][0][0])[v] = transposed_2;
+    }
+  }
+}
+</code></pre>
+<p>An example for <code>ripple_shuffle_pair</code> can be found in the
+<a href="../opt-guide/coalescing.html">coalescing optimization guide</a>.</p>
+<h2 id="hvx_rotate_to_lower"><a class="header" href="#hvx_rotate_to_lower"><code>hvx_rotate_to_lower</code></a></h2>
+<p><code>hvx_rotate_to_lower</code> is a rotation across elements of a
+one-dimensional block.
+If B is the block size,
+<code>hvx_rotate_to_lower(x, n)</code> moves element <code>k</code> of <code>x</code>
+from index <code>k</code> to index <code>k - n modulo B</code>.
+Values of <code>n</code> must be between 0 and B - 1.</p>
+<p>For instance, the following code snippet:</p>
+<pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 8);
+char alphabet = 'a' + ripple_id(BS, 0);
+char rotated_alphabet = hvx_rotate_to_lower(alphabet, 2);
+</code></pre>
+<p>creates <code>alphabet</code>, a 8-element block with letters <code>a</code> to <code>h</code></p>
+<p>| <code>a</code> | <code>b</code> | <code>c</code> | <code>d</code> | <code>e</code> | <code>f</code> | <code>g</code> | <code>h</code> |</p>
+<p>and then rotates it down by 2 elements, giving the following block:</p>
+<p>| <code>c</code> | <code>d</code> | <code>e</code> | <code>f</code> | <code>g</code> | <code>h</code> | <code>a</code> | <code>b</code> |</p>
+<p>In the code below, we use it to implement a partial prefix sum
+in a the <code>sum</code> vector.
+This means that the <code>k</code>-th element in <code>sum</code> contains the sum of all elements
+in <code>input</code> from <code>0</code> to <code>k</code>.</p>
+<p>Each iteration of the <code>step</code> loop sums each vector element of index <code>k</code> of <code>sum</code>
+with the element of index <code>k-step</code> for all <code>k</code>’s greater than <code>step</code>.
+This is done by rotating <code>sum</code> <em>up</em> by <code>step</code> indices.</p>
+<p>To rotate up, recall that <code>rotate</code> is cyclical,
+hence rotating by <code>block_size - step</code> towards lower indices
+is equivalent to rotating by <code>step</code> toward upper indices.</p>
+<p>The first iteration (<code>step=1</code>) computes the sum of each element with its direct
+neighbor.
+The second one sums pairs (leaving the first pair alone using
+<code>(v - step &gt;= 0)</code>), then quads, etc.</p>
+<p>The resulting partial sum vector is then stored into the <code>output</code> array.</p>
+<pre><code class="language-C">#define VECTOR_PE 0
+#define VECTOR_SIZE 32
+void partial_prefix_sum(int32_t input[VECTOR_SIZE], int32_t output[VECTOR_SIZE]) {
+  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, VECTOR_SIZE);
+  size_t block_size = ripple_get_block_size(BS, 0);
+  size_t v = ripple_id(BS, 0);
+
+  int32_t sum = input[v];
+  for (int step = 1; step &lt; block_size; step *= 2) {
+    // Shifts to upper by 'step' and adds
+    sum += (v - step &gt;= 0) ? hvx_rotate_to_lower(sum, block_size - step) : 0;
+  }
+  output[v] = sum;
+}
+</code></pre>
+<p><code>hvx_rotate_to_lower</code> can be used on multi-dimensional blocks, in which case
+the block will be interpreted as one-dimensional (basically, flattened)
+during the rotation.</p>
+<h2 id="ripple_add_sat--ripple_sub_sat"><a class="header" href="#ripple_add_sat--ripple_sub_sat"><code>ripple_add_sat / ripple_sub_sat</code></a></h2>
+<p><code>ripple_add_sat</code> is used to express saturated additions.
+The saturation behavior is determined by the type of the parameters passed to
+<code>ripple_add_sat.</code>
+If they are unsigned, <code>ripple_add_sat</code> will saturate at the maximum unsigned value;
+if they are signed, <code>ripple_sat_add</code> will saturate at the maximum
+signed value.</p>
+<p>Similarly for <code>ripple_sub_sat</code>, which will saturate at 0 if the arguments
+are unsigned and saturate at the minimum signed value if the arguments are signed.</p>
+<p>For instance, the following code will print <code>0 </code> 128 times.</p>
+<pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 128);
+uint8_t x = ripple_id(BS, 0);
+uint8_t y = -2 * ripple_id(BS, 0);
+printf("x-y=%i ", ripple_sub_sat(x, y));
+</code></pre>
+<p>And the following code will print <code>126 </code>, followed by <code>127 </code> 127 times.</p>
+<pre><code class="language-C">#include &lt;stdint.h&gt; // for int8_t, INT8_C
+ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 128);
+int8_t x = ripple_id(BS, 0);
+printf("x-y=%i ", ripple_add_sat(x, INT8_C(126)));
+</code></pre>
+<h2 id="ripple_parallel_full"><a class="header" href="#ripple_parallel_full">ripple_parallel_full</a></h2>
+<p><code>ripple_parallel_full(pe_id, dim)</code> is a variant of <code>ripple_parallel</code>
+in which the developer indicates that the number of iterations in the loop
+is an exact multiple of the block size along <code>dim</code>.
+As a result, <code>ripple_parallel_full</code> does not generate an epilogue.
+This can be useful to save the mask computation associated with the epilogue.</p>
+<p>The following example illustrates this with a simple vector addition:</p>
+<pre><code class="language-C">void vadd(int n, float A[n], float B[n], float C[n]) {
+   ripple_block_t BS = ripple_set_block_shape(HVX_PE, 32);
+   assert (n % ripple_get_block_size(BS, 0) == 0);
+   ripple_parallel_full(BS, 0);
+   for(size_t i = 0; i &lt; n; ++i) {
+     C[i] = A[i] + B[i];
+   }
+ }
+</code></pre>
+<h2 id="hvx_gather"><a class="header" href="#hvx_gather"><code>hvx_gather</code></a></h2>
+<p>Let us look at a dense-sparse vector inner product
+(more often found inside “SpMV”, sparse-matrix-dense-vector products).
+The sparse vector <code>S</code> is accompanied with an index (<code>S_index</code>),
+representing the coordinates of its non-zero elements.
+Let the dense vector be named <code>V</code>.</p>
+<p>Let’s start with a straightforward implementation.
+Since we only want to perform the multiplications for which S is non-zero,
+we select the corresponding elements in <code>V</code>:</p>
+<pre><code class="language-C">float SpVV(float * S, int32_t * S_index, size_t nS, float * V) {
+  ripple_block_t BS = ripple_set_block_shape(HVX_PE, 32);
+
+  float result = 0.f;
+  ripple_parallel(BS, 0);
+  for (size_t i = 0; i &lt; nS; ++i) {
+    result += S[i] * V[S_index[i]];
+  }
+  return ripple_reduceadd(0b1, result);
+}
+</code></pre>
+<p>Unfortunately, when vectorized, the indirection in <code>V[S_index[i]]</code> translates
+to vector gathers, which are very inefficient.
+In particular, they introduce long latencies in the innermost computational
+loop.
+These latencies tend to add up at each loop iteration, making the overall loop
+slow.</p>
+<p>The idea here is to still do long-latency gathers, but do a lot of them
+in parallel by using <code>hvx_gather</code>
+to make all accesses in the inner product loop coalesced.
+To simplify the following code, we assume the existence of <code>vtcm_malloc()</code> and
+<code>vtcm_free()</code> functions.</p>
+<pre><code class="language-C">float SpVV(float * S, int32_t * S_index, size_t nS, float * V, size_t nV) {
+  ripple_block_t BS = ripple_set_block_shape(HVX_PE, 32);
+  float * gathered_V = vtcm_malloc(sizeof(float) * nS, /*align_as=*/128);
+  ripple_parallel(BS, 0);
+  for (size_t i = 0; i &lt; nS; ++i) {
+    hvx_gather(gathered_V, i, V, S_index[i], /*region_size=*/nV);
+  }
+
+  float result = 0.f;
+  ripple_parallel(BS, 0);
+  for (size_t i = 0; i &lt; nS; ++i) {
+    result += S[i] * gathered_V[i];
+  }
+  vtcm_free(gathered_V);
+  return ripple_reduceadd(0b1, result);
+}
+
+Since all addresses in the `hvx_gather` loop are conflict-free,
+all the data reorganization is done in parallel (up to the limits offered by
+the underlying HVX hardware).
+Assuming the possibility to run `nS / 32` reorg copies at once,
+we are only paying the latency of one copy in the `hvx_gather` loop.
+The subsequent inner product loop is optimal in terms of its load/store
+latencies, which are all coalesced.
+</code></pre>
+<h2 id="ripple_to_vec--vec_to_ripple"><a class="header" href="#ripple_to_vec--vec_to_ripple"><code>ripple_to_vec</code> / <code>vec_to_ripple</code></a></h2>
+<p>The following function implements an integer-vector norm on a sequence of pairs represented in a <code>VectorPair</code> (64 elements),
+unzips the pairs into a pair of
+vectors containing the elements of each pair, and returns their elementwise multiplication with each other as a <code>Vector</code> (32 elements).</p>
+<pre><code class="language-C++">#include &lt;ripple.h&gt;
+#include &lt;ripple/zip.h&gt;
+
+typedef int32_t __attribute__((vector_size(128))) Vector;
+typedef int32_t __attribute__((vector_size(256))) VectorPair;
+
+Vector norm(VectorPair pair) {
+  auto BS = ripple_set_block_shape(0, 32, 2);
+  int32_t x = vec_to_ripple_2d&lt;64, int32_t&gt;(BS, pair);
+  // This "zip" shuffle turned a sequence of pairs into a pair of sequences
+  int32_t even_odds = ripple_shuffle(x, rzip::shuffle_unzip&lt;2, 0, 0&gt;);
+  int32_t evens = ripple_slice(even_odds, -1, 0); // 32x1 shape
+  int32_t odds = ripple_slice(even_odds, -1, 1); // 32x1 shape
+  return ripple_to_vec&lt;32, int32_t&gt;(BS, evens * odds);
+}
+</code></pre>
+<hr>
+<p>Hexagon is a registered trademark of Qualcomm Incorporated.</p>
+<hr>
+<p><em>Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear</em></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../ripple-spec/loop-annotation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../ripple-spec/calling.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../ripple-spec/loop-annotation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../ripple-spec/calling.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>
