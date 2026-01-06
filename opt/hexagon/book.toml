@@ -1,6 +1,5 @@
 [book]
 authors = ["Benoist Meister"]
 language = "en"
-multilingual = false
 src = "src"
 title = "Ripple HVX Optimization Guide"
