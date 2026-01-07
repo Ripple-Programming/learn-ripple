@@ -20,7 +20,6 @@ __Please note__: the Ripple HVX optimization guide is now a separate document.
 - [Optimizing Ripple programs](./opt-guide/ch1.md)
 - [SIMD optimization principles](./opt-guide/vector-principles.md)
 - [Coalescing tips](./opt-guide/coalescing.md)
-- [64-bit Arm(R) (Aarch64) SME optimization](./opt-guide/aarch64-sme.md)
 
 # Using Ripple
 
@@ -33,11 +32,7 @@ __Please note__: the Ripple HVX optimization guide is now a separate document.
 -->
 ---
 
-Arm is a registered trademark of Arm Limited (or its subsidiaries).
-
 CUDA is a trademark of NVIDIA Corporation.
-
-Hexagon is a registered trademark of Qualcomm Incorporated.
 
 OpenCL is a trademark of Apple Incorporated.
 

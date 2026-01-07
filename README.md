@@ -4,11 +4,11 @@ This repository hosts the documentation for **Ripple**, and LLVM-based project.
 
 - [Ripple User Manual](src/SUMMARY.md), built and hosted here:
 
-  <https://github.com/pages/Ripple-Programming/learn-ripple/>.
+  <https://ripple-programming.github.io/learn-ripple/>.
 - [Ripple HVX Optimization Guide](opt/hexagon/src/SUMMARY.md),
   built and hosted here:
 
-  <https://github.com/pages/Ripple-Programming/learn-ripple/opt/hexagon/>.
+  <https://ripple-programming.github.io/learn-ripple/opt/hexagon/>.
 
 
 If you are looking for the Ripple source code (an LLVM fork),
