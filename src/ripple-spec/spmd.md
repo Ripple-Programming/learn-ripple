@@ -576,6 +576,13 @@ In contrast, note that the `scratchpad` access on line 9 is legal:
 it is a scalar load from `scratchpad`,
 which gets implicitly broadcast to fit the 1-d shape of the other multiplication.
 
+Implicit scalar expansion is really meant as a convenience for temporary scalars.
+It won't work for some other scalar cases, such as:
+- global variables
+- object or class variables (in C++)
+- structs, unless the compiler can determine that they are really
+  just a collection of temporary variables put together in a struct.
+
 # Command-line
 The SPMD form is used by default when enabling Ripple at the command line:
 

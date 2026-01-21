@@ -72,6 +72,7 @@ The same issue can happen with integers, for which the default type is `int`, as
 ```
 Here, the `2` line 5 is an `int`, and so is the subsequent multiplication,
 because of type promotion rules in the C programming language.
+
 __Solution__: convert it to short explicitly.
 
 ```c

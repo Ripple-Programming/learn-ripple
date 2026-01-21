@@ -291,6 +291,7 @@ in the `docs/profiling.md` document in the HexNN repository.
 
 ---
 Hexagon is a registered trademark of Qualcomm Incorporated.
+
 ---
 *Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
 SPDX-License-Identifier: BSD-3-Clause-Clear*
