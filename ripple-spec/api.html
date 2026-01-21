@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-192cd073.js";
+            window.path_to_searchindex_js = "../searchindex-7c6ef4ac.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ded7d617.js"></script>
@@ -790,7 +790,7 @@ are unsigned and saturate at the minimum signed value if the arguments are signe
 <p>For instance, the following code will print <code>0 </code> 128 times.</p>
 <pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 128);
 uint8_t x = ripple_id(BS, 0);
-uint8_t y = -2 * ripple_id(BS, 0);
+uint8_t y = 2 * ripple_id(BS, 0);
 printf("x-y=%i ", ripple_sub_sat(x, y));
 </code></pre>
 <p>And the following code will print <code>126 </code>, followed by <code>127 </code> 127 times.</p>
