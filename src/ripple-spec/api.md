@@ -673,7 +673,7 @@ For instance, the following code will print `0 ` 128 times.
 ```C
 ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 128);
 uint8_t x = ripple_id(BS, 0);
-uint8_t y = -2 * ripple_id(BS, 0);
+uint8_t y = 2 * ripple_id(BS, 0);
 printf("x-y=%i ", ripple_sub_sat(x, y));
 ```
 
