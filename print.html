@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-7c6ef4ac.js";
+            window.path_to_searchindex_js = "searchindex-f557b602.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-ded7d617.js"></script>
@@ -1372,77 +1372,11 @@ T vec_to_ripple_2d(T __attribute__((vector_size(sizeof(T) * N_EL))) x);
 template &lt;size_t N_EL, typename T, int PE_ID = 0&gt;
 T vec_to_ripple_3d(T __attribute__((vector_size(sizeof(T) * N_EL))) x);
 </code></pre>
-<h1 id="hexagonr-hvx-specific-vector-functions"><a class="header" href="#hexagonr-hvx-specific-vector-functions">Hexagon(R) HVX-specific vector functions</a></h1>
-<pre><code class="language-C++">/// \brief launches a high-throughput (and typically high-latency) parallel data
-/// reorganization from memory to memory.
-/// hvx_gather and hvx_scatter are typically beneficial
-/// to reorganize chunks of VTCM data (several or many vectors)
-/// ahead of (for hvx_gather) or after (for hvx_scatter)
-/// a computation that uses the reorganized data in a coalesced way.
-/// The high latency that is inherent to arbitrary data reorganization is
-/// amortized by the ability to run many of these vector reorg operations
-/// concurrently.
-///
-/// There are two possible reorganizations
-/// - collecting data from arbitrary locations to contiguous blocks
-///   in memory, so that later code can work
-///   with coalesced loads and stores: hvx_gather
-/// - distributing contiguous data to arbitrary locations: hvx_scatter
-///   This is often done after performing computations on the data in their
-///   contiguous form (i.e., efficiently).
-///
-/// hvx_gather and hvx_scatter are affected by conditionals
-/// (they become a masked gather or scatter)
-///
-/// \p offset represents the offsets in number of elements,
-/// (as opposed to number of bytes), which are added to \p src for hvx_gather
-/// and \p dst for hvx_scatter.
-/// For instance if \p T is int16_t, the source byte offset is 2*src_offset.
-/// \p region_size represents the number of elements in the region,
-/// on the non-coalesced side of the transfer.
-/// Any address going out of that region is ignored
-/// (the transfer of the addressee does not happen).
-///
-/// *Constraints*
-///   hvx_gather / hvx_scatter has very specific semantics,
-///   to be maintained by the developer:
-/// - Both \p src and \p dst have to lie in local memory (VTCM)
-/// - In hvx_gather, \p dst needs to be aligned on a HVX vector boundary.
-/// - \p T can be any base type.
-/// - \p OFF_T can be int16_t or int32_t.
-///    Its bitwidth has to match that of the elements being transferred.
-///   Notice how this limits the offset values to 32767 in the int16_t case.
-/// - Transfers of elements for which the index is negative are ignored.
-/// - Addresses in a (hardware) vector transfer cannot cross VTCM page boundary.
-///   VTCM page size depends upon the configuration.
-///   As time of writing, it is typically 4 or 8 MB,
-///   or less if the VTCM is smaller than 4MB.
-/// - The ripple block size must be such that each call to hvx_gather or
-///   hvx_scatter transfers one native HVX vector.
-void hvx_gather(T * dst, T * src, OFF_T offset, OFF_T region_size);
-void hvx_scatter(T * dst, T src, OFF_T offset, OFF_T region_size);
-
-/// \brief rotation by n lanes, toward lower lanes.
-/// 'TYPE' can be any one of (u?)int(8|16|32|64) and _Float16/float/double.
-///        i.e., dst[i] = src[(i + n) % get_size(N)]
-///        where N is the total size of the block.
-///        Just like shuffle/shuffle_f, this is a one-dimensional rotation over
-///        a block's flattened representation.
-/// Although illustrated for u8 here, they are defined for the following types:
-/// i8, u8, i16, u16, i32, u32, i64, u64, f16, f32, f64
-TYPE hvx_rotate_to_lower(TYPE to_rotate, unsigned int n);
-</code></pre>
-<p>Notice how <code>hvx_gather</code> and <code>hvx_scatter</code> effectively offer
-three ways to mask element data transfers:</p>
-<ul>
-<li>through masking (using them in a conditional),</li>
-<li>through the use of a negative index (preventing underflows), and</li>
-<li>through the region_size parameter (preventing overflows).</li>
-</ul>
-<p>Masking makes the program more readable as it makes this behavior explicit.
-On the other hand,
-it also introduces a mask computation, which could add
-latency to the data transfer.</p>
+<h1 id="target-specific-vector-functions"><a class="header" href="#target-specific-vector-functions">Target-specific vector functions</a></h1>
+<p>Ripple comes with a library of functions that get vectorized to functions that
+are optimized to the target architecture.
+For Hexagon, please consult the
+<a href="https://ripple-programming.github.io/learn-ripple/opt/hexagon/hvx-opt.html#functions-optimized-for-hvx">Ripple Hexagon optimization guide section</a>.</p>
 <h1 id="examples"><a class="header" href="#examples">Examples</a></h1>
 <h2 id="ripple_reduce"><a class="header" href="#ripple_reduce"><code>ripple_reduce*</code></a></h2>
 <p>A reduction collapses the elements of a block
@@ -1645,55 +1579,6 @@ void permute(int16_t A[N][N][8][8]) {
 </code></pre>
 <p>An example for <code>ripple_shuffle_pair</code> can be found in the
 <a href="#coalescing-tips">coalescing optimization guide</a>.</p>
-<h2 id="hvx_rotate_to_lower"><a class="header" href="#hvx_rotate_to_lower"><code>hvx_rotate_to_lower</code></a></h2>
-<p><code>hvx_rotate_to_lower</code> is a rotation across elements of a
-one-dimensional block.
-If B is the block size,
-<code>hvx_rotate_to_lower(x, n)</code> moves element <code>k</code> of <code>x</code>
-from index <code>k</code> to index <code>k - n modulo B</code>.
-Values of <code>n</code> must be between 0 and B - 1.</p>
-<p>For instance, the following code snippet:</p>
-<pre><code class="language-C">ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, 8);
-char alphabet = 'a' + ripple_id(BS, 0);
-char rotated_alphabet = hvx_rotate_to_lower(alphabet, 2);
-</code></pre>
-<p>creates <code>alphabet</code>, a 8-element block with letters <code>a</code> to <code>h</code></p>
-<p>| <code>a</code> | <code>b</code> | <code>c</code> | <code>d</code> | <code>e</code> | <code>f</code> | <code>g</code> | <code>h</code> |</p>
-<p>and then rotates it down by 2 elements, giving the following block:</p>
-<p>| <code>c</code> | <code>d</code> | <code>e</code> | <code>f</code> | <code>g</code> | <code>h</code> | <code>a</code> | <code>b</code> |</p>
-<p>In the code below, we use it to implement a partial prefix sum
-in a the <code>sum</code> vector.
-This means that the <code>k</code>-th element in <code>sum</code> contains the sum of all elements
-in <code>input</code> from <code>0</code> to <code>k</code>.</p>
-<p>Each iteration of the <code>step</code> loop sums each vector element of index <code>k</code> of <code>sum</code>
-with the element of index <code>k-step</code> for all <code>k</code>’s greater than <code>step</code>.
-This is done by rotating <code>sum</code> <em>up</em> by <code>step</code> indices.</p>
-<p>To rotate up, recall that <code>rotate</code> is cyclical,
-hence rotating by <code>block_size - step</code> towards lower indices
-is equivalent to rotating by <code>step</code> toward upper indices.</p>
-<p>The first iteration (<code>step=1</code>) computes the sum of each element with its direct
-neighbor.
-The second one sums pairs (leaving the first pair alone using
-<code>(v - step &gt;= 0)</code>), then quads, etc.</p>
-<p>The resulting partial sum vector is then stored into the <code>output</code> array.</p>
-<pre><code class="language-C">#define VECTOR_PE 0
-#define VECTOR_SIZE 32
-void partial_prefix_sum(int32_t input[VECTOR_SIZE], int32_t output[VECTOR_SIZE]) {
-  ripple_block_t BS = ripple_set_block_shape(VECTOR_PE, VECTOR_SIZE);
-  size_t block_size = ripple_get_block_size(BS, 0);
-  size_t v = ripple_id(BS, 0);
-
-  int32_t sum = input[v];
-  for (int step = 1; step &lt; block_size; step *= 2) {
-    // Shifts to upper by 'step' and adds
-    sum += (v - step &gt;= 0) ? hvx_rotate_to_lower(sum, block_size - step) : 0;
-  }
-  output[v] = sum;
-}
-</code></pre>
-<p><code>hvx_rotate_to_lower</code> can be used on multi-dimensional blocks, in which case
-the block will be interpreted as one-dimensional (basically, flattened)
-during the rotation.</p>
 <h2 id="ripple_add_sat--ripple_sub_sat"><a class="header" href="#ripple_add_sat--ripple_sub_sat"><code>ripple_add_sat / ripple_sub_sat</code></a></h2>
 <p><code>ripple_add_sat</code> is used to express saturated additions.
 The saturation behavior is determined by the type of the parameters passed to
@@ -1730,62 +1615,6 @@ This can be useful to save the mask computation associated with the epilogue.</p
      C[i] = A[i] + B[i];
    }
  }
-</code></pre>
-<h2 id="hvx_gather"><a class="header" href="#hvx_gather"><code>hvx_gather</code></a></h2>
-<p>Let us look at a dense-sparse vector inner product
-(more often found inside “SpMV”, sparse-matrix-dense-vector products).
-The sparse vector <code>S</code> is accompanied with an index (<code>S_index</code>),
-representing the coordinates of its non-zero elements.
-Let the dense vector be named <code>V</code>.</p>
-<p>Let’s start with a straightforward implementation.
-Since we only want to perform the multiplications for which S is non-zero,
-we select the corresponding elements in <code>V</code>:</p>
-<pre><code class="language-C">float SpVV(float * S, int32_t * S_index, size_t nS, float * V) {
-  ripple_block_t BS = ripple_set_block_shape(HVX_PE, 32);
-
-  float result = 0.f;
-  ripple_parallel(BS, 0);
-  for (size_t i = 0; i &lt; nS; ++i) {
-    result += S[i] * V[S_index[i]];
-  }
-  return ripple_reduceadd(0b1, result);
-}
-</code></pre>
-<p>Unfortunately, when vectorized, the indirection in <code>V[S_index[i]]</code> translates
-to vector gathers, which are very inefficient.
-In particular, they introduce long latencies in the innermost computational
-loop.
-These latencies tend to add up at each loop iteration, making the overall loop
-slow.</p>
-<p>The idea here is to still do long-latency gathers, but do a lot of them
-in parallel by using <code>hvx_gather</code>
-to make all accesses in the inner product loop coalesced.
-To simplify the following code, we assume the existence of <code>vtcm_malloc()</code> and
-<code>vtcm_free()</code> functions.</p>
-<pre><code class="language-C">float SpVV(float * S, int32_t * S_index, size_t nS, float * V, size_t nV) {
-  ripple_block_t BS = ripple_set_block_shape(HVX_PE, 32);
-  float * gathered_V = vtcm_malloc(sizeof(float) * nS, /*align_as=*/128);
-  ripple_parallel(BS, 0);
-  for (size_t i = 0; i &lt; nS; ++i) {
-    hvx_gather(gathered_V, i, V, S_index[i], /*region_size=*/nV);
-  }
-
-  float result = 0.f;
-  ripple_parallel(BS, 0);
-  for (size_t i = 0; i &lt; nS; ++i) {
-    result += S[i] * gathered_V[i];
-  }
-  vtcm_free(gathered_V);
-  return ripple_reduceadd(0b1, result);
-}
-
-Since all addresses in the `hvx_gather` loop are conflict-free,
-all the data reorganization is done in parallel (up to the limits offered by
-the underlying HVX hardware).
-Assuming the possibility to run `nS / 32` reorg copies at once,
-we are only paying the latency of one copy in the `hvx_gather` loop.
-The subsequent inner product loop is optimal in terms of its load/store
-latencies, which are all coalesced.
 </code></pre>
 <h2 id="ripple_to_vec--vec_to_ripple"><a class="header" href="#ripple_to_vec--vec_to_ripple"><code>ripple_to_vec</code> / <code>vec_to_ripple</code></a></h2>
 <p>The following function implements an integer-vector norm on a sequence of pairs represented in a <code>VectorPair</code> (64 elements),
