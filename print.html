@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f557b602.js";
+            window.path_to_searchindex_js = "searchindex-89e816fd.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-ded7d617.js"></script>
@@ -902,6 +902,14 @@ the 1-dimensional block <code>v2[v]</code> into the zero-dimensional array locat
 In contrast, note that the <code>scratchpad</code> access on line 9 is legal:
 it is a scalar load from <code>scratchpad</code>,
 which gets implicitly broadcast to fit the 1-d shape of the other multiplication.</p>
+<p>Implicit scalar expansion is really meant as a convenience for temporary scalars.
+It won’t work for some other scalar cases, such as:</p>
+<ul>
+<li>global variables</li>
+<li>object or class variables (in C++)</li>
+<li>structs, unless the compiler can determine that they are really
+just a collection of temporary variables put together in a struct.</li>
+</ul>
 <h1 id="command-line-1"><a class="header" href="#command-line-1">Command-line</a></h1>
 <p>The SPMD form is used by default when enabling Ripple at the command line:</p>
 <pre><code class="language-bash">clang -fenable-ripple ...
