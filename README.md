@@ -1,6 +1,8 @@
-## Documentation source for Ripple.
+# Training materials for LLVM-Ripple.
 
-This repository hosts the documentation for **Ripple**, and LLVM-based project.
+This repository hosts training materials for **Ripple**, an LLVM-based project.
+
+## Documentation
 
 - [Ripple User Manual](src/SUMMARY.md), built and hosted here:
 
@@ -29,3 +31,11 @@ $ cd opt/hexagon
 $ mdbook build -d build
 ```
 
+## AI assistance
+We provide example prompts that can be used by AI agents to help you code with
+Ripple [here](ai/prompts).
+
+## License
+Unless explicitly specified otherwise,
+the materials under this repository are distributed
+under the Clear 3-Clause BSD License.
