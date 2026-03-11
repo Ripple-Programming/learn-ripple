@@ -12,6 +12,11 @@ This repository hosts training materials for **Ripple**, an LLVM-based project.
 
   <https://ripple-programming.github.io/learn-ripple/opt/hexagon/>.
 
+- [Ripple Troubleshooting Guide](troubleshooting/src/SUMMARY.md),
+  built and hosted here:
+
+  <https://ripple-programming.github.io/learn-ripple/troubleshooting/>.
+
 
 If you are looking for the Ripple source code (an LLVM fork),
 go [here](https://github.com/Ripple-Programming/llvm-project).
