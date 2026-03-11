@@ -52,3 +52,21 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./opt/hexagon/build
           destination_dir: 'opt/hexagon'
+
+      - name: BuildTroubleShooting
+        run: |
+          cd troubleshooting && mdbook build -d build
+          echo "Built the Ripple troubleshooting guide."
+
+      - name: DeployTroubleShooting
+        env:
+          HOME: ${{ runner.temp }}
+        uses: peaceiris/actions-gh-pages@v4
+        # If you're changing the branch from main,
+        # also change the `main` in `refs/heads/main`
+        # below accordingly.
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./troubleshooting/build
+          destination_dir: 'troubleshooting'
