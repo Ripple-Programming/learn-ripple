@@ -1,0 +1,17 @@
+Welcome to the Ripple development container!
+
+  Toolchain  : Clang/LLVM + ELD linker targeting all Hexagon versions
+               supported by upstream LLVM (v81 is the latest)
+  Test suite : /home/ripple/ripple-test-suite
+  Docs       : /home/ripple/learn-ripple
+
+For more information about the test suite:
+  cat ripple-test-suite/README.md
+
+Browse the documentation:
+  mdbook serve --hostname 0.0.0.0 --port 3000 learn-ripple  (browser, needs -p <host-port>:3000 on docker run)
+
+To run the test suite:
+  cmake --build ripple-test-suite/build --target check
+
+Tip: press Up or Ctrl+R to recall the commands above from history.
