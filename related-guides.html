@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Errors specific to Hexagon - Ripple Troubleshooting Guide</title>
+        <title>Other Ripple guides - Ripple User Manual</title>
 
 
         <!-- Custom HTML head -->
@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-dd0da5c5.js";
+            window.path_to_searchindex_js = "searchindex-d42e417b.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-fb449d0c.js"></script>
+        <script src="toc-bbc22eaf.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">Ripple Troubleshooting Guide</h1>
+                    <h1 class="menu-title">Ripple User Manual</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -174,57 +174,17 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="hexagon-specific-errors"><a class="header" href="#hexagon-specific-errors">Hexagon-specific errors</a></h1>
-<h2 id="stack-overflow"><a class="header" href="#stack-overflow">Stack overflow</a></h2>
-<p><strong>Effect</strong> a runtime segfault or error due to stack allocation
-past the stack limit.</p>
-<p>Several aspects can contribute to a stack overflow.</p>
-<p><strong>Problem</strong>: Complex vector loop epilogue mask computation
-The calculation of complex enough masks can lead to predicate register spills,
-which can increase the function’s required stack size significantly.
-Loops annotated with <code>ripple_parallel</code> are split into full-vector loops,
-and an epilogue, which basically computes the last vector iteration
-(the “epilogue”).
-When the loop’s upper bound is unknown at compile time, the epilogue has to
-determine a mask defining which vector lanes should be active.
-The computation of the mask can result in extra required stack space,
-in the following cases:</p>
+                        <h1 id="related-guides"><a class="header" href="#related-guides">Related guides</a></h1>
 <ul>
-<li>the operations need more predicate registers than available in hardware.
-Spilling a predicate register requires its conversion to a regular vector register,
-which increases the size of the stack required to do the spilling.</li>
-<li>an operation that isn’t supported on predicate registers is performed.
-This requires a conversion to regular HVX vectors,
-which increases register pressure, leading to more spilling, i.e., more stack.</li>
+<li><a href="https://ripple-programming.github.io/learn-ripple/opt/hexagon/">Ripple HVX Optimization Guide</a></li>
+<li><a href="https://ripple-programming.github.io/learn-ripple/troubleshooting/">Ripple Troubleshooting Guide</a></li>
 </ul>
-<p><strong>Solution</strong>: <code>ripple_parallel</code> vectorizes the epilogue,
-which causes these risky mask computations. Two options are available:</p>
-<ul>
-<li>if the loop body is an elementwise computation, simply replace <code>ripple_parallel</code>
-with <code>ripple_parallel_peel</code>.
-<code>ripple_parallel_peel</code> will execute the epilogue sequentially,
-avoiding the mask computation.
-If your computation is not elementwise, you can separate the full-tile code,
-which you annotate with <code>ripple_parallel_full</code> to indicate that there is no epilogue,
-and you write your own sequential version of the epilogue.</li>
-</ul>
-<p><strong>Problem</strong>: Heavy inlining increases expected stack size
-The compiler is in charge of allocating the values that need to be spilled
-on the stack.
-The allocation algorithms used by the compiler are not guaranteed to be optimal.
-Bigger functions have a higher chance of having suboptimal stack allocation.
-As a consequence, functions in which calls to many other functions are inlined
-by the compiler are also at risk of suboptimal stack allocation.</p>
-<p><strong>Solution</strong>:
-Since Hexagon has a high function call overhead,
-there is a need to tradeoff inlining, which reduces overhead due to function calls,
-with the risk of stack overflow.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="generic-ts.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="getting-started.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
@@ -235,7 +195,7 @@ with the risk of stack overflow.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="generic-ts.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="getting-started.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
