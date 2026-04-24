@@ -64,7 +64,7 @@ This impacts how we should load and store the data we manipulate.
 When we only load and store contiguous data chunks that correspond to
 full native SIMD vectors, the number of loads and stores is minimized.
 Such loads and stores are called _coalesced_.
-While we depict the general goal here, this manual contains a section about specific ways to [obtain coalescing](./pitfalls.md)
+While we depict the general goal here, this manual contains a section about specific ways to [obtain coalescing](./coalescing.md)
 
 We want to load contiguous memory elements to contiguous processing elements
 (i.e. vector lanes).

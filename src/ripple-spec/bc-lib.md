@@ -3,7 +3,7 @@ Consider the case when Ripple determines that
 a function call statement should have a non-scalar shape.
 Ripple's role is to render code that corresponds to a SIMD execution
 of that (scalar) function.
-As detailed [here](../opt-guide/calling.md),
+As detailed [here](./calling.md),
 the behavior of Ripple varies as a function of the information available:
 
 - **If no SIMD version of the scalar function is known to Ripple**

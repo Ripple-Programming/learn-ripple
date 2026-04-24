@@ -27,7 +27,7 @@ which can be accessed using as many integer indices
 as there are dimensions in the array.
 In this section, we will only consider one-dimensional blocks
 to illustrate the parallel programming models enabled by Ripple.
-Please refer to [the section on multi-dimensional blocks](./spmd.md#multi-dimensional-blocks) for additional details.
+Please refer to [the section on multi-dimensional blocks](./spmd.md#multi-dimensional-spmd-in-ripple) for additional details.
 
 To express the amount of parallel processing elements
 that we want to use,
