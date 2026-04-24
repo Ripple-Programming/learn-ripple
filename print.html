@@ -283,7 +283,7 @@ which can be accessed using as many integer indices
 as there are dimensions in the array.
 In this section, we will only consider one-dimensional blocks
 to illustrate the parallel programming models enabled by Ripple.
-Please refer to <a href="#multi-dimensional-blocks">the section on multi-dimensional blocks</a> for additional details.</p>
+Please refer to <a href="#multi-dimensional-spmd-in-ripple">the section on multi-dimensional blocks</a> for additional details.</p>
 <p>To express the amount of parallel processing elements
 that we want to use,
 we have to declare a block of these PEs, using</p>
@@ -1084,7 +1084,7 @@ in the loop annotation model, in particular:</p>
 To achieve this, multiple loops may be distributed onto a block.</li>
 <li>We can access a block element using <a href="#defining-code-as-a-function-of-the-pe-indices"><code>ripple_id()</code></a>.
 This is similar to using <code>omp_get_thread_num()</code> in OpenMP(R) loops.</li>
-<li>The <a href="#what-determines-the-shape-of-a-value-in-a-ripple-program">shape of a computation</a>
+<li>The <a href="#determining-the-shape-of-a-value-in-a-ripple-program">shape of a computation</a>
 is still determined by implicit broadcasting
 and special shape-modifying functions.</li>
 <li>How <a href="#how-conditionals-affect-simd-code">conditionals affect parallel code</a>.</li>
@@ -1728,7 +1728,7 @@ SPDX-License-Identifier: BSD-3-Clause-Clear</em></p>
 a function call statement should have a non-scalar shape.
 Ripple’s role is to render code that corresponds to a SIMD execution
 of that (scalar) function.
-As detailed <a href="opt-guide/calling.html">here</a>,
+As detailed <a href="#calling-functions-when-using-ripple">here</a>,
 the behavior of Ripple varies as a function of the information available:</p>
 <ul>
 <li>
@@ -2080,7 +2080,7 @@ this section focuses on how to achieve good performance using Ripple.
 We start by going over the <a href="#vector-optimization-principles">requirements for an efficient utilization of the
 underlying vector hardware</a>.
 Then, we present a few aspects related to
-<a href="opt-guide/pitfalls.html">expressing coalesced accesses</a>, which require special attention.
+<a href="#coalescing-tips">expressing coalesced accesses</a>, which require special attention.
 Finally, we take a look at ways to
 <a href="opt-guide/hvx.html">leverage some of the strengths of Hexagon(R)’s HVX instruction set</a>
 through Ripple.</p>
@@ -2150,7 +2150,7 @@ This impacts how we should load and store the data we manipulate.</p>
 <p>When we only load and store contiguous data chunks that correspond to
 full native SIMD vectors, the number of loads and stores is minimized.
 Such loads and stores are called <em>coalesced</em>.
-While we depict the general goal here, this manual contains a section about specific ways to <a href="opt-guide/pitfalls.html">obtain coalescing</a></p>
+While we depict the general goal here, this manual contains a section about specific ways to <a href="#coalescing-tips">obtain coalescing</a></p>
 <p>We want to load contiguous memory elements to contiguous processing elements
 (i.e. vector lanes).
 If we are using a 1-dimensional block shape, this means that
