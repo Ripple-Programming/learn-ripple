@@ -5,7 +5,7 @@ this section focuses on how to achieve good performance using Ripple.
 We start by going over the [requirements for an efficient utilization of the
 underlying vector hardware](./vector-principles.md).
 Then, we present a few aspects related to
-[expressing coalesced accesses](./pitfalls.md), which require special attention.
+[expressing coalesced accesses](./coalescing.md), which require special attention.
 Finally, we take a look at ways to
 [leverage some of the strengths of Hexagon(R)'s HVX instruction set](./hvx.md)
 through Ripple.

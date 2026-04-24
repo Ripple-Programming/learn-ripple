@@ -180,7 +180,7 @@ in the loop annotation model, in particular:
   To achieve this, multiple loops may be distributed onto a block.
 - We can access a block element using [`ripple_id()`](./spmd.md#defining-code-as-a-function-of-the-pe-indices).
   This is similar to using `omp_get_thread_num()` in OpenMP(R) loops.
-- The [shape of a computation](./spmd.md#what-determines-the-shape-of-a-value-in-a-ripple-program)
+- The [shape of a computation](./spmd.md#determining-the-shape-of-a-value-in-a-ripple-program)
   is still determined by implicit broadcasting
   and special shape-modifying functions.
 - How [conditionals affect parallel code](./spmd.md#how-conditionals-affect-simd-code).
