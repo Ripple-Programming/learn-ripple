@@ -1,0 +1,36 @@
+. /opt/hexagon-sdk/setup_sdk_env.source > /dev/null 2>&1
+export PATH=$PATH:/opt/hexagon/bin
+
+# Powerline
+powerline-daemon -q
+if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+    source /usr/share/powerline/bindings/bash/powerline.sh
+fi
+
+# Bash completion
+if ! shopt -oq posix; then
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    fi
+fi
+
+# History
+HISTSIZE=10000
+HISTFILESIZE=20000
+HISTCONTROL=ignoredups:erasedups
+shopt -s histappend
+
+# Readline
+bind 'set enable-bracketed-paste off'
+bind 'set completion-ignore-case on'
+
+# fzf key bindings (ctrl+r history search)
+if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+    . /usr/share/doc/fzf/examples/key-bindings.bash
+fi
+
+# bat (on Ubuntu the binary is batcat)
+alias bat=batcat
+alias cat=batcat
+
+cat ~/.welcome
