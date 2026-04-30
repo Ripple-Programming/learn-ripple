@@ -18,17 +18,22 @@ This repository hosts training materials for **Ripple**, an LLVM-based project.
   <https://ripple-programming.github.io/learn-ripple/troubleshooting/>.
 
 
-If you are looking for the Ripple source code (an LLVM fork),
-go [here](https://github.com/Ripple-Programming/llvm-project).
+## Getting started
+- This [docker image](./containers) builds a Ubuntu-based Hexagon development environment for you, including the Hexagon SDK and Ripple-based toolchain, based on the current Ripple tip.
+- [Ripple source code](https://github.com/Ripple-Programming/llvm-project) (an LLVM fork).
+- [December source release](https://github.com/Ripple-Programming/llvm-project/releases/tag/ripple_2025-12-19)
 
-### HOWTO: Build the docs
+
+## HOWTOs
+
+### Build the docs
 
 ```bash
 $ cargo install mdbook
 $ mdbook build -d build
 ```
 
-## Hexagon Optimization guide
+### Build the Hexagon Optimization guide
 
 Build:
 ```bash
