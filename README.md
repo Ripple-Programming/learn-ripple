@@ -4,7 +4,7 @@ This repository hosts training materials for **Ripple**, an LLVM-based project.
 
 ## Documentation
 
-- [Ripple User Manual](https://ripple-programming.github.io/learn-ripple), built form [source]((src/SUMMARY.md).
+- [Ripple User Manual](https://ripple-programming.github.io/learn-ripple), built form [source](src/SUMMARY.md).
 
 - [Ripple HVX Optimization Guide](https://ripple-programming.github.io/learn-ripple/opt/hexagon), built from [source](opt/hexagon/src/SUMMARY.md).
 
