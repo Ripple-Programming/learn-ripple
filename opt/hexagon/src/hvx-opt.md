@@ -477,20 +477,21 @@ __Performance impact__: High.
 
 ### Syntax
 ```C
-T hvx_splice(T high, T low, size_t n);
-T hvx_lsplice(T high, T low, size_t n);
+T hvx_splice(T low, T high, size_t n);
+T hvx_lsplice(T low, T high, size_t n);
 ```
 
 This is a _flat_ operator, which means that it considers a block as being
 one-dimensional.
 Hence, we describe blocks here as "vector"s.
-`hvx_splice` forms a vector from two vectors `high` and `low`.
+The difference between `hvx_splice` and `hvx_lsplice` is which argument we take `n` elements from.
+- `hvx_splice` forms a vector from two vectors `high` and `low`.
 Let's call `N` the number of elements in the vector.
 The returned vector contains
 the `n` lowest elements of `high` as its highest elements,
 and the `N-n` highest elements of `low` as its lowest elements.
 
-`hvx_lsplice` ("low splice") forms a vector from two vectors `high` and `low`.
+- `hvx_lsplice` ("low splice") forms a vector from two vectors `high` and `low`.
 The returned vector contains
 the `n` highest elements of `low` as its lowest elements,
 and the `N-n` lowest elements of `high` as its highest elements.
@@ -512,21 +513,34 @@ We need to add two arrays, but only one of them has a size
 that is a multiple of the HVX vector size (here called `HVX_SIZE_U16`).
 
 ```C++
-#define HVX_SIZE_U16 64
-void padded_add(size_t n, uint16_t * in1_padded, uint16_t * in2_unpadded,
-                uint16_t * out_padded) {
-  ripple_block_t B = ripple_set_shape(HVX_LANES, HVX_SIZE_U16);
-  size_t v = ripple_id(B, 0);
-  size_t i;
-  // full-vector loop: we know we have full vectors from in1 and in2
-  for (i = 0; i < n; i += HVX_SIZE_U16) {
+#include <ripple/HVX_Splice.h>
+template <typename T>
+static void padded_add(size_t n, const T *in1_padded, const T *in2_unpadded,
+                       T *out_padded, bool lower) {
+  constexpr size_t nv = __HVX_LENGTH__ / sizeof(T);
+  ripple_block_t B = ripple_set_block_shape(0, nv);
+  assert(n % nv == 0);
+  unsigned v = ripple_id(B, 0);
+  T zero = ripple_broadcast(B, 0b1, static_cast<T>(0.f));
+  // full-vector loop
+  unsigned i;
+  for (i = 0; i + nv < n; i += nv) {
     out_padded[i + v] = in1_padded[i + v] + in2_unpadded[i + v];
   }
-  // epilogue: There aren't enough elements in in2_unpadded to add with.
-  //           We're splicing that partial vector with a vector of zeros
-  out_padded[i + v] = in1_padded[i + v] +
-    // we want to specify the #elements taken from the lower vector --> lsplice
-                      hvx_lsplice(0, in2_unpadded[i + v], n - i);
+  // Epilogue using hvx_lsplice (pad remainder of in2 with zeros)
+  // There aren't enough elements in in2_unpadded to add with.
+  // We're splicing that partial vector with a vector of zeros
+  if (lower) {
+    out_padded[i + v] =
+        in1_padded[i + v] +
+        // to specify the #elements taken from the lower vector --> lsplice
+        hvx_lsplice(/*low=*/in2_unpadded[i + v - 3], /*high=*/zero, nv - 3);
+  } else {
+    out_padded[i + v] =
+        in1_padded[i + v] +
+        // to specify the #elements taken from the upper vector --> splice
+        hvx_splice(/*low=*/in2_unpadded[i + v - 3], /*high*/ zero, 3);
+  }
 }
 ```
 
@@ -562,9 +576,11 @@ The following code is a simple gaussian blur operating on a 1-d signal:
 ```C++
 void gaussian_blur(size_t n, float * in, float * out) {
   constexpr float one_third = 1.f/3.f;
+  out[0] = in[0] + in[1];
   for (size_t i = 1; i < n - 1; ++i) {
     out[i] = (in[i - 1] + in[i] + in[i + 1]) * one_third;
   }
+  out[n - 1] = in[n - 2] + in[n - 1];
 }
 ```
 A naïve vectorization can be obtained by decorating the `i` loop with
@@ -576,45 +592,39 @@ We can do better by using only aligned loads and stores.
 ```C++
 void gaussian_blur(size_t n, float * in, float * out) {
   constexpr float one_third = 1.f/3.f;
-  constexpr size_t nv = 32;
-  constexpr size_t hvx_bytes = nv * sizeof(float);
-  ripple_block_t B = ripple_set_shape(HVX_LANES, nv);
+  constexpr size_t hvx_bytes = __HVX_LENGTH__;
+  constexpr size_t nv = hvx_bytes / sizeof(float);
+  ripple_block_t B = ripple_set_block_shape(HVX_LANES, nv);
   size_t v = ripple_id(B, 0);
-  float * in_ptr_lower, * in_ptr, * in_ptr_upper;
+  in = ripple_ptr_alignment(&in[0], hvx_bytes);
+  out = ripple_ptr_alignment(&out[0], hvx_bytes);
+  float zero = ripple_broadcast(B, 0b1, static_cast<T>(0.f));
 
   // prologue
-  in_ptr = ripple_ptr_alignment(&in[0], hvx_bytes);
-  in_ptr_upper = ripple_ptr_alignment(&in[nv], hvx_bytes);
-  float * out_ptr = ripple_ptr_alignment(&out[i], hvx_bytes);
-  out_ptr[v] = (hvx_lsplice(0, in_ptr, 1) +
-               in_ptr[v] +
-               hvx_lsplice(in_ptr, in_ptr_upper, 1)) * one_third;
+  if (n <= nv) { // special case of a single vector
+    out[v] =
+        (hvx_lsplice(zero, in[v], 1) + in[v] +
+          hvx_splice(in[v], zero, 1)) * one_third;
+    return;
+  }
+  out[v] =
+      (hvx_lsplice(zero, in[v], 1) + in[v] + hvx_splice(in[v], in[nv + v], 1)) *
+      one_third;
 
-  // steady-state loop
+  // Steady-state
   size_t i;
-  for (i = nv; i < n - nv; i += nv) {
-    in_ptr = ripple_ptr_alignment(&in[i], hvx_bytes);
-    in_ptr_lower = ripple_ptr_alignment(&in[i - nv], hvx_bytes);
-    in_ptr_upper = ripple_ptr_alignment(&in[i + nv], hvx_bytes);
-    float * out_ptr = ripple_ptr_alignment(&out[i], hvx_bytes);
-
-    out_ptr[v] = // take one extra element from the lower vector
-                 (hvx_lsplice(in_ptr_lower, in_ptr, 1) +
-                  in[v] +
-                  // take one extra element from the upper vector
-                  hvx_splice(in_ptr, in_ptr_upper, 1)) * one_third;
+  for (i = nv; i + nv < n; i += nv) {
+    out[i + v] = (hvx_lsplice(in[i - nv + v], in[i + v], 1) +
+                  in[i + v] +
+                  hvx_splice(in[i + v], in[i + nv + v], 1)) *
+                 one_third;
   }
 
-  // epilogue
-  if (i + v < n) {
-    in_ptr = ripple_ptr_alignment(&in[i], hvx_bytes);
-    in_ptr_lower = ripple_ptr_alignment(&in[i - nv], hvx_bytes);
-    float * out_ptr = ripple_ptr_alignment(&out[i], hvx_bytes);
-
-    out_ptr[v] = (hvx_lsplice(in_ptr_lower, in_ptr, 1) +
-                  in_ptr[v] +
-                  hvx_lsplice(in_ptr, 0, 1)) * one_third;
-  }
+  // Epilogue (last vector)
+  out[i + v] = (hvx_lsplice(in[i - nv + v], in[i + v], 1) +
+                in[i + v] +
+                hvx_splice(in[i + v], zero, 1)) *
+               one_third;
 }
 ```
 
@@ -631,57 +641,57 @@ is applied to `gaussian_blur` below.
 ```C++
 void gaussian_blur(size_t n, float * in, float * out) {
   constexpr float one_third = 1.f/3.f;
-  constexpr size_t nv = 32;
-  constexpr size_t hvx_bytes = nv * sizeof(float);
-  ripple_block_t B = ripple_set_shape(HVX_LANES, nv);
+  constexpr size_t hvx_bytes = __HVX_LENGTH__;
+  constexpr size_t nv = hvx_bytes / sizeof(float);
+
+  ripple_block_t B = ripple_set_block_shape(HVX_LANES, nv);
   size_t v = ripple_id(B, 0);
-  float * in_ptr_lower, * in_ptr, * in_ptr_upper;
+  in = ripple_ptr_alignment(&in[0], hvx_bytes);
+  out = ripple_ptr_alignment(&out[0], hvx_bytes);
+  float zero = ripple_broadcast(B, 0b1, static_cast<T>(0.f));
 
   // prologue
-  in_ptr = ripple_ptr_alignment(&in[0], hvx_bytes);
-  in_ptr_upper = ripple_ptr_alignment(&in[nv], hvx_bytes);
-  float * out_ptr = ripple_ptr_alignment(&out[i], hvx_bytes);
-  out_ptr[v] = (hvx_lsplice(0, in_ptr, 1) +
-                in_ptr[v] +
-                hvx_lsplice(in_ptr, in_ptr_upper, 1)) * one_third;
+  if (n <= nv) { // special case of a single vector
+    out[v] =
+        (hvx_lsplice(zero, in[v], 1) + in[v] +
+          hvx_splice(in[v], zero, 1)) * one_third;
+    return;
+  }
+  float next_in = in[nv + v];
+  float cur_in = in[v];
+  out[v] =
+      (hvx_lsplice(zero, cur_in, 1) + cur_in + hvx_splice(cur_in, next_in, 1)) *
+      one_third;
 
-  // steady-state loop
+  // Steady-state
   size_t i;
-  for (i = nv; i < n - nv; i += nv) {
-    // register rotation: in_ptr -> in_ptr_lower; in_ptr_upper -> in_ptr
-    in_ptr_lower = ripple_ptr_alignment(in_ptr, hvx_bytes);
-    in_ptr = ripple_ptr_alignment(in_ptr_upper, hvx_bytes);
-    // in_ptr_upper is new, still need to load it
-    in_ptr_upper = ripple_ptr_alignment(&in[i + nv], hvx_bytes);
-    float * out_ptr = ripple_ptr_alignment(&out[i], hvx_bytes);
-
-    out_ptr[v] = // take one extra element from the lower vector
-                 (hvx_lsplice(in_ptr_lower, in_ptr, 1) +
-                  in[v] +
-                  // take one extra element from the upper vector
-                  hvx_splice(in_ptr, in_ptr_upper, 1)) * one_third;
+  float prev_in;
+  for (i = nv; i + nv < n; i += nv) {
+    prev_in = cur_in; // register rotation
+    cur_in = next_in; // register rotation
+    next_in = in[i + nv + v];
+    out[i + v] = (hvx_lsplice(prev_in, cur_in, 1) +
+                  cur_in +
+                  hvx_splice(cur_in, next_in, 1)) *
+                 one_third;
   }
 
-  // epilogue
-  if (i + v < n) {
-    // register rotation applied here as well
-    in_ptr_lower = ripple_ptr_alignment(in_ptr, hvx_bytes);
-    in_ptr = ripple_ptr_alignment(in_ptr_upper, hvx_bytes);
-    float * out_ptr = ripple_ptr_alignment(&out[i], hvx_bytes);
-
-    out_ptr[v] = (hvx_lsplice(in_ptr_lower, in_ptr, 1) +
-                  in_ptr[v] +
-                  hvx_splice(in_ptr, 0, 1)) * one_third;
-  }
+  // Epilogue (last vector)
+  prev_in = cur_in;
+  cur_in = next_in;
+  out[i + v] = (hvx_lsplice(prev_in, cur_in, 1) +
+                cur_in +
+                hvx_splice(cur_in, zero, 1)) *
+               one_third;
 }
 ```
+
 
 Let `V` the number of HVX vectors in `in`.
 With this transformation, the total number of vector loads from `in` went from
 about `3*V` to `V`, without adding any work, a clear performance win.
-Note that the versions of `gaussian_blur` above that use `hvx_splice` assume
-that it's safe to read up to one vector past the upper boundary of `in`.
-It is possible to remove that limitation by writing slightly more complex code.
+As always with Ripple, the compiler may be able to perform loop optimizations that are competing with or similar to register rotations.
+The speedup you will get will depend upon how successful clang was with its own optimizations.
 
 ### Constraints
 `high` and `low` shapes must correspond to
