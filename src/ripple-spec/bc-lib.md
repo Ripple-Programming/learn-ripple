@@ -237,9 +237,10 @@ matching the function's specified return shape.
 
 Now the library source file can be turned into a bitcode representation using
 ```bash
-clang elem_ops.cc -S -emit-llvm -o elem_ops.bc
+clang elem_ops.cc -c -emit-llvm -o elem_ops.bc
 ```
 Bitcode libraries have the `.bc` extension.
+Of course, if the elem_ops.cc functions are implemented using Ripple, you also need to pass the `-fenable-ripple` flag in the command above.
 
 ### Declaration to Ripple
 For Ripple to have access to the `elem_ops` bitcode library,
