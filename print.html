@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-d42e417b.js";
+            window.path_to_searchindex_js = "searchindex-f3e0c153.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bbc22eaf.js"></script>
@@ -1932,9 +1932,10 @@ argument and invoking the external vector function, which returns a tensor
 matching the function’s specified return shape.</p>
 <h3 id="compilation"><a class="header" href="#compilation">Compilation</a></h3>
 <p>Now the library source file can be turned into a bitcode representation using</p>
-<pre><code class="language-bash">clang elem_ops.cc -S -emit-llvm -o elem_ops.bc
+<pre><code class="language-bash">clang elem_ops.cc -c -emit-llvm -o elem_ops.bc
 </code></pre>
-<p>Bitcode libraries have the <code>.bc</code> extension.</p>
+<p>Bitcode libraries have the <code>.bc</code> extension.
+Of course, if the elem_ops.cc functions are implemented using Ripple, you also need to pass the <code>-fenable-ripple</code> flag in the command above.</p>
 <h3 id="declaration-to-ripple"><a class="header" href="#declaration-to-ripple">Declaration to Ripple</a></h3>
 <p>For Ripple to have access to the <code>elem_ops</code> bitcode library,
 we need to pass its path to the command-line when compiling <code>foo.cc</code>:</p>
